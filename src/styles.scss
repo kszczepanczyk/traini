@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+:root {
+  --primaryColor: #e11d48;
+  --primaryTint: #ffced9;
+  --primaryLightTint: rgb(255, 206, 217, 0.36);
+  --accent: #84a0ff;
+  --black: #323232;
+  --lightBlack: #8d8d8d;
+  --white: #ffffff;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+html {
+  padding: 16px;
+  font-family: "Alata", sans-serif;
+  color: var(--black);
+}
+
+a {
+  color: var(--primaryColor);
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}

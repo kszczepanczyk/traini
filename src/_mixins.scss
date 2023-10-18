@@ -1,0 +1,31 @@
+@import "./_variables";
+
+@mixin rectangle {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+}
+@mixin button-primary {
+  @include rectangle;
+  background-color: var(--primaryColor);
+  color: var(--white);
+}
+@mixin button-secondary {
+  @include rectangle;
+  background-color: var(--white);
+  color: var(--primaryColor);
+}
+@mixin button-spacer {
+  gap: 16px;
+}
+@mixin input {
+  @include rectangle;
+  border: 1px solid var(--black);
+}
+@mixin input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

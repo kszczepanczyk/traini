@@ -1,0 +1,34 @@
+@import "../../../../../mixins";
+.logo-wrapper {
+  width: fit-content;
+  margin: auto;
+}
+.logo {
+  width: 90px;
+  margin-top: 32px;
+  margin-bottom: 40px;
+}
+.title-wrapper {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 40px;
+}
+.input-wrapper {
+  @include input-group;
+}
+.input {
+  @include input;
+}
+.link {
+  align-self: flex-end;
+}
+.no-account-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 16px;
+  display: flex;
+}
+.primary {
+  @include button-primary;
+}
