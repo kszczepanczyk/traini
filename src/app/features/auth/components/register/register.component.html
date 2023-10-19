@@ -1,1 +1,91 @@
-<p>register works!</p>
+<div class="title-wrapper">
+  <h1 class="title">Witaj w</h1>
+  <img src="../../../../../assets/logo (2).svg" alt="Logo" class="logo" />
+</div>
+<div class="subtitle-wrapper">
+  <span class="subtitle"
+    >Wspólny cel, jedna aplikacja - Twój klucz do sukcesu treningowego</span
+  >
+</div>
+<form class="input-wrapper">
+  <label for="name">Imię <span class="asterisk">*</span></label>
+  <input class="input" type="name" placeholder="np. Jan" />
+  <label for="surname">Nazwisko<span class="asterisk">*</span></label>
+  <input class="input" type="surname" placeholder="np. Nowak" />
+  <label for="email">Email<span class="asterisk">*</span></label>
+  <input class="input" type="email" placeholder="np. jan.nowak@email.com" />
+  <label for="password">Hasło<span class="asterisk">*</span></label>
+  <input
+    class="input"
+    type="password"
+    placeholder="np. min. 8 znaków i 1 znak specjalny"
+  />
+  <label for="password">Powtórz hasło<span class="asterisk">*</span></label>
+  <input class="input" type="password" />
+  <label>Typ profilu<span class="asterisk">*</span></label>
+  <div class="type-group">
+    <input
+      type="radio"
+      class="type-input"
+      id="trainer"
+      name="type"
+      value="trainer"
+      checked
+    />
+    <label for="trainer" class="type-label">
+      <h2 class="type-header">Trener</h2>
+      <p class="type-description">lorem lorem lorem lorem lorem</p>
+    </label>
+    <input
+      type="radio"
+      class="type-input"
+      id="client"
+      name="type"
+      value="client"
+    />
+    <label for="client" class="type-label">
+      <h2 class="type-header">Użytkownik</h2>
+      <p class="type-description">lorem lorem lorem lorem lorem</p>
+    </label>
+  </div>
+  <label for="phone">Telefon</label>
+  <input class="input" type="phone" placeholder="np. 594 490 240" />
+  <label for="city">Miasto</label>
+  <input class="input" type="city" placeholder="np. Warszawa" />
+  <label>Płeć</label>
+  <div class="radio-group">
+    <div class="custom-radio">
+      <input
+        id="female"
+        type="radio"
+        class="custom-radio-input"
+        value="female"
+        name="gender"
+      />
+      <label for="female" class="custom-radio-label">Kobieta</label>
+    </div>
+    <div class="custom-radio">
+      <input
+        id="male"
+        type="radio"
+        class="custom-radio-input"
+        value="male"
+        name="gender"
+      />
+      <label for="male" class="custom-radio-label">Mężczyzna</label>
+    </div>
+    <div class="custom-radio">
+      <input
+        id="other"
+        type="radio"
+        class="custom-radio-input"
+        value="other"
+        name="gender"
+      />
+      <label for="other" class="custom-radio-label">Inne</label>
+    </div>
+  </div>
+
+  <button class="primary">Zarejestruj się</button>
+  <a class="link">Powrót do logowania</a>
+</form>

@@ -1,7 +1,7 @@
 @import "../../../../../mixins";
 .logo-wrapper {
   width: fit-content;
-  margin: auto;
+  margin: 0 auto 0 auto;
 }
 .logo {
   width: 90px;
@@ -24,10 +24,20 @@
   align-self: flex-end;
 }
 .no-account-wrapper {
-  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+.register,
+.register-text {
   position: absolute;
   bottom: 16px;
-  display: flex;
+}
+.register-text {
+  left: 16px;
+}
+.register {
+  right: 16px;
 }
 .primary {
   @include button-primary;
