@@ -1,0 +1,49 @@
+<div class="title-wrapper">
+  <h1 class="title">
+    Cześć, <br />
+    Sebastian <br />Trenerowy
+  </h1>
+  <div class="profile">
+    <img
+      src="../../../assets/person.jpg"
+      alt="profile picture"
+      class="picture"
+    />
+  </div>
+</div>
+<div class="calendar-wrapper">
+  <div
+    class="calendar-tile"
+    *ngFor="let date of dates"
+    [class.selected]="date.format('D') === selectedDate.format('D')"
+    (click)="onSelectDate(date)"
+  >
+    <div class="date">{{ date.format("dd") }}</div>
+    <div class="date">{{ date.format("D") }}</div>
+  </div>
+</div>
+<div class="schedule-wrapper">
+  <div class="date-wrapper">
+    <span class="date-text">{{ displayedDate }}</span>
+  </div>
+  <div class="schedule">
+    <div class="training-wrapper" *ngFor="let training of displayedTrainings">
+      <div class="training-times">
+        <span>{{ training.timeFrom }}</span>
+        <div class="divider"></div>
+        <span>{{ training.timeTo }}</span>
+      </div>
+      <div
+        class="training"
+        [class.closest]="training === displayedTrainings[0]"
+      >
+        <p class="client">{{ training.client }}</p>
+        <span class="secondary-info">{{ training.type }}</span>
+        <span class="secondary-info">{{ training.place }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="load-more">
+  <span class="load-more-text"> Więcej </span>
+</div>

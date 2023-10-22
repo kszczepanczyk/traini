@@ -8,11 +8,13 @@
 }
 @mixin button-primary {
   @include rectangle;
+  cursor: pointer;
   background-color: var(--primaryColor);
   color: var(--white);
 }
 @mixin button-secondary {
   @include rectangle;
+  cursor: pointer;
   background-color: var(--white);
   color: var(--primaryColor);
 }
