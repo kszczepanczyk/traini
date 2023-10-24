@@ -1,21 +1,37 @@
 <div class="wrapper">
   <router-outlet></router-outlet>
-</div>
-<div class="menu">
-  <div class="menu-item">
-    <img src="../assets/home.svg" alt="Home" class="icon" />
-    <span class="icon-text">Home</span>
-  </div>
-  <div class="menu-item">
-    <img src="../assets/schedule.svg" alt="Schedule" class="icon" />
-    <span class="icon-text">Schedule</span>
-  </div>
-  <div class="menu-item">
-    <img src="../assets/list.svg" alt="List" class="icon" />
-    <span class="icon-text">List</span>
-  </div>
-  <div class="menu-item">
-    <img src="../assets/profile.svg" alt="Profile" class="icon" />
-    <span class="icon-text">Profile</span>
+  <div class="menu">
+    <div
+      class="menu-item"
+      [ngClass]="{ 'active-icon': isRouteActive('home') }"
+      (click)="navigateToSite('home')"
+    >
+      <img src="../assets/home.svg" alt="Home" class="icon" />
+      <span class="icon-text">Home</span>
+    </div>
+    <div
+      class="menu-item"
+      [ngClass]="{ 'active-icon': isRouteActive('schedule') }"
+      (click)="navigateToSite('schedule')"
+    >
+      <img src="../assets/schedule.svg" alt="Schedule" class="icon" />
+      <span class="icon-text">Terminarz</span>
+    </div>
+    <div
+      class="menu-item"
+      [ngClass]="{ 'active-icon': isRouteActive('list') }"
+      (click)="navigateToSite('list')"
+    >
+      <img src="../assets/list.svg" alt="List" class="icon" />
+      <span class="icon-text">Lista klientów</span>
+    </div>
+    <div
+      class="menu-item"
+      [ngClass]="{ 'active-icon': isRouteActive('profile') }"
+      (click)="navigateToSite('profile')"
+    >
+      <img src="../assets/profile.svg" alt="Profile" class="icon" />
+      <span class="icon-text">Profil</span>
+    </div>
   </div>
 </div>
