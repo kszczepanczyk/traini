@@ -1,35 +1,25 @@
 <div class="edit-wrapper">
-  <img src="../../../assets/edit.svg" alt="Edit" class="edit-icon" />
+  <h1 class="title">Profil</h1>
+  <img
+    src="../../../assets/edit.svg"
+    alt="Edit"
+    class="edit-icon"
+    (click)="goToEdit()"
+  />
 </div>
 <div class="profile-wrapper">
   <div class="profile">
-    <img
-      src="../../../assets/person.jpg"
-      alt="profile picture"
-      class="picture"
-    />
+    <img [src]="user?.photoUrl" alt="profile picture" class="picture" />
   </div>
-  <h2 class="name">Andrzej Anonimowy</h2>
+  <h2 class="name">{{ user?.name }} {{ user?.surname }}</h2>
   <span class="title">Trener personalny</span>
   <div class="tag-wrapper">
-    <div class="tag">
-      <span>Trening siłowy</span>
-    </div>
-    <div class="tag">
-      <span>Urazy</span>
-    </div>
-    <div class="tag">
-      <span>Kondycja</span>
-    </div>
-    <div class="tag">
-      <span>Kondycja</span>
+    <div class="tag" *ngFor="let tag of user?.tags">
+      <span>{{ tag.name }}</span>
     </div>
   </div>
   <div class="description">
-    <span
-      >Krótki opis dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.</span
-    >
+    <span>{{ user?.description }}</span>
   </div>
 </div>
 <div class="information-wrapper">
@@ -38,9 +28,9 @@
   </div>
   <div class="localizations">
     <ul class="list">
-      <li class="localization">Smart Gym Politechnika</li>
-      <li class="localization">Smart Gym Kolberga</li>
-      <li class="localization">Cityfit Gliwice</li>
+      <li class="localization" *ngFor="let place of user?.localizations">
+        {{ place.name }}
+      </li>
     </ul>
   </div>
   <div class="header">
@@ -49,24 +39,27 @@
   <div class="informations">
     <div class="list-info">
       <div class="phone">
-        <img class="image" src="../../../assets/phone.svg" /><span class="info"
-          >+48 505 922 556</span
+        <img class="image" src="../../../assets/phone.svg" /><span
+          class="info"
+          >{{ user?.phone }}</span
         >
       </div>
       <div class="email">
-        <img class="image" src="../../../assets/email.svg" /><span class="info"
-          >andrzej.anonimowy@gmail.com</span
+        <img class="image" src="../../../assets/email.svg" /><span
+          class="info"
+          >{{ user?.email }}</span
         >
       </div>
       <div class="city">
         <img class="image" src="../../../assets/localization.svg" /><span
           class="info"
-          >Gliwice</span
+          >{{ user?.city }}</span
         >
       </div>
       <div class="gender">
-        <img class="image" src="../../../assets/heart.svg" /><span class="info"
-          >Mężczyzna</span
+        <img class="image" src="../../../assets/heart.svg" /><span
+          class="info"
+          >{{ user?.gender }}</span
         >
       </div>
     </div>

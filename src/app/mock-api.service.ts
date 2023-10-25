@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as dayjs from 'dayjs';
 import { Training } from './models/training.model';
+import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -174,5 +175,28 @@ export class MockApiService {
     } else {
       return of();
     }
+  }
+  getUserInfo(): Observable<User> {
+    return of({
+      photoUrl: '../../../assets/person.jpg',
+      name: 'Andrzej',
+      surname: 'Anonimowy',
+      email: 'andrzej.anonimowy@gmail.com',
+      description:
+        'Krótki opis dolor sit amet, consectetur adipiscing elit, sed do eiusmo tempor incididunt ut labore et dolore magna aliqua.',
+      phone: '+48 590 584 764',
+      city: 'Gliwice',
+      gender: 'male',
+      tags: [
+        { id: 0, name: 'Kondycja' },
+        { id: 1, name: 'Urazy' },
+        { id: 2, name: 'Trening siłowy' },
+      ],
+      localizations: [
+        { id: 0, name: 'Smartgym Politechnika' },
+        { id: 1, name: 'Smartgym Kolberga' },
+        { id: 2, name: 'Cityfit Gliwice' },
+      ],
+    });
   }
 }

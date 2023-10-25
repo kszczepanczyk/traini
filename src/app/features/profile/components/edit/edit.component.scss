@@ -1,3 +1,4 @@
+@import "../../../../../mixins";
 .edit-icon {
   width: 24px;
 }
@@ -8,6 +9,7 @@
 }
 .picture {
   width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 .profile-wrapper {
@@ -193,4 +195,39 @@ textarea {
 }
 .x_big {
   width: 18px;
+}
+.tag-modal-wrapper {
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.411);
+}
+.tag-modal {
+  background-color: var(--white);
+  width: calc(100% - 32px);
+  padding: 24px 20px;
+}
+.tag-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.helper-text {
+  align-self: flex-end;
+}
+.button-wrapper {
+  align-self: flex-end;
+}
+.primary-small {
+  @include button-primary-small;
+  margin-left: 12px;
+}
+.helper-text {
+  font-size: 12px;
 }

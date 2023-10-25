@@ -1,7 +1,10 @@
 .edit-icon {
-  position: absolute;
-  right: 16px;
-  top: 16px;
+  width: 24px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .picture {
   width: 120px;

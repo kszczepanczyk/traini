@@ -1,37 +1,69 @@
 <div class="edit-wrapper">
   <h1 class="title">Edycja profilu</h1>
-  <img src="../../../assets/x.svg" alt="Edit" class="edit-icon" />
+  <img
+    src="../../../assets/x.svg"
+    alt="Edit"
+    class="edit-icon"
+    [routerLink]="['/profile']"
+  />
 </div>
 <div class="profile-wrapper">
   <div class="profile">
-    <img
-      src="../../../assets/person.jpg"
-      alt="profile picture"
-      class="picture"
-    />
+    <img [src]="userData?.photoUrl" alt="profile picture" class="picture" />
   </div>
   <label for="avatar-input-file">
     <div class="icon-wrapper">
-      <input type="file" id="avatar-input-file" accept="image/*" />
+      <input
+        type="file"
+        id="avatar-input-file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
       <img class="icon" src="../../../assets/edit.svg" />
     </div>
   </label>
 </div>
-<form class="input-wrapper">
+<form class="input-wrapper" [formGroup]="userForm">
   <label for="name">Imię <span class="asterisk">*</span></label>
-  <input class="input" type="name" placeholder="np. Jan" />
+  <input
+    class="input"
+    type="name"
+    id="name"
+    placeholder="np. Jan"
+    formControlName="name"
+  />
   <label for="surname">Nazwisko<span class="asterisk">*</span></label>
-  <input class="input" type="surname" placeholder="np. Nowak" />
+  <input
+    class="input"
+    type="surname"
+    id="surname"
+    placeholder="np. Nowak"
+    formControlName="surname"
+  />
   <label for="description">Krótki opis</label>
   <textarea
     class="input wide"
+    id="description"
     placeholder="np. Krótki opis o mnie"
     rows="5"
+    formControlName="description"
   ></textarea>
   <label for="phone">Telefon</label>
-  <input class="input" type="phone" placeholder="np. 594 490 240" />
+  <input
+    class="input"
+    type="phone"
+    id="phone"
+    placeholder="np. 594 490 240"
+    formControlName="phone"
+  />
   <label for="city">Miasto</label>
-  <input class="input" type="city" placeholder="np. Warszawa" />
+  <input
+    class="input"
+    type="city"
+    id="city"
+    placeholder="np. Warszawa"
+    formControlName="city"
+  />
   <label>Płeć</label>
   <div class="radio-group">
     <div class="custom-radio">
@@ -41,6 +73,7 @@
         class="custom-radio-input"
         value="female"
         name="gender"
+        formControlName="gender"
       />
       <label for="female" class="custom-radio-label">Kobieta</label>
     </div>
@@ -51,6 +84,7 @@
         class="custom-radio-input"
         value="male"
         name="gender"
+        formControlName="gender"
       />
       <label for="male" class="custom-radio-label">Mężczyzna</label>
     </div>
@@ -61,6 +95,7 @@
         class="custom-radio-input"
         value="other"
         name="gender"
+        formControlName="gender"
       />
       <label for="other" class="custom-radio-label">Inne</label>
     </div>
@@ -68,7 +103,7 @@
   <div class="tags">
     <div class="date-wrapper">
       <span class="date-text">Tagi</span>
-      <div class="add-button">
+      <div class="add-button" (click)="openTagModal()">
         <img
           src="../../../../../assets/x_small.svg"
           alt="X"
@@ -77,28 +112,15 @@
       </div>
     </div>
     <div class="tag-wrapper">
-      <div class="tag">
-        <span>Trening siłowy</span>
+      <div class="tag" *ngFor="let tag of userData?.tags">
+        <span>{{ tag.name }}</span>
         <div class="delete">
-          <img src="../../../../../assets/x_small.svg" alt="X" class="x" />
-        </div>
-      </div>
-      <div class="tag">
-        <span>Urazy</span>
-        <div class="delete">
-          <img src="../../../../../assets/x_small.svg" alt="X" class="x" />
-        </div>
-      </div>
-      <div class="tag">
-        <span>Kondycja</span>
-        <div class="delete">
-          <img src="../../../../../assets/x_small.svg" alt="X" class="x" />
-        </div>
-      </div>
-      <div class="tag">
-        <span>Kondycja</span>
-        <div class="delete">
-          <img src="../../../../../assets/x_small.svg" alt="X" class="x" />
+          <img
+            src="../../../../../assets/x_small.svg"
+            alt="X"
+            class="x"
+            (click)="deleteTag(tag.id)"
+          />
         </div>
       </div>
     </div>
@@ -106,7 +128,7 @@
   <div class="localizations">
     <div class="date-wrapper">
       <span class="date-text">Lokalizacje</span>
-      <div class="add-button">
+      <div class="add-button" (click)="openLocalizationModal()">
         <img
           src="../../../../../assets/x_small.svg"
           alt="X"
@@ -114,20 +136,79 @@
         />
       </div>
     </div>
-    <div class="localization-container">
-      <span class="text">Smart Gym Politechnika</span>
-      <img src="../../../../../assets/x_small.svg" alt="X" class="x_big" />
-    </div>
-    <div class="localization-container">
-      <span class="text">Smart Gym Kolberga</span>
-      <img src="../../../../../assets/x_small.svg" alt="X" class="x_big" />
-    </div>
-    <div class="localization-container">
-      <span class="text">Cityfit Gliwice</span>
-      <img src="../../../../../assets/x_small.svg" alt="X" class="x_big" />
+    <div
+      class="localization-container"
+      *ngFor="let place of userData?.localizations"
+    >
+      <span class="text">{{ place.name }}</span>
+      <img
+        src="../../../../../assets/x_small.svg"
+        alt="X"
+        class="x_big"
+        (click)="deleteLocalization(place.id)"
+      />
     </div>
   </div>
 
-  <button class="primary">Zapisz</button>
-  <a class="link">Anuluj</a>
+  <button
+    class="primary"
+    type="submit"
+    [disabled]="!userForm.valid"
+    (click)="onSubmitUser()"
+  >
+    Zapisz
+  </button>
+  <a class="link" [routerLink]="['/profile']">Anuluj</a>
 </form>
+
+<div class="tag-modal-wrapper" *ngIf="isTagModalVisible">
+  <div class="tag-modal">
+    <form class="tag-form" [formGroup]="tagForm">
+      <h2 class="tag-title">Dodaj tag</h2>
+      <input
+        type="text"
+        class="input"
+        placeholder="np. Trening siłowy"
+        formControlName="tagName"
+      />
+      <p class="helper-text">Maks 25 znaków</p>
+      <div class="button-wrapper">
+        <a class="link" (click)="isTagModalVisible = false">Anuluj</a>
+        <button
+          class="primary-small"
+          type="submit"
+          (click)="onSubmitTag()"
+          [disabled]="!tagForm.valid"
+        >
+          Dodaj
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="tag-modal-wrapper" *ngIf="isLocalizationModalVisible">
+  <div class="tag-modal">
+    <form class="tag-form" [formGroup]="localizationForm">
+      <h2 class="tag-title">Dodaj lokalizację</h2>
+      <input
+        type="text"
+        class="input"
+        placeholder="np. Siłownia w Warszawie"
+        formControlName="localizationName"
+      />
+      <p class="helper-text">Maks 25 znaków</p>
+      <div class="button-wrapper">
+        <a class="link" (click)="isLocalizationModalVisible = false">Anuluj</a>
+        <button
+          class="primary-small"
+          type="submit"
+          (click)="onSubmitLocalization()"
+          [disabled]="!localizationForm.valid"
+        >
+          Dodaj
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
