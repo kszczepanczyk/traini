@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './features/auth/auth.module';
 import { HomeModule } from './features/home/home.module';
 import { ProfileModule } from './features/profile/profile.module';
+import { UserModule } from './features/users/users.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { ProfileModule } from './features/profile/profile.module';
     AuthModule,
     HomeModule,
     ProfileModule,
+    UserModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

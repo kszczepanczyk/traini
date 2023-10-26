@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MockApiService } from 'src/app/mock-api.service';
-import { User } from 'src/app/models/user.model';
+import { Trainer } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
     private _dataService: DataService,
     private _router: Router
   ) {}
-  user: User | null = null;
+  user: Trainer | null = null;
 
   ngOnInit() {
     this._api_service.getUserInfo().subscribe((res) => {

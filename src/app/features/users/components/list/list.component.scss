@@ -1,0 +1,32 @@
+.client {
+  width: 100%;
+  border-radius: 4px;
+  background-color: var(--primaryLightTint);
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+  padding: 12px;
+}
+.title {
+  margin-bottom: 32px;
+}
+.image {
+  width: 64px;
+  border-radius: 50%;
+}
+.image-wrapper {
+  margin-right: 12px;
+}
+.info {
+}
+.contact-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+.icon {
+  height: 16px;
+  filter: invert(23%) sepia(88%) saturate(2037%) hue-rotate(327deg)
+    brightness(90%) contrast(107%);
+  margin-right: 8px;
+}

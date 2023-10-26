@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.model';
+import { Trainer } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 import {
   FormBuilder,
@@ -17,7 +17,7 @@ export class EditComponent {
   userForm: FormGroup;
   localizationForm: FormGroup;
   tagForm: FormGroup;
-  userData: User | null = null;
+  userData: Trainer | null = null;
   isTagModalVisible: boolean = false;
   isLocalizationModalVisible: boolean = false;
   constructor(
@@ -87,8 +87,9 @@ export class EditComponent {
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;
-      const { tags, localizations, photoUrl, email } = this.userData!;
+      const { tags, localizations, photoUrl, email, id } = this.userData!;
       this.userData = {
+        id,
         name,
         surname,
         email,

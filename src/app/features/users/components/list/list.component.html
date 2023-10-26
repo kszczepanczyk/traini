@@ -1,0 +1,15 @@
+<h1 class="title">Lista klientów</h1>
+<div class="list">
+  <div class="client" *ngFor="let client of clients">
+    <div class="image-wrapper">
+      <img [src]="client.photoUrl" alt="Profile picture" class="image" />
+    </div>
+    <div class="info">
+      <p class="name">{{ client.name }} {{ client.surname }}</p>
+      <div class="contact-wrapper">
+        <img src="../../../../../assets/phone.svg" alt="Phone" class="icon" />
+        <p class="phone">{{ client.phone }}</p>
+      </div>
+    </div>
+  </div>
+</div>

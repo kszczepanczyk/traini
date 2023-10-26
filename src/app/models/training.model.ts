@@ -5,4 +5,5 @@ export type Training = {
   client: string;
   place: string;
   type: string;
+  details: string | null;
 };
