@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './users-routing.module';
 import { ListComponent } from './components/list/list.component';
 import { ClientProfileComponent } from './components/client-profile/client-profile.component';
+import { ClientEditComponent } from './components/client-edit/client-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ListComponent, ClientProfileComponent],
-  imports: [UserRoutingModule, CommonModule],
+  declarations: [ListComponent, ClientProfileComponent, ClientEditComponent],
+  imports: [UserRoutingModule, CommonModule, ReactiveFormsModule],
   providers: [],
 })
 export class UserModule {

@@ -1,6 +1,10 @@
 <h1 class="title">Lista klientów</h1>
 <div class="list">
-  <div class="client" *ngFor="let client of clients">
+  <div
+    class="client"
+    *ngFor="let client of clients"
+    [routerLink]="['/clients', client.id]"
+  >
     <div class="image-wrapper">
       <img [src]="client.photoUrl" alt="Profile picture" class="image" />
     </div>

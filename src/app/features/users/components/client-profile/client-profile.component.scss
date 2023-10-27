@@ -1,0 +1,130 @@
+@import "../../../../../mixins";
+.edit-icon {
+  width: 24px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.picture {
+  width: 120px;
+  border-radius: 50%;
+}
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 40px;
+  position: relative;
+  width: fit-content;
+}
+.tag-wrapper {
+  display: flex;
+  margin-top: 16px;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.tag {
+  background-color: var(--primaryColor);
+  padding: 8px 16px;
+  border-radius: 25px;
+  color: var(--white);
+  font-size: 14px;
+}
+.description {
+  background-color: var(--primaryLightTint);
+  padding: 16px 28px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 16px;
+}
+.header {
+  @include table-header;
+}
+.list {
+  list-style-position: inside;
+}
+
+.list-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.image {
+  width: 24px;
+  margin-right: 10px;
+  filter: invert(47%) sepia(75%) saturate(1209%) hue-rotate(205deg)
+    brightness(101%) contrast(105%);
+}
+.list-info > div {
+  display: flex;
+  align-items: center;
+}
+.date-wrapper {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 8px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.add-button-icon {
+  transform: rotate(45deg);
+  filter: invert(1);
+  height: 12px;
+}
+.add-button {
+  width: 25px;
+  height: 25px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.training {
+  width: 100%;
+  padding: 20px 12px;
+  background-color: var(--primaryColor);
+  display: flex;
+  gap: 48px;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-shadow: 3px 5px 20px -8px var(--primaryColor);
+}
+.date,
+.title {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.time,
+.place {
+  font-size: 14px;
+}
+.load-more {
+  width: 50%;
+  margin: auto;
+  margin-top: 24px;
+  text-align: center;
+  border-top: 1px solid var(--primaryColor);
+}
+.load-more-text {
+  color: var(--primaryColor);
+}
+.progresses {
+  padding-bottom: 80px;
+}
+.progress {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+  background-color: var(--primaryLightTint);
+  margin-bottom: 12px;
+}

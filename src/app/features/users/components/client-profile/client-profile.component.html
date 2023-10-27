@@ -1,1 +1,96 @@
-<p>client-profile works!</p>
+<div class="edit-wrapper">
+  <img
+    src="../../../assets/arrow_back.svg"
+    alt="Edit"
+    class="edit-icon"
+    [routerLink]="['/clients']"
+  />
+  <img
+    src="../../../assets/edit.svg"
+    alt="Edit"
+    class="edit-icon"
+    [routerLink]="['/clients', clientId, 'edit']"
+  />
+</div>
+<div class="profile-wrapper">
+  <div class="profile">
+    <img [src]="user?.photoUrl" alt="profile picture" class="picture" />
+  </div>
+  <h2 class="name">{{ user?.name }} {{ user?.surname }}</h2>
+  <span class="title">ID: {{ user?.id }}</span>
+  <div class="description">
+    <span>{{ user?.description }}</span>
+  </div>
+</div>
+<div class="information-wrapper">
+  <div class="header">
+    <span>Informacje</span>
+  </div>
+  <div class="informations">
+    <div class="list-info">
+      <div class="phone">
+        <img class="image" src="../../../assets/phone.svg" /><span
+          class="info"
+          >{{ user?.phone }}</span
+        >
+      </div>
+      <div class="email">
+        <img class="image" src="../../../assets/email.svg" /><span
+          class="info"
+          >{{ user?.email }}</span
+        >
+      </div>
+      <div class="city">
+        <img class="image" src="../../../assets/localization.svg" /><span
+          class="info"
+          >{{ user?.city }}</span
+        >
+      </div>
+      <div class="gender">
+        <img class="image" src="../../../assets/heart.svg" /><span
+          class="info"
+          >{{ user?.gender }}</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="date-wrapper">
+    <span class="date-text">Treningi</span>
+    <div class="add-button" (click)="openAddTraining()">
+      <img
+        src="../../../../../assets/x_small.svg"
+        alt="X"
+        class="add-button-icon"
+      />
+    </div>
+  </div>
+  <div class="training" *ngFor="let training of user?.trainings">
+    <div class="date-time">
+      <p class="date">{{ training.date }}</p>
+      <p class="time">{{ training.timeFrom }} - {{ training.timeTo }}</p>
+    </div>
+    <div class="info">
+      <p class="title">{{ training.type }}</p>
+      <p class="place">{{ training.place }}</p>
+    </div>
+  </div>
+  <div class="load-more">
+    <span class="load-more-text"> Więcej </span>
+  </div>
+  <div class="date-wrapper">
+    <span class="date-text">Postępy</span>
+    <div class="add-button" (click)="openAddTraining()">
+      <img
+        src="../../../../../assets/x_small.svg"
+        alt="X"
+        class="add-button-icon"
+      />
+    </div>
+  </div>
+  <div class="progresses">
+    <div class="progress" *ngFor="let progress of user?.progresses">
+      <span class="name">{{ progress.name }}</span
+      ><span class="amount">{{ progress.value }}{{ progress.unit }}</span>
+    </div>
+  </div>
+</div>

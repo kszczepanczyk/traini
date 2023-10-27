@@ -1,0 +1,113 @@
+<div class="edit-wrapper">
+  <h1 class="title">Edycja klienta</h1>
+  <img
+    src="../../../assets/x.svg"
+    alt="Edit"
+    class="edit-icon"
+    [routerLink]="['/clients', clientId]"
+  />
+</div>
+<div class="profile-wrapper">
+  <div class="profile">
+    <img [src]="userData?.photoUrl" alt="profile picture" class="picture" />
+  </div>
+  <label for="avatar-input-file">
+    <div class="icon-wrapper">
+      <input
+        type="file"
+        id="avatar-input-file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
+      <img class="icon" src="../../../assets/edit.svg" />
+    </div>
+  </label>
+</div>
+<form class="input-wrapper" [formGroup]="userForm">
+  <label for="name">Imię <span class="asterisk">*</span></label>
+  <input
+    class="input"
+    type="name"
+    id="name"
+    placeholder="np. Jan"
+    formControlName="name"
+  />
+  <label for="surname">Nazwisko<span class="asterisk">*</span></label>
+  <input
+    class="input"
+    type="surname"
+    id="surname"
+    placeholder="np. Nowak"
+    formControlName="surname"
+  />
+  <label for="description">Krótki opis</label>
+  <textarea
+    class="input wide"
+    id="description"
+    placeholder="np. Krótki opis o mnie"
+    rows="5"
+    formControlName="description"
+  ></textarea>
+  <label for="phone">Telefon</label>
+  <input
+    class="input"
+    type="phone"
+    id="phone"
+    placeholder="np. 594 490 240"
+    formControlName="phone"
+  />
+  <label for="city">Miasto</label>
+  <input
+    class="input"
+    type="city"
+    id="city"
+    placeholder="np. Warszawa"
+    formControlName="city"
+  />
+  <label>Płeć</label>
+  <div class="radio-group">
+    <div class="custom-radio">
+      <input
+        id="female"
+        type="radio"
+        class="custom-radio-input"
+        value="female"
+        name="gender"
+        formControlName="gender"
+      />
+      <label for="female" class="custom-radio-label">Kobieta</label>
+    </div>
+    <div class="custom-radio">
+      <input
+        id="male"
+        type="radio"
+        class="custom-radio-input"
+        value="male"
+        name="gender"
+        formControlName="gender"
+      />
+      <label for="male" class="custom-radio-label">Mężczyzna</label>
+    </div>
+    <div class="custom-radio">
+      <input
+        id="other"
+        type="radio"
+        class="custom-radio-input"
+        value="other"
+        name="gender"
+        formControlName="gender"
+      />
+      <label for="other" class="custom-radio-label">Inne</label>
+    </div>
+  </div>
+
+  <button
+    class="primary"
+    type="submit"
+    [disabled]="!userForm.valid"
+    (click)="onSubmitUser()"
+  >
+    Zapisz
+  </button>
+  <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
+</form>

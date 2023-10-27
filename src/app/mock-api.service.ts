@@ -316,7 +316,7 @@ export class MockApiService {
             tendency: true,
           },
           {
-            name: 'Deadlift',
+            name: 'Squat',
             date: '23.12.2023',
             value: 150,
             unit: 'kg',

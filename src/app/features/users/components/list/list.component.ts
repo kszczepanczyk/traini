@@ -22,8 +22,4 @@ export class ListComponent implements OnInit {
       this.clients = res;
     });
   }
-  goToClient(client: Client) {
-    this._dataService.setData(client);
-    this._router.navigate(['profile/edit']);
-  }
 }

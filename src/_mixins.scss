@@ -43,3 +43,8 @@
     color: rgb(231, 231, 231);
   }
 }
+@mixin table-header {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 8px;
+  margin: 20px 0 14px 0;
+}

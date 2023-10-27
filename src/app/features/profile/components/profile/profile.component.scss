@@ -56,10 +56,10 @@
 .list-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .image {
-  width: 20px;
+  width: 24px;
   margin-right: 10px;
   filter: invert(47%) sepia(75%) saturate(1209%) hue-rotate(205deg)
     brightness(101%) contrast(105%);
