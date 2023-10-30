@@ -1,0 +1,87 @@
+@import "../../../../mixins";
+.edit-icon {
+  width: 24px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-wrapper {
+  @include input-group;
+  padding-bottom: 60px;
+}
+.input {
+  @include input;
+}
+.primary {
+  @include button-primary;
+  margin-top: 30px;
+}
+.link {
+  margin: auto;
+  margin-bottom: 40px;
+}
+.asterisk {
+  color: var(--primaryColor);
+}
+textarea {
+  resize: none;
+}
+.date-wrapper {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.primary-small {
+  @include button-primary-small;
+  margin-left: 12px;
+}
+.helper-text {
+  font-size: 12px;
+}
+.date-time-wrapper {
+  display: flex;
+  gap: 18px;
+}
+.container {
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  padding: 11px 12px;
+  display: flex;
+  margin-top: 12px;
+}
+.icon {
+  width: 20px;
+  margin-right: 12px;
+}
+.date-container,
+.time-container {
+  flex-grow: 1;
+}
+.select-container {
+  display: flex;
+  flex-direction: column;
+}
+.select {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--black);
+  color: var(--black);
+  font-size: 16px;
+}
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #5e344b;
+  transition: 0.25s all ease;
+  pointer-events: none;
+}

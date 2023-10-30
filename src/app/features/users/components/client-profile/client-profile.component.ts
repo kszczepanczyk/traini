@@ -14,9 +14,9 @@ export class ClientProfileComponent implements OnInit {
   user: Client | null = null;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private _api_service: MockApiService,
-    private _dataService: DataService,
-    private _router: Router
+    private data_service: DataService
   ) {
     this.route.paramMap.subscribe((params) => {
       this.clientId = +params.get('id')!;
@@ -29,5 +29,12 @@ export class ClientProfileComponent implements OnInit {
       })!;
     });
   }
-  openAddTraining() {}
+  openAddTraining() {
+    this.data_service.setData(this.clientId);
+    this.router.navigate(['/training/add']);
+  }
+  openAddProgress() {
+    this.data_service.setData(this.clientId);
+    this.router.navigate(['/add-progress']);
+  }
 }
