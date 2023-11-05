@@ -18,21 +18,56 @@
   />
   <div class="date-time-wrapper">
     <div class="date-container">
-      <label for="details">Data<span class="asterisk">*</span></label>
-      <div class="container">
+      <label for="date">Data<span class="asterisk">*</span></label>
+      <div class="container small">
         <img
           src="../../../../assets/calendar.svg"
           alt="Calendar"
           class="icon"
         />
-        <span class="date-text">10.12.2023</span>
+        <input
+          id="date"
+          [matDatepicker]="picker"
+          class="date-input"
+          (click)="picker.open()"
+        />
+        <mat-datepicker #picker></mat-datepicker>
       </div>
     </div>
     <div class="time-container">
-      <label for="details">Godzina<span class="asterisk">*</span></label>
-      <div class="container">
-        <img src="../../../../assets/time.svg" alt="Time" class="icon" />
-        <span class="time-text">12:30 - 14:30</span>
+      <div class="time">
+        <label for="fromTime">Godzina od<span class="asterisk">*</span></label>
+        <div class="container">
+          <img src="../../../../assets/time.svg" alt="Time" class="icon" />
+          <input
+            id="fromTime"
+            [ngxTimepicker]="fromTime"
+            [format]="24"
+            readonly
+            class="date-input"
+          />
+          <ngx-material-timepicker
+            #fromTime
+            [theme]="theme"
+          ></ngx-material-timepicker>
+        </div>
+      </div>
+      <div class="time">
+        <label for="toTime">Godzina od<span class="asterisk">*</span></label>
+        <div class="container">
+          <img src="../../../../assets/time.svg" alt="Time" class="icon" />
+          <input
+            id="toTime"
+            [ngxTimepicker]="toTime"
+            [format]="24"
+            readonly
+            class="date-input"
+          />
+          <ngx-material-timepicker
+            #toTime
+            [theme]="theme"
+          ></ngx-material-timepicker>
+        </div>
       </div>
     </div>
   </div>
@@ -40,7 +75,7 @@
     <label for="clients"
       >Z którym klientem<span class="asterisk">*</span></label
     >
-    <select name="clients" id="client" class="select">
+    <select name="clients" id="clients" class="select">
       <option value="1">Piotrek</option>
       <option value="2">Ania</option>
       <option value="3">Sebastian</option>

@@ -1,4 +1,6 @@
 @import "../../../../mixins";
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
 .edit-icon {
   width: 24px;
 }
@@ -46,6 +48,7 @@ textarea {
 }
 .date-time-wrapper {
   display: flex;
+  flex-direction: column;
   gap: 18px;
 }
 .container {
@@ -59,9 +62,36 @@ textarea {
   width: 20px;
   margin-right: 12px;
 }
-.date-container,
+.small {
+  max-width: fit-content;
+}
+.date-container {
+  display: flex;
+  flex-direction: column;
+}
+.date {
+  display: flex;
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  max-width: fit-content;
+  padding: 11px 12px;
+}
 .time-container {
-  flex-grow: 1;
+  display: flex;
+  gap: 18px;
+}
+.time {
+  flex: 1;
+  max-width: 50%;
+}
+.date-input {
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  color: var(--black);
+  &:focus {
+    outline: none;
+  }
 }
 .select-container {
   display: flex;
@@ -74,14 +104,14 @@ textarea {
   border: 1px solid var(--black);
   color: var(--black);
   font-size: 16px;
-}
-.select::after {
-  content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
-  background-color: #5e344b;
-  transition: 0.25s all ease;
-  pointer-events: none;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #6c8eff;
+    transition: 0.25s all ease;
+    pointer-events: none;
+  }
 }

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { MockApiService } from 'src/app/mock-api.service';
 import { Client } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
@@ -37,7 +38,17 @@ export class AddTrainingComponent {
       localization: new FormControl(''),
     });
   }
-
+  theme: NgxMaterialTimepickerTheme = {
+    container: {
+      buttonColor: '#6c8eff',
+    },
+    dial: {
+      dialBackgroundColor: '#6c8eff',
+    },
+    clockFace: {
+      clockHandColor: '#6c8eff',
+    },
+  };
   goBack() {}
   onSubmitTraining() {}
 }
