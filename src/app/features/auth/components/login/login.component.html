@@ -7,14 +7,50 @@
     >Wspólny cel, jedna aplikacja - Twój klucz do sukcesu treningowego</span
   >
 </div>
-<form class="input-wrapper">
+<form class="input-wrapper" [formGroup]="loginForm">
   <label for="email">Email</label>
-  <input class="input" type="email" />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['email'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="email"
+      formControlName="email"
+      aria-required="true"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['email'].errors && f['email'].errors['required']"
+      >Email jest wymagany</span
+    >
+    <span
+      class="error-info"
+      *ngIf="f['email'].errors && f['email'].errors['email']"
+      >Email jest nieprawidłowy</span
+    >
+  </div>
+
   <label for="password">Hasło</label>
-  <input class="input" type="password" />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['password'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="password"
+      formControlName="password"
+      aria-required="true"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['password'].errors && f['password'].errors['required']"
+      >Hasło jest wymagane</span
+    >
+  </div>
   <a class="link">Zapomniałem hasła</a>
-  <button class="primary">Zaloguj się</button>
+  <button class="primary" (click)="login()">Zaloguj się</button>
 </form>
 
 <span class="register-text">Nie masz konta?</span>
-<a class="register">Zarejestruj się</a>
+<a class="register" [routerLink]="['/register']">Zarejestruj się</a>

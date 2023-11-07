@@ -14,6 +14,7 @@ html {
 a {
   color: var(--primaryColor);
   cursor: pointer;
+  text-decoration: none;
 }
 
 h1 {
@@ -27,4 +28,20 @@ body {
 }
 body {
   margin: 0;
+}
+
+.error-info {
+  display: none;
+}
+
+.validation-error {
+  input {
+    border: 1px solid var(--error) !important;
+  }
+  .error-info {
+    display: block;
+    color: var(--error);
+    font-size: 14px;
+    margin-left: 12px;
+  }
 }

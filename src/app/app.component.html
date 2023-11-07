@@ -1,6 +1,6 @@
 <div class="wrapper">
   <router-outlet></router-outlet>
-  <div class="menu">
+  <div class="menu" *ngIf="isLoggedIn()">
     <div
       class="menu-item"
       [ngClass]="{ 'active-icon': isRouteActive('home') }"

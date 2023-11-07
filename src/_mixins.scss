@@ -11,6 +11,10 @@
   cursor: pointer;
   background-color: var(--primaryColor);
   color: var(--white);
+  &:disabled {
+    background-color: rgb(158, 158, 158);
+    color: rgb(231, 231, 231);
+  }
 }
 @mixin button-secondary {
   @include rectangle;
