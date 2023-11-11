@@ -8,6 +8,7 @@
       src="../../../assets/person.jpg"
       alt="profile picture"
       class="picture"
+      (click)="navigateToProfile()"
     />
   </div>
 </div>
@@ -27,16 +28,16 @@
     <span class="date-text">{{ displayedDate }}</span>
   </div>
   <div class="schedule">
-    <div class="training-wrapper" *ngFor="let training of displayedTrainings">
+    <div
+      class="training-wrapper"
+      *ngFor="let training of getDisplayedTrainings()"
+    >
       <div class="training-times">
         <span>{{ training.timeFrom }}</span>
         <div class="divider"></div>
         <span>{{ training.timeTo }}</span>
       </div>
-      <div
-        class="training"
-        [class.closest]="training === displayedTrainings[0]"
-      >
+      <div class="training" [class.closest]="training === trainings[0]">
         <p class="client">{{ training.client }}</p>
         <span class="secondary-info">{{ training.type }}</span>
         <span class="secondary-info">{{ training.place }}</span>
@@ -44,6 +45,11 @@
     </div>
   </div>
 </div>
-<div class="load-more">
-  <span class="load-more-text"> Więcej </span>
+<div class="load-more-wrapper">
+  <div
+    class="load-more"
+    *ngIf="this.numberOfTrainingsToDisplay < this.trainings.length"
+  >
+    <span class="load-more-text" (click)="loadMore()"> Więcej </span>
+  </div>
 </div>

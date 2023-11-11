@@ -25,6 +25,7 @@
     "@capacitor/core": "latest",
     "@capacitor/ios": "^5.5.0",
     "dayjs": "^1.11.10",
+    "ngx-mask": "^16.2.6",
     "ngx-material-timepicker": "^13.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

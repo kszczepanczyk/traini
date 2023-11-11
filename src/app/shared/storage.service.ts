@@ -30,7 +30,7 @@ export class StorageService {
     if (
       this.router.url === '/login' ||
       this.router.url === '/register' ||
-      this.router.url === '/forgot-password'
+      this.router.url === '/reset-password'
     ) {
       return false;
     }

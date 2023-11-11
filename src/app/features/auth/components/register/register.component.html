@@ -7,22 +7,114 @@
     >Wspólny cel, jedna aplikacja - Twój klucz do sukcesu treningowego</span
   >
 </div>
-<form class="input-wrapper">
+<form class="input-wrapper" [formGroup]="registerForm">
   <label for="name">Imię <span class="asterisk">*</span></label>
-  <input class="input" type="name" placeholder="np. Jan" />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="name"
+      placeholder="np. Jan"
+      formControlName="name"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['name'].errors && f['name'].errors['required']"
+      >Imię jest wymagane</span
+    >
+  </div>
   <label for="surname">Nazwisko<span class="asterisk">*</span></label>
-  <input class="input" type="surname" placeholder="np. Nowak" />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['surname'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="surname"
+      placeholder="np. Nowak"
+      formControlName="surname"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['surname'].errors && f['surname'].errors['required']"
+      >Nazwisko jest wymagane</span
+    >
+  </div>
   <label for="email">Email<span class="asterisk">*</span></label>
-  <input class="input" type="email" placeholder="np. jan.nowak@email.com" />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['email'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="email"
+      placeholder="np. jan.nowak@email.com"
+      formControlName="email"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['email'].errors && f['email'].errors['required']"
+      >Email jest wymagany</span
+    >
+    <span
+      class="error-info"
+      *ngIf="f['email'].errors && f['email'].errors['email']"
+      >Email jest nieprawidłowy</span
+    >
+  </div>
   <label for="password">Hasło<span class="asterisk">*</span></label>
-  <input
-    class="input"
-    type="password"
-    placeholder="np. min. 8 znaków i 1 znak specjalny"
-  />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['password'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="password"
+      placeholder="np. min. 8 znaków i co najmniej 1 znak specjalny"
+      formControlName="password"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['password'].errors && f['password'].errors['required']"
+      >Hasło jest wymagane</span
+    >
+    <span
+      class="error-info"
+      *ngIf="f['password'].errors && f['password'].errors['minlength']"
+      >Hasło musi mieć minimum 8 znaków</span
+    >
+    <span
+      class="error-info"
+      *ngIf="f['password'].errors && f['password'].errors['pattern']"
+      >Hasło musi mieć co najmniej 1 znak specjalny i jedną dużą literę</span
+    >
+  </div>
   <label for="password">Powtórz hasło<span class="asterisk">*</span></label>
-  <input class="input" type="password" />
-  <label>Typ profilu<span class="asterisk">*</span></label>
+  <div
+    class="input-group"
+    [ngClass]="{
+      'validation-error': f['confirmPassword'].errors && isSubmitted
+    }"
+  >
+    <input class="input" type="password" formControlName="confirmPassword" />
+    <span
+      class="error-info"
+      *ngIf="
+        f['confirmPassword'].errors && f['confirmPassword'].errors['required']
+      "
+      >Powtórzenie hasła jest wymagane</span
+    >
+    <span
+      class="error-info"
+      *ngIf="
+        f['confirmPassword'].errors && f['confirmPassword'].errors['matching']
+      "
+      >Hasła nie są takie same</span
+    >
+  </div>
+  <!-- <label>Typ profilu<span class="asterisk">*</span></label>
   <div class="type-group">
     <input
       type="radio"
@@ -30,7 +122,7 @@
       id="trainer"
       name="type"
       value="trainer"
-      checked
+      formControlName="profileType"
     />
     <label for="trainer" class="type-label">
       <h2 class="type-header">Trener</h2>
@@ -42,16 +134,29 @@
       id="client"
       name="type"
       value="client"
+      formControlName="profileType"
     />
     <label for="client" class="type-label">
       <h2 class="type-header">Użytkownik</h2>
       <p class="type-description">lorem lorem lorem lorem lorem</p>
     </label>
-  </div>
+  </div> -->
   <label for="phone">Telefon</label>
-  <input class="input" type="phone" placeholder="np. 594 490 240" />
+  <input
+    class="input"
+    id="phone"
+    type="text"
+    placeholder="np. 594 490 240"
+    formControlName="phone"
+    mask="000 000 000"
+  />
   <label for="city">Miasto</label>
-  <input class="input" type="city" placeholder="np. Warszawa" />
+  <input
+    class="input"
+    type="city"
+    placeholder="np. Warszawa"
+    formControlName="city"
+  />
   <label>Płeć</label>
   <div class="radio-group">
     <div class="custom-radio">
@@ -61,6 +166,7 @@
         class="custom-radio-input"
         value="female"
         name="gender"
+        formControlName="gender"
       />
       <label for="female" class="custom-radio-label">Kobieta</label>
     </div>
@@ -71,6 +177,7 @@
         class="custom-radio-input"
         value="male"
         name="gender"
+        formControlName="gender"
       />
       <label for="male" class="custom-radio-label">Mężczyzna</label>
     </div>
@@ -81,11 +188,12 @@
         class="custom-radio-input"
         value="other"
         name="gender"
+        formControlName="gender"
       />
       <label for="other" class="custom-radio-label">Inne</label>
     </div>
   </div>
 
-  <button class="primary">Zarejestruj się</button>
-  <a class="link">Powrót do logowania</a>
+  <button class="primary" (click)="register()">Zarejestruj się</button>
+  <a class="link" [routerLink]="['/login']">Powrót do logowania</a>
 </form>
