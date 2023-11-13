@@ -1,11 +1,7 @@
 <div class="edit-wrapper">
   <h1 class="title">Edycja profilu</h1>
-  <img
-    src="../../../assets/x.svg"
-    alt="Edit"
-    class="edit-icon"
-    [routerLink]="['/profile']"
-  />
+
+  <mat-icon [routerLink]="['/profile']">close</mat-icon>
 </div>
 <div class="profile-wrapper">
   <div class="profile">
@@ -25,21 +21,40 @@
 </div>
 <form class="input-wrapper" [formGroup]="userForm">
   <label for="name">Imię <span class="asterisk">*</span></label>
-  <input
-    class="input"
-    type="name"
-    id="name"
-    placeholder="np. Jan"
-    formControlName="name"
-  />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="name"
+      id="name"
+      placeholder="np. Jan"
+      formControlName="name"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['name'].errors && f['name'].errors['required']"
+      >Imię jest wymagane</span
+    >
+  </div>
   <label for="surname">Nazwisko<span class="asterisk">*</span></label>
-  <input
-    class="input"
-    type="surname"
-    id="surname"
-    placeholder="np. Nowak"
-    formControlName="surname"
-  />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['surname'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="surname"
+      placeholder="np. Nowak"
+      formControlName="surname"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['surname'].errors && f['surname'].errors['required']"
+      >Nazwisko jest wymagane</span
+    >
+  </div>
   <label for="description">Krótki opis</label>
   <textarea
     class="input wide"
@@ -141,23 +156,13 @@
       *ngFor="let place of userData?.localizations"
     >
       <span class="text">{{ place.name }}</span>
-      <img
-        src="../../../../../assets/x_small.svg"
-        alt="X"
-        class="x_big"
-        (click)="deleteLocalization(place.id)"
-      />
+      <mat-icon class="x_big" (click)="deleteLocalization(place.id)"
+        >close</mat-icon
+      >
     </div>
   </div>
 
-  <button
-    class="primary"
-    type="submit"
-    [disabled]="!userForm.valid"
-    (click)="onSubmitUser()"
-  >
-    Zapisz
-  </button>
+  <button class="primary" type="submit" (click)="onSubmitUser()">Zapisz</button>
   <a class="link" [routerLink]="['/profile']">Anuluj</a>
 </form>
 

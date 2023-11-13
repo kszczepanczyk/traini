@@ -8,8 +8,17 @@
   padding: 0;
   font-family: "Alata", sans-serif;
 }
+
 html {
   color: var(--black);
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
 }
 a {
   color: var(--primaryColor);

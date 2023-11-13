@@ -24,6 +24,8 @@
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "latest",
     "@capacitor/ios": "^5.5.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "dayjs": "^1.11.10",
     "ngx-mask": "^16.2.6",
     "ngx-material-timepicker": "^13.1.1",

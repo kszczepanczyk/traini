@@ -6,6 +6,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 
 @Component({
@@ -14,6 +15,7 @@ import {
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent {
+  isSubmitted: boolean = false;
   userForm: FormGroup;
   localizationForm: FormGroup;
   tagForm: FormGroup;
@@ -42,7 +44,9 @@ export class EditComponent {
       tagName: new FormControl('', Validators.required),
     });
   }
-
+  get f(): { [key: string]: AbstractControl } {
+    return this.userForm.controls;
+  }
   deleteTag(tagId: number) {
     this.userData!.tags = this.userData!.tags.filter((tag) => tag.id != tagId);
   }
@@ -84,6 +88,7 @@ export class EditComponent {
     }
   }
   onSubmitUser() {
+    this.isSubmitted = true;
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;

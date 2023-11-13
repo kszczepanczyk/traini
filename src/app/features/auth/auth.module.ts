@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent],
@@ -15,6 +16,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     CommonModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    HttpClientModule,
   ],
   providers: [provideNgxMask()],
 })

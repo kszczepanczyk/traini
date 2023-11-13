@@ -193,9 +193,7 @@ textarea {
   background-color: var(--primaryLightTint);
   margin-bottom: 8px;
 }
-.x_big {
-  width: 18px;
-}
+
 .tag-modal-wrapper {
   z-index: 100;
   position: fixed;
@@ -220,6 +218,7 @@ textarea {
 }
 .helper-text {
   align-self: flex-end;
+  font-size: 12px;
 }
 .button-wrapper {
   align-self: flex-end;
@@ -227,7 +226,4 @@ textarea {
 .primary-small {
   @include button-primary-small;
   margin-left: 12px;
-}
-.helper-text {
-  font-size: 12px;
 }
