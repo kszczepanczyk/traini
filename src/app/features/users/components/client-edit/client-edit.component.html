@@ -1,11 +1,6 @@
 <div class="edit-wrapper">
   <h1 class="title">Edycja klienta</h1>
-  <img
-    src="../../../assets/x.svg"
-    alt="Edit"
-    class="edit-icon"
-    [routerLink]="['/clients', clientId]"
-  />
+  <mat-icon [routerLink]="['/clients', clientId]">close</mat-icon>
 </div>
 <div class="profile-wrapper">
   <div class="profile">
@@ -19,27 +14,47 @@
         accept="image/*"
         (change)="onFileChange($event)"
       />
-      <img class="icon" src="../../../assets/edit.svg" />
+      <mat-icon class="edit">edit</mat-icon>
     </div>
   </label>
 </div>
 <form class="input-wrapper" [formGroup]="userForm">
   <label for="name">Imię <span class="asterisk">*</span></label>
-  <input
-    class="input"
-    type="name"
-    id="name"
-    placeholder="np. Jan"
-    formControlName="name"
-  />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="name"
+      id="name"
+      placeholder="np. Jan"
+      formControlName="name"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['name'].errors && f['name'].errors['required']"
+      >Imię jest wymagane</span
+    >
+  </div>
   <label for="surname">Nazwisko<span class="asterisk">*</span></label>
-  <input
-    class="input"
-    type="surname"
-    id="surname"
-    placeholder="np. Nowak"
-    formControlName="surname"
-  />
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['surname'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="surname"
+      id="surname"
+      placeholder="np. Nowak"
+      formControlName="surname"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['surname'].errors && f['surname'].errors['required']"
+      >Nazwisko jest wymagane</span
+    >
+  </div>
   <label for="description">Krótki opis</label>
   <textarea
     class="input wide"
@@ -101,13 +116,6 @@
     </div>
   </div>
 
-  <button
-    class="primary"
-    type="submit"
-    [disabled]="!userForm.valid"
-    (click)="onSubmitUser()"
-  >
-    Zapisz
-  </button>
+  <button class="primary" type="submit" (click)="onSubmitUser()">Zapisz</button>
   <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
 </form>

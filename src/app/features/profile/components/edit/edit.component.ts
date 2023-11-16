@@ -8,6 +8,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -24,7 +25,8 @@ export class EditComponent {
   isLocalizationModalVisible: boolean = false;
   constructor(
     private _dataService: DataService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _router: Router
   ) {
     this.userData = this._dataService.getData();
     this.userForm = this.formBuilder.group({
@@ -109,6 +111,7 @@ export class EditComponent {
     }
     //TODO
     //send to server
+    this._router.navigate(['/profile']);
   }
   onFileChange(event: any) {
     const files = event.target.files as FileList;

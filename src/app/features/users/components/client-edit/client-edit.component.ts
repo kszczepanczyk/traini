@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MockApiService } from 'src/app/mock-api.service';
@@ -14,6 +15,7 @@ import { MockApiService } from 'src/app/mock-api.service';
   styleUrls: ['./client-edit.component.scss'],
 })
 export class ClientEditComponent {
+  isSubmitted: boolean = false;
   userForm: FormGroup;
   clientId: number = 0;
   localizationForm: FormGroup;
@@ -49,8 +51,11 @@ export class ClientEditComponent {
       tagName: new FormControl('', Validators.required),
     });
   }
-
+  get f(): { [key: string]: AbstractControl } {
+    return this.userForm.controls;
+  }
   onSubmitUser() {
+    this.isSubmitted = true;
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;

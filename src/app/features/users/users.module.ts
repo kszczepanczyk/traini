@@ -1,14 +1,26 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './users-routing.module';
 import { ListComponent } from './components/list/list.component';
 import { ClientProfileComponent } from './components/client-profile/client-profile.component';
 import { ClientEditComponent } from './components/client-edit/client-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ProgressComponent } from './components/progress/progress.component';
+import { ProgressAddComponent } from './components/progress-add/progress-add.component';
 
 @NgModule({
-  declarations: [ListComponent, ClientProfileComponent, ClientEditComponent],
-  imports: [UserRoutingModule, CommonModule, ReactiveFormsModule],
+  declarations: [ListComponent, ClientProfileComponent, ClientEditComponent, ProgressComponent, ProgressAddComponent],
+  imports: [
+    UserRoutingModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    SharedModule,
+  ],
   providers: [],
 })
 export class UserModule {

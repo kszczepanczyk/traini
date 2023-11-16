@@ -11,14 +11,14 @@ import { DataService } from 'src/app/shared/data.service';
 })
 export class ClientProfileComponent implements OnInit {
   clientId: number = 0;
-  user: Client | null = null;
+  user!: Client;
   constructor(
-    private route: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private router: Router,
     private _api_service: MockApiService,
     private data_service: DataService
   ) {
-    this.route.paramMap.subscribe((params) => {
+    this._activatedRoute.paramMap.subscribe((params) => {
       this.clientId = +params.get('id')!;
     });
   }
@@ -34,7 +34,12 @@ export class ClientProfileComponent implements OnInit {
     this.router.navigate(['/training/add']);
   }
   openAddProgress() {
-    this.data_service.setData(this.clientId);
-    this.router.navigate(['/add-progress']);
+    this.router.navigate(['./progress/add'], {
+      relativeTo: this._activatedRoute,
+    });
   }
+  goToEdit() {
+    this.router.navigate(['/clients', this.clientId, 'edit']);
+  }
+  deleteClient() {}
 }
