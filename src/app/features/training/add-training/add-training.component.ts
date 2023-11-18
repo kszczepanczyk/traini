@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -34,9 +35,14 @@ export class AddTrainingComponent {
       timeFrom: new FormControl('', Validators.required),
       timeTo: new FormControl('', Validators.required),
       client: new FormControl(this.clientId, Validators.required),
+      cyclic: new FormControl(''),
       details: new FormControl(''),
       localization: new FormControl(''),
     });
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.trainingForm.controls;
   }
   theme: NgxMaterialTimepickerTheme = {
     container: {
@@ -51,4 +57,5 @@ export class AddTrainingComponent {
   };
   goBack() {}
   onSubmitTraining() {}
+  onCheckboxChange() {}
 }

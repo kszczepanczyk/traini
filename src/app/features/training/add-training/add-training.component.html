@@ -70,6 +70,28 @@
         </div>
       </div>
     </div>
+    <div class="cyclic-wrapper">
+      <mat-checkbox
+        [color]="'primary'"
+        formControlName="cyclic"
+        (change)="onCheckboxChange()"
+        >Czy jest to trening cykliczny?</mat-checkbox
+      >
+      <div class="select-container" *ngIf="f['cyclic'].value">
+        <label for="cyclic-day"
+          >W jaki dzień?<span class="asterisk">*</span></label
+        >
+        <select name="cyclic-day" id="cyclic-day" class="select select-cyclic">
+          <option value="1">Poniedziałek</option>
+          <option value="2">Wtorek</option>
+          <option value="3">Środa</option>
+          <option value="4">Czwartek</option>
+          <option value="5">Piątek</option>
+          <option value="6">Sobota</option>
+          <option value="7">Niedziela</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="select-container">
     <label for="clients"
