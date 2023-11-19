@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .input-wrapper {
@@ -58,6 +59,15 @@ textarea {
   display: flex;
   margin-top: 12px;
 }
+.custom-error {
+  border: 1px solid var(--error);
+}
+.visible {
+  display: block;
+  color: var(--error);
+  font-size: 14px;
+  margin-left: 12px;
+}
 .icon {
   width: 20px;
   margin-right: 12px;
@@ -69,13 +79,7 @@ textarea {
   display: flex;
   flex-direction: column;
 }
-.date {
-  display: flex;
-  border: 1px solid var(--black);
-  border-radius: 4px;
-  max-width: fit-content;
-  padding: 11px 12px;
-}
+
 .time-container {
   display: flex;
   gap: 18px;

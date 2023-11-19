@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'clients', component: ListComponent },
   { path: 'clients/:id', component: ClientProfileComponent },
   { path: 'clients/:id/edit', component: ClientEditComponent },
+  { path: 'clients/add', component: ClientEditComponent },
   { path: 'clients/:id/progress/add', component: ProgressAddComponent },
   { path: 'clients/:id/progress/:progress_id', component: ProgressComponent },
 ];

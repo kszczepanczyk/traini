@@ -13,9 +13,9 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -30,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileModule,
     UserModule,
     TrainingModule,
+    MatNativeDateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -38,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pl' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {
