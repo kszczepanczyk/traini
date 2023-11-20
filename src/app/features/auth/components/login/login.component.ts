@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,24 +16,37 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
+    username: new FormControl(''),
     password: new FormControl(''),
   });
   isSubmitted: boolean = false;
-
-  constructor(private _formBuilder: FormBuilder, private _router: Router) {}
+  error: string = '';
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
   get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }
-  login() {
+  async login() {
     this.isSubmitted = true;
-    this.loginForm.valid ? this._router.navigate(['/home']) : null;
+    if (this.loginForm.valid) {
+      this._authService.login(this.loginForm.value).subscribe(
+        async (_) => {
+          this._router.navigate(['/home']);
+        },
+        async (res) => {
+          this.error = res;
+        }
+      );
+    }
   }
 }

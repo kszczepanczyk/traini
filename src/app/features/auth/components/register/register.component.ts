@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -27,8 +28,13 @@ export class RegisterComponent implements OnInit {
     city: new FormControl(''),
     gender: new FormControl(''),
   });
+  error: string = '';
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group(
@@ -78,6 +84,15 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.isSubmitted = true;
-    this.registerForm.valid ? this._router.navigate(['/login']) : null;
+    if (this.registerForm.valid) {
+      this._authService.register(this.registerForm.value).subscribe(
+        (_) => {
+          this._router.navigate(['/login']);
+        },
+        (err) => {
+          this.error = err;
+        }
+      );
+    }
   }
 }

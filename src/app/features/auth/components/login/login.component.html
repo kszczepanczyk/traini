@@ -8,25 +8,25 @@
   >
 </div>
 <form class="input-wrapper" [formGroup]="loginForm">
-  <label for="email">Email</label>
+  <label for="username">Email</label>
   <div
     class="input-group"
-    [ngClass]="{ 'validation-error': f['email'].errors && isSubmitted }"
+    [ngClass]="{ 'validation-error': f['username'].errors && isSubmitted }"
   >
     <input
       class="input"
-      type="email"
-      formControlName="email"
+      type="username"
+      formControlName="username"
       aria-required="true"
     />
     <span
       class="error-info"
-      *ngIf="f['email'].errors && f['email'].errors['required']"
+      *ngIf="f['username'].errors && f['username'].errors['required']"
       >Email jest wymagany</span
     >
     <span
       class="error-info"
-      *ngIf="f['email'].errors && f['email'].errors['email']"
+      *ngIf="f['username'].errors && f['username'].errors['username']"
       >Email jest nieprawidłowy</span
     >
   </div>

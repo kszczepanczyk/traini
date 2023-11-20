@@ -5,8 +5,9 @@ import { ClientProfileComponent } from './components/client-profile/client-profi
 import { ClientEditComponent } from './components/client-edit/client-edit.component';
 import { ProgressAddComponent } from './components/progress-add/progress-add.component';
 import { ProgressComponent } from './components/progress/progress.component';
+import { authGuard } from '../auth/auth.guard';
 const routes: Routes = [
-  { path: 'clients', component: ListComponent },
+  { path: 'clients', component: ListComponent, canActivate: [authGuard] },
   { path: 'clients/:id', component: ClientProfileComponent },
   { path: 'clients/:id/edit', component: ClientEditComponent },
   { path: 'clients/add', component: ClientEditComponent },

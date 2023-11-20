@@ -54,3 +54,14 @@ body {
     margin-left: 12px;
   }
 }
+
+.error-message-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  background-color: var(--error);
+  text-align: center;
+  color: white;
+}

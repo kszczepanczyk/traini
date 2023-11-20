@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
-const USER_KEY = 'auth-user';
+import { Storage } from '@capacitor/storage';
+import { BehaviorSubject } from 'rxjs';
+const ACCESS_TOKEN_KEY = 'auth-token';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(private router: Router) {}
-
-  clean(): void {
-    window.sessionStorage.clear();
+  isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  currentAccessToken = '';
+  constructor(private router: Router) {
+    this.loadToken();
   }
 
-  public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-  }
-
-  public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
+  async loadToken() {
+    const token = await Storage.get({ key: ACCESS_TOKEN_KEY });
+    if (token && token.value) {
+      this.currentAccessToken = token.value;
+      this.isAuthenticated.next(true);
+    } else {
+      this.isAuthenticated.next(false);
     }
-    return {};
   }
 
   public isLoggedIn(): boolean {
