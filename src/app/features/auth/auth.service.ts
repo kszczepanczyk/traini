@@ -30,29 +30,23 @@ export class AuthService {
   }
 
   login(credentials: { username: string; password: string }): Observable<any> {
-    console.log(this.isAuthenticated);
     return this._http
       .post(environment.apiKey + '/auth/login', {
-        credentials,
+        username: credentials.username,
+        password: credentials.password,
       })
       .pipe(
-        tap((response) => {
-          if (typeof response === 'string') {
-            this.currentAccessToken = response;
+        tap((response: { token: string }) => {
+          this.currentAccessToken = response.token;
+          const storeAccess = Storage.set({
+            key: ACCESS_TOKEN_KEY,
+            value: response.token,
+          });
 
-            const storeAccess = Storage.set({
-              key: ACCESS_TOKEN_KEY,
-              value: response,
-            });
-
-            storeAccess.catch((error) => {
-              return throwError(() => error);
-            });
-          }
-        }),
-        tap((_) => {
+          storeAccess.catch((error) => {
+            return throwError(() => error);
+          });
           this.isAuthenticated.next(true);
-          console.log(this.isAuthenticated);
         }),
         catchError((error: any) => {
           return throwError(() => error);
@@ -66,7 +60,15 @@ export class AuthService {
     });
   }
 
-  logout(): Observable<any> {
-    return this._http.post(environment + 'logout', {});
+  logout() {
+    Storage.remove({ key: ACCESS_TOKEN_KEY })
+      .then(() => {
+        console.log('Token removed from storage');
+        this.isAuthenticated.next(false);
+        this._router.navigate(['/login']);
+      })
+      .catch((error) => {
+        console.error('Error removing token from storage:', error);
+      });
   }
 }
