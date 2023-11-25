@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -21,13 +21,23 @@ export class LoginComponent implements OnInit {
   });
   isSubmitted: boolean = false;
   error: string = '';
+  infoMessage: string = '';
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this._route.queryParams.subscribe((params) => {
+      if (
+        params['registered'] !== undefined &&
+        params['registered'] === 'true'
+      ) {
+        this.infoMessage = 'Rejestracja przebiegła pomyślnie';
+      }
+    });
     this.loginForm = this._formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -41,10 +51,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this._authService.login(this.loginForm.value).subscribe(
         async (_) => {
-          this._router.navigate(['/home']);
+          this._router.navigate(['/']);
         },
         async (res) => {
-          this.error = res;
+          this.error = JSON.stringify(res);
         }
       );
     }

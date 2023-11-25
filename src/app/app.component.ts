@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/pl';
-import { StorageService } from './shared/storage.service';
+import { AuthService } from './features/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,13 @@ import { StorageService } from './shared/storage.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private router: Router, private _storageService: StorageService) {
+  constructor(
+    private router: Router,
+    private _authService: AuthService,
+    private _activeRoute: ActivatedRoute
+  ) {
     dayjs.locale('pl');
+    console.log(_authService.isAuthenticated.value);
   }
   title = 'traini';
 
@@ -20,7 +25,13 @@ export class AppComponent {
   }
 
   isLoggedIn(): boolean {
-    return this._storageService.isLoggedIn();
+    if (
+      this.router.url === '/login' ||
+      this.router.url === '/register' ||
+      this.router.url === '/forgot'
+    )
+      return false;
+    return true;
   }
 
   navigateToSite(route: string) {

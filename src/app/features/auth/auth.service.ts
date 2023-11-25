@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, from, switchMap, tap, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, from, tap, throwError } from 'rxjs';
 import { environment } from 'src/environment';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@capacitor-community/http';
+import { CapacitorHttp } from '@capacitor/core';
 const ACCESS_TOKEN_KEY = 'auth-token';
 
 @Injectable({
@@ -20,50 +22,65 @@ export class AuthService {
   }
 
   async loadToken() {
-    const token = await Storage.get({ key: ACCESS_TOKEN_KEY });
-    if (token && token.value) {
+    const token = await Preferences.get({ key: ACCESS_TOKEN_KEY });
+    if (token && token.value && token.value !== 'undefined') {
       this.currentAccessToken = token.value;
       this.isAuthenticated.next(true);
+      console.log(this.isAuthenticated.value);
     } else {
       this.isAuthenticated.next(false);
     }
   }
 
   login(credentials: { username: string; password: string }): Observable<any> {
-    return this._http
-      .post(environment.apiKey + '/auth/login', {
+    const options = {
+      url: environment.apiKey + '/auth/login',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: {
         username: credentials.username,
         password: credentials.password,
-      })
-      .pipe(
-        tap((response: { token: string }) => {
-          this.currentAccessToken = response.token;
-          const storeAccess = Storage.set({
-            key: ACCESS_TOKEN_KEY,
-            value: response.token,
-          });
+      },
+    };
 
-          storeAccess.catch((error) => {
-            return throwError(() => error);
-          });
-          this.isAuthenticated.next(true);
-        }),
-        catchError((error: any) => {
+    return from(CapacitorHttp.post(options)).pipe(
+      tap((response: HttpResponse) => {
+        if (response.status === 403) {
+          throw new Error('Forbidden');
+        }
+        this.currentAccessToken = response.data.token;
+        const storeAccess = Preferences.set({
+          key: ACCESS_TOKEN_KEY,
+          value: response.data.token,
+        });
+
+        storeAccess.catch((error) => {
           return throwError(() => error);
-        })
-      );
+        });
+        this.isAuthenticated.next(true);
+      }),
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
   }
 
   register(registerFields): Observable<any> {
-    return this._http.post(environment.apiKey + '/auth/register', {
-      registerFields,
-    });
+    delete registerFields.confirmPassword;
+    const options = {
+      url: environment.apiKey + '/auth/register',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: { ...registerFields },
+    };
+    return from(CapacitorHttp.post(options));
   }
 
   logout() {
-    Storage.remove({ key: ACCESS_TOKEN_KEY })
+    Preferences.remove({ key: ACCESS_TOKEN_KEY })
       .then(() => {
-        console.log('Token removed from storage');
         this.isAuthenticated.next(false);
         this._router.navigate(['/login']);
       })

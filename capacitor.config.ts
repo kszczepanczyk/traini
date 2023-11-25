@@ -5,8 +5,13 @@ const config: CapacitorConfig = {
   appName: 'traini',
   webDir: 'dist/traini',
   server: {
-    androidScheme: 'https'
-  }
+    androidScheme: 'http',
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true,
+    },
+  },
 };
 
 export default config;

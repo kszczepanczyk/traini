@@ -3,8 +3,8 @@
   <div class="menu" *ngIf="isLoggedIn()">
     <div
       class="menu-item"
-      [ngClass]="{ 'active-icon': isRouteActive('home') }"
-      (click)="navigateToSite('home')"
+      [ngClass]="{ 'active-icon': isRouteActive('') }"
+      (click)="navigateToSite('')"
     >
       <img src="../assets/home.svg" alt="Home" class="icon" />
       <span class="icon-text">Home</span>

@@ -52,3 +52,11 @@
   padding-bottom: 8px;
   margin: 20px 0 14px 0;
 }
+@mixin message-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+}

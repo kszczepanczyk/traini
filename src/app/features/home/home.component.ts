@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { MockApiService } from 'src/app/mock-api.service';
 import { Training } from 'src/app/models/training.model';
+import { AuthService } from '../auth/auth.service';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +17,12 @@ export class HomeComponent implements OnInit {
   displayedDate: string = 'Dzisiaj ' + dayjs().format('DD.MM.YYYY');
   trainings: Training[] = [];
   numberOfTrainingsToDisplay: number = 3;
-
-  constructor(private _mockService: MockApiService, private _router: Router) {}
+  constructor(
+    private _mockService: MockApiService,
+    private _homeService: HomeService,
+    private _router: Router,
+    private _auth: AuthService
+  ) {}
 
   ngOnInit() {
     this._mockService.getTrainings(dayjs().format('D')).subscribe((res) => {

@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
 @import "./variables";
 @import "./theme";
+@import "./mixins";
 * {
   margin: 0;
   box-sizing: border-box;
@@ -56,12 +57,13 @@ body {
 }
 
 .error-message-box {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 8px;
+  @include message-box;
   background-color: var(--error);
-  text-align: center;
+  color: white;
+}
+
+.success-message-box {
+  @include message-box;
+  background-color: var(--success);
   color: white;
 }

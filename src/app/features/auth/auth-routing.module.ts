@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { unAuth } from './un-auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [unAuth] },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ForgotPasswordComponent },
 ];

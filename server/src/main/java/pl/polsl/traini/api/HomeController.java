@@ -25,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/trainings/{date}")
     public ResponseEntity<List<Training>> getTrainings(@RequestHeader(name="Authorization") String token,
-                                                       @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
+                                                       @PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") Date date) {
         String username = jwtService.getUsername(token);
         log.info("Loading trainings for username = {} for date = {}", username, date);
         return ResponseEntity.ok(homeTrainingService.getTrainings(jwtService.getUsername(token), date));
