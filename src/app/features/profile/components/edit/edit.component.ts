@@ -94,7 +94,7 @@ export class EditComponent {
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;
-      const { tags, localizations, photoUrl, email, id } = this.userData!;
+      const { tags, localizations, photoB64, email, id } = this.userData!;
       this.userData = {
         id,
         name,
@@ -106,7 +106,7 @@ export class EditComponent {
         gender,
         tags,
         localizations,
-        photoUrl,
+        photoB64,
       };
     }
     //TODO
@@ -118,7 +118,7 @@ export class EditComponent {
 
     if (files.length > 0) {
       const _file = URL.createObjectURL(files[0]);
-      this.userData!.photoUrl = _file;
+      this.userData!.photoB64 = _file;
       this.resetInput();
     }
     //TODO

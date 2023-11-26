@@ -6,7 +6,7 @@ export type Trainer = User & {
 
 export type User = {
   id: number;
-  photoUrl: string;
+  photoB64: string;
   name: string;
   surname: string;
   description: string;

@@ -19,6 +19,17 @@ export class AuthService {
   currentAccessToken = '';
   constructor(private _router: Router, private _http: HttpClient) {
     this.loadToken();
+    console.log(this.currentAccessToken);
+  }
+  private initialized = false;
+
+  initialize(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.loadToken().then(() => {
+        this.initialized = true;
+        resolve();
+      });
+    });
   }
 
   async loadToken() {
@@ -26,7 +37,7 @@ export class AuthService {
     if (token && token.value && token.value !== 'undefined') {
       this.currentAccessToken = token.value;
       this.isAuthenticated.next(true);
-      console.log(this.isAuthenticated.value);
+      console.log(this.currentAccessToken);
     } else {
       this.isAuthenticated.next(false);
     }

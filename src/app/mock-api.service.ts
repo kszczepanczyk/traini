@@ -215,7 +215,7 @@ export class MockApiService {
   getUserInfo(): Observable<Trainer> {
     return of({
       id: 1,
-      photoUrl: '../../../assets/person.jpg',
+      photoB64: '../../../assets/person.jpg',
       name: 'Andrzej',
       surname: 'Anonimowy',
       email: 'andrzej.anonimowy@gmail.com',
@@ -241,7 +241,7 @@ export class MockApiService {
     return of([
       {
         id: 0,
-        photoUrl: '../../../assets/person.jpg',
+        photoB64: '../../../assets/person.jpg',
         name: 'Piotrek',
         surname: 'Klientowy',
         email: 'piotrek.klientowy@gmail.com',
@@ -296,7 +296,7 @@ export class MockApiService {
       },
       {
         id: 2,
-        photoUrl: '../../../assets/person.jpg',
+        photoB64: '../../../assets/person.jpg',
         name: 'Ania',
         surname: 'Klientowa',
         email: 'ania.klientowa@gmail.com',

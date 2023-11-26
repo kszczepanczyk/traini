@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,10 +14,16 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthService } from './features/auth/auth.service';
+import { RequestInterceptor } from './shared/helpers/http.interceptor';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function initializeApp(yourService: AuthService) {
+  return () => yourService.initialize();
 }
 
 @NgModule({
@@ -39,7 +45,21 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pl' }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'pl' },
+    AuthService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      multi: true,
+      deps: [AuthService],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

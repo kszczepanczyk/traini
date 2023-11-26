@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.traini.config.JwtService;
+import pl.polsl.traini.model.dto.home.avatar.HomeGetAvatarRsp;
 import pl.polsl.traini.model.training.Training;
 import pl.polsl.traini.service.home.avatar.HomeAvatarService;
 import pl.polsl.traini.service.home.trainings.HomeTrainingService;
@@ -32,7 +33,7 @@ public class HomeController {
     }
 
     @GetMapping("/avatar")
-    public ResponseEntity<String> getAvatar(@RequestHeader(name="Authorization") String token) {
+    public ResponseEntity<HomeGetAvatarRsp> getAvatar(@RequestHeader(name="Authorization") String token) {
         String username = jwtService.getUsername(token);
         log.info("Loading avatar for " + username);
         return ResponseEntity.ok(homeAvatarService.getAvatar(username));

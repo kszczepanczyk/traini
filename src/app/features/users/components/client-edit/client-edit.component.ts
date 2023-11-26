@@ -59,7 +59,7 @@ export class ClientEditComponent {
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;
-      const { photoUrl, email, id } = this.userData!;
+      const { photoB64, email, id } = this.userData!;
       //TODO
     }
     //TODO
@@ -70,7 +70,7 @@ export class ClientEditComponent {
 
     if (files.length > 0) {
       const _file = URL.createObjectURL(files[0]);
-      this.userData!.photoUrl = _file;
+      this.userData!.photoB64 = _file;
       this.resetInput();
     }
     //TODO

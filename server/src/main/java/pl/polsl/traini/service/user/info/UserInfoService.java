@@ -57,6 +57,7 @@ public class UserInfoService {
                 .city(user.getCity())
                 .gender(user.getGender())
                 .trainer("T".equals(registered.getType()))
+                .id(user.getId())
                 .build();
     }
 

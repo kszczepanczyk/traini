@@ -6,7 +6,7 @@
     [routerLink]="['/clients', client.id]"
   >
     <div class="image-wrapper">
-      <img [src]="client.photoUrl" alt="Profile picture" class="image" />
+      <img [src]="client.photoB64" alt="Profile picture" class="image" />
     </div>
     <div class="info">
       <p class="name">{{ client.name }} {{ client.surname }}</p>

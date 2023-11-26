@@ -5,6 +5,7 @@ import { MockApiService } from 'src/app/mock-api.service';
 import { Training } from 'src/app/models/training.model';
 import { AuthService } from '../auth/auth.service';
 import { HomeService } from './home.service';
+import { HomeData } from 'src/app/models/homeData.model';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,25 @@ export class HomeComponent implements OnInit {
   displayedDate: string = 'Dzisiaj ' + dayjs().format('DD.MM.YYYY');
   trainings: Training[] = [];
   numberOfTrainingsToDisplay: number = 3;
+
+  homeData: HomeData;
+  error: string = '';
   constructor(
     private _mockService: MockApiService,
     private _homeService: HomeService,
     private _router: Router,
     private _auth: AuthService
-  ) {}
+  ) {
+    this._homeService.getNameAndAvatar().subscribe(
+      (res) => {
+        console.log(res);
+        this.homeData = res.data;
+      },
+      (_) => {
+        this.error = 'Coś poszło nie tak';
+      }
+    );
+  }
 
   ngOnInit() {
     this._mockService.getTrainings(dayjs().format('D')).subscribe((res) => {

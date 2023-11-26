@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.polsl.traini.database.RegisterRepository;
+import pl.polsl.traini.database.TrainerRepository;
+import pl.polsl.traini.database.TrainingRepository;
 import pl.polsl.traini.database.UserRepository;
 import pl.polsl.traini.model.dto.auth.register.UserRegisterReq;
 import pl.polsl.traini.model.registered.Registered;
+import pl.polsl.traini.model.trainer.Trainer;
 import pl.polsl.traini.model.user.User;
 import pl.polsl.traini.service.seq.SeqGeneratorService;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -22,14 +26,17 @@ public class RegisterService {
     private final PasswordEncoder passwordEncoder;
     private final RegisterRepository registeredRepository;
     private final UserRepository userRepository;
+    private final TrainerRepository trainerRepository;
+
 
 
     @Autowired
-    public RegisterService(SeqGeneratorService generatorService, PasswordEncoder passwordEncoder, RegisterRepository registeredRepository, UserRepository userRepository) {
+    public RegisterService(SeqGeneratorService generatorService, PasswordEncoder passwordEncoder, RegisterRepository registeredRepository, UserRepository userRepository, TrainerRepository trainerRepository) {
         this.generatorService = generatorService;
         this.passwordEncoder = passwordEncoder;
         this.registeredRepository = registeredRepository;
         this.userRepository = userRepository;
+        this.trainerRepository = trainerRepository;
     }
 
     public String register(UserRegisterReq req) {
@@ -48,6 +55,8 @@ public class RegisterService {
             log.warn("Can't add registered!");
             return "Can't add registered!";
         }
+
+        Trainer trainer = trainerRepository.save(createTrainerEntity(registered.getId()));
 
         return "ADDED USER " + user.getName() + " " + user.getSurname();
     }
@@ -77,5 +86,14 @@ public class RegisterService {
                 "T",
                 true
         );
+    }
+
+    private Trainer createTrainerEntity(long registeredId) {
+      return new Trainer(
+        generatorService.generateSeq(Trainer.SEQUENCE_NAME),
+        registeredId,
+        new ArrayList<>(),
+        new ArrayList<>()
+      );
     }
 }

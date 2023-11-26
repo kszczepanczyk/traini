@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoRsp {
+    long id;
     String name;
     String surname;
     String photoB64;

@@ -1,78 +1,86 @@
-<div class="edit-wrapper">
-  <h1 class="title">Profil</h1>
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    aria-label="Button for a profile menu"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="goToEdit()">
-      <mat-icon>edit</mat-icon>
-      <span>Edytuj</span>
+<div class="content" *ngIf="dataLoaded">
+  <div class="edit-wrapper">
+    <h1 class="title">Profil</h1>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Button for a profile menu"
+    >
+      <mat-icon>more_vert</mat-icon>
     </button>
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <span>Wyloguj</span>
-    </button>
-  </mat-menu>
-</div>
-<div class="profile-wrapper">
-  <div class="profile">
-    <img [src]="user.photoUrl" alt="profile picture" class="picture" />
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="goToEdit()">
+        <mat-icon>edit</mat-icon>
+        <span>Edytuj</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Wyloguj</span>
+      </button>
+    </mat-menu>
   </div>
-  <h2 class="name">{{ user.name }} {{ user.surname }}</h2>
-  <span class="title">Trener personalny</span>
-  <div class="tag-wrapper">
-    <div class="tag" *ngFor="let tag of user?.tags">
-      <span>{{ tag.name }}</span>
+  <div class="profile-wrapper">
+    <div class="profile">
+      <img [src]="user.photoB64" alt="profile picture" class="picture" />
     </div>
-  </div>
-  <div class="description">
-    <span>{{ user.description }}</span>
-  </div>
-</div>
-<div class="information-wrapper">
-  <div class="header">
-    <span>Lokalizacje</span>
-  </div>
-  <div class="localizations">
-    <ul class="list">
-      <li class="localization" *ngFor="let place of user?.localizations">
-        {{ place.name }}
-      </li>
-    </ul>
-  </div>
-  <div class="header">
-    <span>Informacje</span>
-  </div>
-  <div class="informations">
-    <div class="list-info">
-      <div class="phone">
-        <img class="image" src="../../../assets/phone.svg" /><span
-          class="info"
-          >{{ user.phone }}</span
-        >
+    <h2 class="name">{{ user.name }} {{ user.surname }}</h2>
+    <span class="title">Trener personalny</span>
+    <div class="tag-wrapper">
+      <div class="tag-added" *ngIf="user.tags.length != 0">
+        <div class="tag" *ngFor="let tag of user?.tags">
+          <span>{{ tag.name }}</span>
+        </div>
       </div>
-      <div class="email">
-        <img class="image" src="../../../assets/email.svg" /><span
-          class="info"
-          >{{ user.email }}</span
-        >
-      </div>
-      <div class="city">
-        <img class="image" src="../../../assets/localization.svg" /><span
-          class="info"
-          >{{ user.city }}</span
-        >
-      </div>
-      <div class="gender" *ngIf="!!user.gender">
-        <img class="image" src="../../../assets/heart.svg" /><span
-          class="info"
-          >{{ user.gender | translate }}</span
-        >
+      <div class="tag-none" *ngIf="user.tags.length == 0">
+        <span class="tag-add">Dodaj tagi</span>
       </div>
     </div>
+    <div class="description">
+      <span>{{ user.description }}</span>
+    </div>
+  </div>
+  <div class="information-wrapper">
+    <div class="header">
+      <span>Lokalizacje</span>
+    </div>
+    <div class="localizations">
+      <ul class="list">
+        <li class="localization" *ngFor="let place of user?.localizations">
+          {{ place.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="header">
+      <span>Informacje</span>
+    </div>
+    <div class="informations">
+      <div class="list-info">
+        <div class="phone">
+          <img class="image" src="../../../assets/phone.svg" /><span
+            class="info"
+            >{{ user.phone }}</span
+          >
+        </div>
+        <div class="email">
+          <img class="image" src="../../../assets/email.svg" /><span
+            class="info"
+            >{{ user.email }}</span
+          >
+        </div>
+        <div class="city">
+          <img class="image" src="../../../assets/localization.svg" /><span
+            class="info"
+            >{{ user.city }}</span
+          >
+        </div>
+        <div class="gender" *ngIf="!!user.gender">
+          <img class="image" src="../../../assets/heart.svg" /><span
+            class="info"
+            >{{ user.gender | translate }}</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<div class="content-error" *ngIf="!dataLoaded"></div>

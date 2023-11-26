@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.polsl.traini.database.RegisterRepository;
 import pl.polsl.traini.database.UserRepository;
+import pl.polsl.traini.model.dto.home.avatar.HomeGetAvatarRsp;
+import pl.polsl.traini.model.user.User;
 
 @Service
 public class HomeAvatarService {
@@ -17,12 +19,15 @@ public class HomeAvatarService {
         this.registerRepository = registerRepository;
     }
 
-    public String getAvatar (String username) {
-        return userRepository.findById(
+    public HomeGetAvatarRsp getAvatar (String username) {
+        User user = userRepository.findById(
                     registerRepository.findByEmail(username).orElseThrow(
                         () -> new UsernameNotFoundException("Cant find registred by email = " + username)
-                    ).getId())
-                .orElseThrow(() -> new UsernameNotFoundException("Cant find user by email = " + username))
-            .getPhoto();
+                    ).getUserId())
+                .orElseThrow(() -> new UsernameNotFoundException("Cant find user by email = " + username));
+        return HomeGetAvatarRsp.builder()
+          .name(user.getName())
+          .photo(user.getPhoto())
+          .build();
     }
 }

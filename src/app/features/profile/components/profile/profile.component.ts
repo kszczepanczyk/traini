@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/features/auth/auth.service';
 import { MockApiService } from 'src/app/mock-api.service';
 import { Trainer } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
+import { ProfileService } from '../../profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,16 +12,24 @@ import { DataService } from 'src/app/shared/data.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user!: Trainer;
+  user: Trainer;
+  dataLoaded: boolean = false;
   constructor(
-    private _api_service: MockApiService,
+    private _profileService: ProfileService,
     private _dataService: DataService,
     private _router: Router,
     private _authService: AuthService
   ) {
-    this._api_service.getUserInfo().subscribe((res) => {
-      this.user = res;
-    });
+    this._profileService.getProfile().subscribe(
+      (res) => {
+        this.dataLoaded = true;
+        this.user = res.data;
+        console.log(this.user.tags.length);
+      },
+      (_) => {
+        this.dataLoaded = false;
+      }
+    );
   }
 
   ngOnInit() {}
