@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MockApiService } from 'src/app/mock-api.service';
 import { Client } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -11,15 +10,11 @@ import { DataService } from 'src/app/shared/data.service';
 })
 export class ListComponent implements OnInit {
   clients: Client[] = [];
-  constructor(
-    private _apiService: MockApiService,
-    private _dataService: DataService,
-    private _router: Router
-  ) {}
+  constructor(private _dataService: DataService, private _router: Router) {}
 
   ngOnInit() {
-    this._apiService.getClients().subscribe((res) => {
-      this.clients = res;
-    });
+    // this._apiService.getClients().subscribe((res) => {
+    //   this.clients = res;
+    // });
   }
 }

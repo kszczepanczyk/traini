@@ -8,7 +8,6 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MockApiService } from 'src/app/mock-api.service';
 @Component({
   selector: 'app-client-edit',
   templateUrl: './client-edit.component.html',
@@ -23,19 +22,15 @@ export class ClientEditComponent {
   userData: Client | null = null;
   isTagModalVisible: boolean = false;
   isLocalizationModalVisible: boolean = false;
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private _api_service: MockApiService
-  ) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params) => {
       this.clientId = +params.get('id')!;
     });
-    this._api_service.getClients().subscribe((res) => {
-      this.userData = res.find((client) => {
-        return this.clientId === client.id;
-      })!;
-    });
+    // this._api_service.getClients().subscribe((res) => {
+    //   this.userData = res.find((client) => {
+    //     return this.clientId === client.id;
+    //   })!;
+    // });
     this.userForm = this.formBuilder.group({
       name: new FormControl(this.userData?.name, Validators.required),
       surname: new FormControl(this.userData?.surname, Validators.required),

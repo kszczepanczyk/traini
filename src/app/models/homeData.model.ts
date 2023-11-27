@@ -1,4 +1,4 @@
 export type HomeData = {
   name: string;
-  photo: string;
+  photoB64: string;
 };

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
-  declarations: [],
-  exports: [CommonModule, TranslateModule],
+  declarations: [SpinnerComponent],
+  imports: [CommonModule],
+  exports: [CommonModule, TranslateModule, SpinnerComponent],
 })
 export class SharedModule {}

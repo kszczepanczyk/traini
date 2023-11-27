@@ -16,5 +16,6 @@ public class GetTrainingRsp {
     TrainingDate trainingDate;
     String description;
     String location;
+    String trainingName;
     boolean cycled;
 }

@@ -19,7 +19,6 @@ export class AuthService {
   currentAccessToken = '';
   constructor(private _router: Router, private _http: HttpClient) {
     this.loadToken();
-    console.log(this.currentAccessToken);
   }
   private initialized = false;
 
@@ -37,7 +36,6 @@ export class AuthService {
     if (token && token.value && token.value !== 'undefined') {
       this.currentAccessToken = token.value;
       this.isAuthenticated.next(true);
-      console.log(this.currentAccessToken);
     } else {
       this.isAuthenticated.next(false);
     }

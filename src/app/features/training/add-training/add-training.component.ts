@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
-import { MockApiService } from 'src/app/mock-api.service';
 import { Client } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -27,12 +26,8 @@ export class AddTrainingComponent {
   constructor(
     private formBuilder: FormBuilder,
     private data_service: DataService,
-    private api_service: MockApiService,
     private _router: Router
   ) {
-    this.api_service.getClients().subscribe((res) => {
-      this.clients = res;
-    });
     this.clientId = this.data_service.getData();
     this.trainingForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),

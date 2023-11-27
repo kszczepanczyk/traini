@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/features/auth/auth.service';
-import { MockApiService } from 'src/app/mock-api.service';
 import { Trainer } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 import { ProfileService } from '../../profile.service';

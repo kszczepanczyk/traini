@@ -9,7 +9,6 @@ import { environment } from 'src/environment';
 })
 export class ProfileService {
   token: string = '';
-  photo: string = '';
   constructor(private _authService: AuthService) {
     this.token = this._authService.currentAccessToken;
   }

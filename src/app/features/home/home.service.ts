@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, from, tap } from 'rxjs';
 import { CapacitorHttp } from '@capacitor/core';
 import { environment } from 'src/environment';
 import { AuthService } from '../auth/auth.service';
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,14 @@ export class HomeService {
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
       },
     };
-    return from(CapacitorHttp.get(options));
+    return from(CapacitorHttp.get(options)).pipe(
+      tap((res) => {
+        res.data.forEach((tr) => {
+          tr.trainingDate.start = dayjs(tr.trainingDate.start).format('HH:mm');
+          tr.trainingDate.end = dayjs(tr.trainingDate.end).format('HH:mm');
+        });
+      })
+    );
   }
 
   getNameAndAvatar(): Observable<any> {
@@ -33,6 +41,12 @@ export class HomeService {
       },
     };
 
-    return from(CapacitorHttp.get(options));
+    return from(CapacitorHttp.get(options)).pipe(
+      tap((res) => {
+        res.data.photoB64 = res.data.photoB64
+          ? res.data.photoB64
+          : '../../../assets/default-user.jpg';
+      })
+    );
   }
 }

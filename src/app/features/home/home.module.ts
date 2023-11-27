@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RequestInterceptor } from 'src/app/shared/helpers/http.interceptor';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [SharedModule],
+  imports: [SharedModule, MatButtonModule, MatIconModule],
 })
 export class HomeModule {}

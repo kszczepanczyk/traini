@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.traini.config.JwtService;
 import pl.polsl.traini.model.dto.home.avatar.HomeGetAvatarRsp;
+import pl.polsl.traini.model.dto.training.get.GetTrainingRsp;
 import pl.polsl.traini.model.training.Training;
 import pl.polsl.traini.service.home.avatar.HomeAvatarService;
 import pl.polsl.traini.service.home.trainings.HomeTrainingService;
@@ -25,8 +26,8 @@ public class HomeController {
     private final HomeAvatarService homeAvatarService;
 
     @GetMapping("/trainings/{date}")
-    public ResponseEntity<List<Training>> getTrainings(@RequestHeader(name="Authorization") String token,
-                                                       @PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") Date date) {
+    public ResponseEntity<List<GetTrainingRsp>> getTrainings(@RequestHeader(name="Authorization") String token,
+                                                             @PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") Date date) {
         String username = jwtService.getUsername(token);
         log.info("Loading trainings for username = {} for date = {}", username, date);
         return ResponseEntity.ok(homeTrainingService.getTrainings(jwtService.getUsername(token), date));

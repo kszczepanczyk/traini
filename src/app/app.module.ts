@@ -17,7 +17,6 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthService } from './features/auth/auth.service';
-import { RequestInterceptor } from './shared/helpers/http.interceptor';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -46,11 +45,6 @@ export function initializeApp(yourService: AuthService) {
     }),
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RequestInterceptor,
-      multi: true,
-    },
     { provide: MAT_DATE_LOCALE, useValue: 'pl' },
     AuthService,
     {

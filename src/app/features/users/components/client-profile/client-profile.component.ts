@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockApiService } from 'src/app/mock-api.service';
 import { Client } from 'src/app/models/user.model';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -15,7 +14,6 @@ export class ClientProfileComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private router: Router,
-    private _api_service: MockApiService,
     private data_service: DataService
   ) {
     this._activatedRoute.paramMap.subscribe((params) => {
@@ -23,11 +21,11 @@ export class ClientProfileComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this._api_service.getClients().subscribe((res) => {
-      this.user = res.find((client) => {
-        return this.clientId === client.id;
-      })!;
-    });
+    // this._api_service.getClients().subscribe((res) => {
+    //   this.user = res.find((client) => {
+    //     return this.clientId === client.id;
+    //   })!;
+    // });
   }
   openAddTraining() {
     this.data_service.setData(this.clientId);
