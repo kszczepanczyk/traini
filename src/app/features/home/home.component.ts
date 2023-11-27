@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
         (res) => {
           this.trainings = res.data;
           this.trainingLoaded = true;
-          console.log(this.trainings);
         },
         (_) => {
           this.error = 'Błąd przy ładowaniu treningu';

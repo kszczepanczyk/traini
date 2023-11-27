@@ -41,9 +41,14 @@
           <span>{{ training.trainingDate.end }}</span>
         </div>
         <div class="training" [class.closest]="training === trainings[0]">
-          <p class="client">{{ training.name }} {{ training.surname }}</p>
-          <span class="secondary-info">{{ training.trainingName }}</span>
-          <span class="secondary-info">{{ training.location }}</span>
+          <div class="training-info-wrapper">
+            <p class="client">{{ training.name }} {{ training.surname }}</p>
+            <span class="secondary-info">{{ training.trainingName }}</span>
+            <span class="secondary-info">{{ training.location }}</span>
+          </div>
+          <div class="training-cycled" *ngIf="training.cycled">
+            <mat-icon>autorenew</mat-icon>
+          </div>
         </div>
       </div>
     </div>
@@ -53,6 +58,13 @@
         alt="Nie znaleziono"
         class="empty-picture"
       />
+      <div class="empty-text">
+        <span class="empty-text--normal"
+          >Nie masz jeszcze żadnego treningu w tym dniu</span
+        >
+        <br />
+        <a class="link" (click)="navigateToAddTraining()">Dodaj tutaj</a>
+      </div>
     </div>
   </div>
   <div class="load-more-wrapper">
@@ -63,13 +75,13 @@
       <span class="load-more-text" (click)="loadMore()"> Więcej </span>
     </div>
   </div>
-  <button
-    mat-fab
-    aria-label="Guzik dodawania treningu"
-    class="button-add"
-    (click)="navigateToAddTraining()"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
 </div>
-<div class="content-error" *ngIf="error && dataLoaded"></div>
+<button
+  mat-fab
+  aria-label="Guzik dodawania treningu"
+  class="button-add"
+  (click)="navigateToAddTraining()"
+>
+  <mat-icon>add</mat-icon>
+</button>
+<div class="content-error" *ngIf="error && dataLoaded">error</div>
