@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
       (res) => {
         this.dataLoaded = true;
         this.user = res.data;
-        console.log(this.user.tags.length);
       },
       (_) => {
         this.dataLoaded = false;

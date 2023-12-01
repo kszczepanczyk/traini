@@ -17,6 +17,7 @@ public class User {
     public static final String SEQUENCE_NAME = "user_seq";
 
     long id;
+    long trainerId;
     String name;
     String surname;
     String phone;

@@ -1,3 +1,4 @@
+<app-spinner [dataLoaded]="dataLoaded"></app-spinner>
 <div class="content" *ngIf="dataLoaded">
   <div class="edit-wrapper">
     <h1 class="title">Profil</h1>
@@ -32,11 +33,12 @@
         </div>
       </div>
       <div class="tag-none" *ngIf="user.tags.length == 0">
-        <span class="tag-add">Dodaj tagi</span>
+        <span class="tag-add">Brak tagów</span>
       </div>
     </div>
     <div class="description">
-      <span>{{ user.description }}</span>
+      <span *ngIf="user.description">{{ user.description }}</span>
+      <span *ngIf="!user.description">Krótki opis o sobie...</span>
     </div>
   </div>
   <div class="information-wrapper">
@@ -44,40 +46,52 @@
       <span>Lokalizacje</span>
     </div>
     <div class="localizations">
-      <ul class="list">
-        <li class="localization" *ngFor="let place of user?.localizations">
+      <ul class="list" *ngIf="user.localizations">
+        <li class="localization" *ngFor="let place of user.localizations">
           {{ place.name }}
         </li>
       </ul>
+      <div class="no-localizations">
+        <span class="no-localization--text"
+          >Nie masz jeszcze dodanych lokalizacji. Są one potrzebne do dodania
+          traningu. </span
+        ><a class="no-licalization--link" (click)="goToEdit()">Dodaj tutaj</a>
+      </div>
     </div>
     <div class="header">
       <span>Informacje</span>
     </div>
     <div class="informations">
       <div class="list-info">
-        <div class="phone">
-          <img class="image" src="../../../assets/phone.svg" /><span
-            class="info"
-            >{{ user.phone }}</span
-          >
-        </div>
         <div class="email">
           <img class="image" src="../../../assets/email.svg" /><span
             class="info"
             >{{ user.email }}</span
           >
         </div>
+        <div class="phone">
+          <img class="image" src="../../../assets/phone.svg" /><span
+            *ngIf="user.phone"
+            class="info"
+            >{{ user.phone }}</span
+          >
+          <span *ngIf="!user.phone" class="info">Brak danych</span>
+        </div>
+
         <div class="city">
           <img class="image" src="../../../assets/localization.svg" /><span
             class="info"
             >{{ user.city }}</span
           >
+          <span *ngIf="!user.city" class="info">Brak danych</span>
         </div>
-        <div class="gender" *ngIf="!!user.gender">
+        <div class="gender">
           <img class="image" src="../../../assets/heart.svg" /><span
             class="info"
+            *ngIf="!!user.gender"
             >{{ user.gender | translate }}</span
           >
+          <span *ngIf="!user.gender" class="info">Brak danych</span>
         </div>
       </div>
     </div>

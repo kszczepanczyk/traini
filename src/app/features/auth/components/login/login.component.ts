@@ -46,14 +46,14 @@ export class LoginComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }
-  async login() {
+  login() {
     this.isSubmitted = true;
     if (this.loginForm.valid) {
       this._authService.login(this.loginForm.value).subscribe(
-        async (_) => {
+        (_) => {
           this._router.navigate(['/']);
         },
-        async (res) => {
+        (res) => {
           this.error = JSON.stringify(res);
         }
       );

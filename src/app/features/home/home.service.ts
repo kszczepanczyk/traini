@@ -11,10 +11,11 @@ import * as dayjs from 'dayjs';
 export class HomeService {
   token: string = '';
   constructor(private _authService: AuthService) {
-    this.token = this._authService.currentAccessToken;
+    this.token = this._authService.getAccessToken();
   }
 
   getTrainingsByDate(date): Observable<any> {
+    this.token = this._authService.getAccessToken();
     const options = {
       url: environment.apiKey + '/home/trainings/' + date,
       headers: {
@@ -33,6 +34,7 @@ export class HomeService {
   }
 
   getNameAndAvatar(): Observable<any> {
+    this.token = this._authService.getAccessToken();
     let options = {
       url: environment.apiKey + '/home/avatar',
       headers: {
@@ -40,7 +42,6 @@ export class HomeService {
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
       },
     };
-
     return from(CapacitorHttp.get(options)).pipe(
       tap((res) => {
         res.data.photoB64 = res.data.photoB64

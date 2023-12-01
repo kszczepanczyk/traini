@@ -1,19 +1,43 @@
-<h1 class="title">Lista klientów</h1>
-<div class="list">
-  <div
-    class="client"
-    *ngFor="let client of clients"
-    [routerLink]="['/clients', client.id]"
-  >
-    <div class="image-wrapper">
-      <img [src]="client.photoB64" alt="Profile picture" class="image" />
-    </div>
-    <div class="info">
-      <p class="name">{{ client.name }} {{ client.surname }}</p>
-      <div class="contact-wrapper">
-        <img src="../../../../../assets/phone.svg" alt="Phone" class="icon" />
-        <p class="phone">{{ client.phone }}</p>
+<app-spinner [dataLoaded]="listLoaded"></app-spinner>
+<div class="content" *ngIf="!error && listLoaded">
+  <h1 class="title">Lista klientów</h1>
+  <div class="list">
+    <div
+      class="client"
+      *ngFor="let client of clients"
+      [routerLink]="['/clients', client.id]"
+    >
+      <div class="image-wrapper">
+        <img [src]="client.photo" alt="Profile picture" class="image" />
+      </div>
+      <div class="info">
+        <p class="name">{{ client.name }} {{ client.surname }}</p>
+        <div class="contact-wrapper">
+          <img src="../../../../../assets/phone.svg" alt="Phone" class="icon" />
+          <p class="phone">{{ client.phone }}</p>
+        </div>
       </div>
     </div>
   </div>
+  <div class="empty-state" *ngIf="listLoaded && clients.length == 0">
+    <img
+      src="../../../assets/not-found.png"
+      alt="Nie znaleziono"
+      class="empty-picture"
+    />
+    <div class="empty-text">
+      <span class="empty-text--normal">Nie masz jeszcze żadnego clienta</span>
+      <br />
+      <a class="link" (click)="navigateToAddClient()">Dodaj tutaj</a>
+    </div>
+  </div>
 </div>
+<button
+  mat-fab
+  aria-label="Guzik dodawania treningu"
+  class="button-add"
+  (click)="navigateToAddClient()"
+>
+  <mat-icon>add</mat-icon>
+</button>
+<div class="content-error" *ngIf="error && listLoaded">error</div>

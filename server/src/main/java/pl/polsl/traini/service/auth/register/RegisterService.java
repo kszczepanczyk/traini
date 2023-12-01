@@ -65,6 +65,7 @@ public class RegisterService {
     private User createUserEntity(UserRegisterReq req) {
         return new User(
                 generatorService.generateSeq(User.SEQUENCE_NAME),
+                0,
                 req.getName(),
                 req.getSurname(),
                 req.getPhone(),

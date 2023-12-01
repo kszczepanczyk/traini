@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Client } from 'src/app/models/user.model';
-import { DataService } from 'src/app/shared/data.service';
+import { UserListResp } from 'src/app/models/user.model';
+import { UsersService } from '../../users.service';
 
 @Component({
   selector: 'app-list',
@@ -9,12 +9,25 @@ import { DataService } from 'src/app/shared/data.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  clients: Client[] = [];
-  constructor(private _dataService: DataService, private _router: Router) {}
+  clients: UserListResp[] = [];
+  listLoaded: boolean = false;
+  error: string = '';
+  constructor(private _router: Router, private _userService: UsersService) {}
 
   ngOnInit() {
-    // this._apiService.getClients().subscribe((res) => {
-    //   this.clients = res;
-    // });
+    this._userService.getUserList().subscribe(
+      (res) => {
+        this.clients = res.data;
+        this.listLoaded = true;
+      },
+      (_) => {
+        this.error = 'Coś poszło nie tak';
+        this.listLoaded = true;
+      }
+    );
+  }
+
+  navigateToAddClient() {
+    this._router.navigate(['/clients/add']);
   }
 }

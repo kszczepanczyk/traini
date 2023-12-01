@@ -1,24 +1,39 @@
 <div class="edit-wrapper">
-  <h1 class="title">Edycja klienta</h1>
+  <h1 class="title" *ngIf="clientId">Edycja klienta</h1>
+  <h1 class="title" *ngIf="!clientId">Dodawanie klienta</h1>
   <mat-icon [routerLink]="['/clients', clientId]">close</mat-icon>
 </div>
-<div class="profile-wrapper">
-  <div class="profile">
-    <img [src]="userData?.photoB64" alt="profile picture" class="picture" />
-  </div>
-  <label for="avatar-input-file">
-    <div class="icon-wrapper">
-      <input
-        type="file"
-        id="avatar-input-file"
-        accept="image/*"
-        (change)="onFileChange($event)"
-      />
-      <mat-icon class="edit">edit</mat-icon>
-    </div>
-  </label>
-</div>
 <form class="input-wrapper" [formGroup]="userForm">
+  <div class="profile-wrapper">
+    <div class="profile">
+      <img
+        [src]="userData?.photo"
+        alt="profile picture"
+        class="picture"
+        *ngIf="userData.photo"
+      />
+      <img
+        src="../../../assets/default-user.jpg"
+        alt="profile picture"
+        class="picture"
+        *ngIf="!userData.photo"
+      />
+    </div>
+
+    <label for="avatar-input-file">
+      <div class="icon-wrapper">
+        <input
+          type="file"
+          id="avatar-input-file"
+          accept="image/*"
+          formControlName="photo"
+          (change)="onFileChange($event)"
+        />
+        <mat-icon class="edit">edit</mat-icon>
+      </div>
+    </label>
+  </div>
+
   <label for="name">Imię <span class="asterisk">*</span></label>
   <div
     class="input-group"
@@ -70,6 +85,7 @@
     id="phone"
     placeholder="np. 594 490 240"
     formControlName="phone"
+    mask="000 000 000"
   />
   <label for="city">Miasto</label>
   <input

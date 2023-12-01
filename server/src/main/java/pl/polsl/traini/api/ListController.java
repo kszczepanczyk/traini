@@ -30,9 +30,10 @@ public class ListController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addClient(@RequestBody AddClientReq req) {
+    public ResponseEntity<Void> addClient(@RequestBody AddClientReq req,@RequestHeader(name="Authorization") String token) {
+        String username = jwtService.getUsername(token);
         log.info("Add client for trainer");
-        User user = addClientService.addUser(req);
+        User user = addClientService.addUser(req,username);
         return user != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 }

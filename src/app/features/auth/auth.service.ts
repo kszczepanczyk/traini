@@ -52,7 +52,6 @@ export class AuthService {
         password: credentials.password,
       },
     };
-
     return from(CapacitorHttp.post(options)).pipe(
       tap((response: HttpResponse) => {
         if (response.status === 403) {
@@ -91,10 +90,15 @@ export class AuthService {
     Preferences.remove({ key: ACCESS_TOKEN_KEY })
       .then(() => {
         this.isAuthenticated.next(false);
+        this.currentAccessToken = '';
         this._router.navigate(['/login']);
       })
       .catch((error) => {
         console.error('Error removing token from storage:', error);
       });
+  }
+
+  getAccessToken() {
+    return this.currentAccessToken;
   }
 }

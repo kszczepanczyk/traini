@@ -115,7 +115,7 @@
       [color]="'primary'"
       formControlName="cyclic"
       (change)="onCheckboxChange()"
-      >Czy jest to trening cykliczny?</mat-checkbox
+      >Trening cykliczny</mat-checkbox
     >
     <div class="select-container" *ngIf="f['cyclic'].value">
       <label for="cyclic-day"
@@ -150,9 +150,9 @@
       (change)="onClientChange()"
     >
       <option *ngFor="let client of clients" [value]="client.id">
-        {{ client.name }}
+        {{ client.name }} {{ client.surname }}
       </option>
-      <option value="inne">Inne</option>
+      <option value="inne">Dodaj klienta</option>
     </select>
   </div>
   <label for="details">Szczegóły treningu</label>
@@ -174,7 +174,7 @@
   />
 
   <button class="primary" type="submit" (click)="onSubmitTraining()">
-    Zapisz
+    Dodaj trening
   </button>
   <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
 </form>

@@ -16,7 +16,6 @@ export class AppComponent {
     private _activeRoute: ActivatedRoute
   ) {
     dayjs.locale('pl');
-    console.log(_authService.isAuthenticated.value);
   }
   title = 'traini';
 

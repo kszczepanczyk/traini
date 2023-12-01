@@ -13,6 +13,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     TrainingRoutingModule,
-    CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,

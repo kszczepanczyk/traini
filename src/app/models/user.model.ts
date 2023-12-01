@@ -21,7 +21,7 @@ export type SimpleData = {
   name: string;
 };
 
-export type Client = User & {
+export type Client = UserListResp & {
   trainings: Training[];
   progresses: Progress[];
 };
@@ -32,4 +32,15 @@ export type Progress = {
   value: number;
   unit: string;
   tendency: boolean;
+};
+
+export type UserListResp = {
+  id: number | null;
+  name: string;
+  surname: string;
+  phone: string;
+  photo: string;
+  city: string;
+  description: string;
+  gender: string;
 };

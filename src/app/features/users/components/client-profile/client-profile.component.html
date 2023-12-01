@@ -1,110 +1,123 @@
-<div class="edit-wrapper">
-  <h1>Klient</h1>
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    aria-label="Button for a profile menu"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="goToEdit()">
-      <mat-icon>edit</mat-icon>
-      <span>Edytuj</span>
-    </button>
-    <button mat-menu-item (click)="deleteClient()">
-      <mat-icon>delete</mat-icon>
-      <span>Usuń</span>
-    </button>
-  </mat-menu>
-</div>
-<div class="profile-wrapper">
-  <div class="profile">
-    <img [src]="user.photoB64" alt="profile picture" class="picture" />
-  </div>
-  <h2 class="name">{{ user.name }} {{ user.surname }}</h2>
-  <span class="title">ID: {{ user.id }}</span>
-  <div class="description">
-    <span>{{ user.description }}</span>
-  </div>
-</div>
-<div class="information-wrapper">
-  <div class="header">
-    <span>Informacje</span>
-  </div>
-  <div class="informations">
-    <div class="list-info">
-      <div class="phone">
-        <img class="image" src="../../../assets/phone.svg" /><span
-          class="info"
-          >{{ user.phone }}</span
-        >
-      </div>
-      <div class="email">
-        <img class="image" src="../../../assets/email.svg" /><span
-          class="info"
-          >{{ user.email }}</span
-        >
-      </div>
-      <div class="city">
-        <img class="image" src="../../../assets/localization.svg" /><span
-          class="info"
-          >{{ user.city }}</span
-        >
-      </div>
-      <div class="gender">
-        <img class="image" src="../../../assets/heart.svg" /><span
-          class="info"
-          >{{ user.gender | translate }}</span
-        >
-      </div>
-    </div>
-  </div>
-  <div class="date-wrapper">
-    <span class="date-text">Treningi</span>
-    <div class="add-button" (click)="openAddTraining()">
-      <img
-        src="../../../../../assets/x_small.svg"
-        alt="X"
-        class="add-button-icon"
-      />
-    </div>
-  </div>
-  <div class="training" *ngFor="let training of user.trainings">
-    <div class="date-time">
-      <p class="date">{{ training.date }}</p>
-      <p class="time">{{ training.timeFrom }} - {{ training.timeTo }}</p>
-    </div>
-    <div class="info">
-      <p class="title">{{ training.type }}</p>
-      <p class="place">{{ training.place }}</p>
-    </div>
-  </div>
-  <div class="load-more">
-    <span class="load-more-text"> Więcej </span>
-  </div>
-  <div class="date-wrapper">
-    <span class="date-text">Postępy</span>
-    <div class="add-button" (click)="openAddProgress()">
-      <img
-        src="../../../../../assets/x_small.svg"
-        alt="X"
-        class="add-button-icon"
-      />
-    </div>
-  </div>
-  <div class="progresses" *ngIf="user.progresses">
-    <div class="progress" *ngFor="let progress of user.progresses">
-      <span class="name">{{ progress.name }}</span
-      ><span class="amount">{{ progress.value }}{{ progress.unit }}</span>
-    </div>
-  </div>
-  <div class="progresses" *ngIf="!user.progresses">
-    <span class="progress-text"
-      >Ten klient nie ma jeszcze zapisanego postępu
-    </span>
-    <a class="progress-link" (click)="openAddProgress()"
-      >Dodaj jego pierwszy!</a
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="content" *ngIf="!error && isLoaded">
+  <div class="edit-wrapper">
+    <h1>Klient</h1>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Button for a profile menu"
     >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="goToEdit()">
+        <mat-icon>edit</mat-icon>
+        <span>Edytuj</span>
+      </button>
+      <button mat-menu-item (click)="deleteClient()">
+        <mat-icon>delete</mat-icon>
+        <span>Usuń</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="profile-wrapper">
+    <div class="profile">
+      <img [src]="user.photo" alt="profile picture" class="picture" />
+    </div>
+    <h2 class="name">{{ user.name }} {{ user.surname }}</h2>
+    <span class="title">ID: {{ user.id }}</span>
+    <div class="description">
+      <span *ngIf="user.description">{{ user.description }}</span>
+      <span *ngIf="!user.description">Krótki opis klienta...</span>
+    </div>
+  </div>
+  <div class="information-wrapper">
+    <div class="header">
+      <span>Informacje</span>
+    </div>
+    <div class="informations">
+      <div class="list-info">
+        <div class="phone">
+          <img class="image" src="../../../assets/phone.svg" /><span
+            *ngIf="user.phone"
+            class="info"
+            >{{ user.phone | mask : "000 000 000" }}</span
+          >
+          <span *ngIf="!user.phone" class="info">Brak danych</span>
+        </div>
+        <div class="city">
+          <img class="image" src="../../../assets/localization.svg" /><span
+            class="info"
+            >{{ user.city }}</span
+          >
+        </div>
+
+        <div class="gender">
+          <img class="image" src="../../../assets/heart.svg" /><span
+            class="info"
+            *ngIf="!!user.gender"
+            >{{ user.gender | translate }}</span
+          >
+          <span *ngIf="!user.gender" class="info">Brak danych</span>
+        </div>
+      </div>
+    </div>
+    <div class="date-wrapper">
+      <span class="date-text">Treningi</span>
+      <div class="add-button" (click)="openAddTraining()">
+        <img
+          src="../../../../../assets/x_small.svg"
+          alt="X"
+          class="add-button-icon"
+        />
+      </div>
+    </div>
+    <div class="training-wrapper" *ngIf="user.trainings">
+      <div class="training" *ngFor="let training of user.trainings">
+        <div class="date-time">
+          <p class="date">{{ training.date }}</p>
+          <p class="time">{{ training.timeFrom }} - {{ training.timeTo }}</p>
+        </div>
+        <div class="info">
+          <p class="title">{{ training.type }}</p>
+          <p class="place">{{ training.place }}</p>
+        </div>
+      </div>
+      <div class="load-more">
+        <span class="load-more-text"> Więcej </span>
+      </div>
+    </div>
+    <div class="training-empty" *ngIf="!user.trainings">
+      <span class="progress-text"
+        >Ten klient nie ma jeszcze żadnego treningu </span
+      ><br />
+      <a class="progress-link" (click)="openAddTraining()"
+        >Dodaj jego pierwszy!</a
+      >
+    </div>
+    <div class="date-wrapper">
+      <span class="date-text">Postępy</span>
+      <div class="add-button" (click)="openAddProgress()">
+        <img
+          src="../../../../../assets/x_small.svg"
+          alt="X"
+          class="add-button-icon"
+        />
+      </div>
+    </div>
+    <div class="progresses" *ngIf="user.progresses">
+      <div class="progress" *ngFor="let progress of user.progresses">
+        <span class="name">{{ progress.name }}</span
+        ><span class="amount">{{ progress.value }}{{ progress.unit }}</span>
+      </div>
+    </div>
+    <div class="progresses" *ngIf="!user.progresses">
+      <span class="progress-text"
+        >Ten klient nie ma jeszcze zapisanego postępu
+      </span>
+      <a class="progress-link" (click)="openAddProgress()"
+        >Dodaj jego pierwszy!</a
+      >
+    </div>
   </div>
 </div>

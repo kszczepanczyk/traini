@@ -10,9 +10,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProgressComponent } from './components/progress/progress.component';
 import { ProgressAddComponent } from './components/progress-add/progress-add.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
-  declarations: [ListComponent, ClientProfileComponent, ClientEditComponent, ProgressComponent, ProgressAddComponent],
+  declarations: [
+    ListComponent,
+    ClientProfileComponent,
+    ClientEditComponent,
+    ProgressComponent,
+    ProgressAddComponent,
+  ],
   imports: [
     UserRoutingModule,
     ReactiveFormsModule,
@@ -20,8 +27,10 @@ import { ProgressAddComponent } from './components/progress-add/progress-add.com
     MatIconModule,
     MatButtonModule,
     SharedModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [],
+  providers: [provideNgxMask()],
 })
 export class UserModule {
   public static forRoot(): ModuleWithProviders<UserModule> {

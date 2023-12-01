@@ -30,19 +30,11 @@ public class GetClientListService {
     }
 
     public List<User> getUserList (String username) {
-        List<Training> trainings = trainingRepository.findByTrainerId(
-                trainerRepository.findByRegisteredId(
-                        registerRepository.findByEmail(username)
-                                .orElseThrow(
-                                        () -> new UsernameNotFoundException("Cant find register with username = " + username))
-                                .getId())
-                        .orElseThrow(() -> new UsernameNotFoundException("Cant find trainer with username = " + username))
-                        .getId()
-                );
-        List<Long> userIds = new ArrayList<>();
+        return  userRepository.findByTrainerId(
+          trainerRepository.findByRegisteredId(
+            registerRepository.findByEmail(username).orElseThrow().getId()).orElseThrow().getId()
+        );
 
-        trainings.forEach(training -> userIds.add(training.getUserId()));
 
-        return userRepository.findAllById(userIds);
     }
 }

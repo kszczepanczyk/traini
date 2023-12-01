@@ -17,7 +17,7 @@
   margin: auto;
   margin-top: 40px;
   position: relative;
-  width: fit-content;
+  width: 100%;
 }
 .tag-wrapper {
   display: flex;
@@ -40,6 +40,7 @@
   font-size: 14px;
   text-align: center;
   margin-top: 16px;
+  width: 100%;
 }
 .header {
   border-bottom: 1px solid var(--black);
@@ -70,4 +71,11 @@
 }
 .information-wrapper {
   padding-bottom: 80px;
+}
+.no-localization--text,
+.tag-add {
+  color: var(--lightBlack);
+}
+.no-licalization--link {
+  color: var(--primaryColor);
 }
