@@ -155,6 +155,29 @@
       <option value="inne">Dodaj klienta</option>
     </select>
   </div>
+  <div class="select-container">
+    <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
+    <select
+      name="localization"
+      id="localization"
+      class="select"
+      formControlName="localization"
+      (change)="onClientChange()"
+    >
+      <option *ngFor="let location of locations" [value]="location.name">
+        {{ location.name }}
+      </option>
+      <option value="inne">Dodaj lokalizację</option>
+    </select>
+  </div>
+  <!-- <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
+  <input
+    class="input"
+    type="localization"
+    id="localization"
+    placeholder="np. CityFit Gliwice "
+    formControlName="localization"
+  /> -->
   <label for="details">Szczegóły treningu</label>
   <textarea
     class="input wide"
@@ -163,15 +186,6 @@
     rows="5"
     formControlName="details"
   ></textarea>
-
-  <label for="localization">Lokalizacja</label>
-  <input
-    class="input"
-    type="localization"
-    id="localization"
-    placeholder="np. CityFit Gliwice "
-    formControlName="localization"
-  />
 
   <button class="primary" type="submit" (click)="onSubmitTraining()">
     Dodaj trening

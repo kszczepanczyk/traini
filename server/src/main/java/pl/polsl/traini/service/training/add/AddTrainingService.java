@@ -48,7 +48,6 @@ public class AddTrainingService {
                 .userId(req.getUserId())
                 .locationId(
                         locationRepository.findByName(req.getLocalization())
-                        .orElseThrow( () -> new NoLocationException("No location for name = " + req.getName()))
                         .getId())
                 .build();
     }

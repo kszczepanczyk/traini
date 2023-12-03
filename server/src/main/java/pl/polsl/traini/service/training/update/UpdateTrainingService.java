@@ -35,9 +35,7 @@ public class UpdateTrainingService {
         training.setUserId(req.getUserId());
         training.setDescription(req.getDescription());
         training.setLocationId(
-                locationRepository.findByName(req.getName())
-                        .orElseThrow( () -> new NoLocationException("No location for name = " + req.getName()))
-                        .getId());
+                locationRepository.findByName(req.getName()).getId());
         training.setCycled(req.isCycled());
 
         return training;

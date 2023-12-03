@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { Client, UserListResp } from 'src/app/models/user.model';
+import { Location } from 'src/app/models/location.model';
 import { DataService } from 'src/app/shared/data.service';
 import { TrainingService } from '../training.service';
 import { UsersService } from '../../users/users.service';
@@ -21,6 +22,7 @@ import { UsersService } from '../../users/users.service';
 export class AddTrainingComponent implements OnInit {
   trainingForm: FormGroup;
   clients: UserListResp[] = [];
+  locations: Location[];
   clientId: number | null = null;
   isSubmitted: boolean = false;
   today: Date = new Date();
@@ -43,7 +45,7 @@ export class AddTrainingComponent implements OnInit {
       cyclic: new FormControl(false),
       cyclicDay: new FormControl(''),
       details: new FormControl(''),
-      localization: new FormControl(''),
+      localization: new FormControl('', Validators.required),
     });
 
     this.onCheckboxChange();
@@ -52,6 +54,16 @@ export class AddTrainingComponent implements OnInit {
     this._userService.getUserList().subscribe(
       (res) => {
         this.clients = res.data;
+        this.isLoaded = true;
+      },
+      (_) => {
+        this.error = 'Coś poszło nie tak';
+        this.isLoaded = true;
+      }
+    );
+    this._userService.getLocations().subscribe(
+      (res) => {
+        this.locations = res.data;
         this.isLoaded = true;
       },
       (_) => {
@@ -82,11 +94,41 @@ export class AddTrainingComponent implements OnInit {
   onSubmitTraining() {
     this.isSubmitted = true;
     if (this.trainingForm.valid) {
-      this._trainingService
-        .addTraining(this.trainingForm.value)
-        .subscribe((res) => {
-          console.log('dodano');
-        });
+      const {
+        name,
+        date,
+        timeFrom,
+        timeTo,
+        client,
+        details,
+        localization,
+        cyclic,
+      } = this.trainingForm.value;
+
+      let dateObject = new Date(date);
+
+      let year = dateObject.getFullYear();
+      let month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+      let day = dateObject.getDate().toString().padStart(2, '0');
+
+      let combinedStart = `${year}-${month}-${day}T${timeFrom}:00.000+00:00`;
+      let combinedEnd = `${year}-${month}-${day}T${timeTo}:00.000+00:00`;
+
+      const dataToSend = {
+        name: name,
+        userId: client,
+        trainingDate: {
+          start: combinedStart,
+          end: combinedEnd,
+        },
+        cycled: cyclic,
+        description: details,
+        localization: localization,
+      };
+
+      this._trainingService.addTraining(dataToSend).subscribe((res) => {
+        console.log('dodano');
+      });
     }
   }
 

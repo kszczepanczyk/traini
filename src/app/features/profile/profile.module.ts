@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [ProfileComponent, EditComponent],
@@ -17,8 +18,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatIconModule,
     MatButtonModule,
     SharedModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [],
+  providers: [provideNgxMask()],
 })
 export class ProfileModule {
   public static forRoot(): ModuleWithProviders<ProfileModule> {

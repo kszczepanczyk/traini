@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface LocationRepository extends MongoRepository<Location, Long> {
-    Optional<Location> findByName(String name);
+    Location findByName(String name);
 }

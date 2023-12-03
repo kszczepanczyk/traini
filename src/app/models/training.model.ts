@@ -1,7 +1,7 @@
 export type Training = {
   name: string;
   surname: string;
-  location: string | null;
+  location: string;
   cycled: boolean;
   trainingDate: TrainingDate;
   trainingName: string;

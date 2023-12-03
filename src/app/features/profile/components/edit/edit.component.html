@@ -128,13 +128,13 @@
     </div>
     <div class="tag-wrapper">
       <div class="tag" *ngFor="let tag of userData?.tags">
-        <span>{{ tag.name }}</span>
+        <span>{{ tag }}</span>
         <div class="delete">
           <img
             src="../../../../../assets/x_small.svg"
             alt="X"
             class="x"
-            (click)="deleteTag(tag.id)"
+            (click)="deleteTag()"
           />
         </div>
       </div>
@@ -153,12 +153,10 @@
     </div>
     <div
       class="localization-container"
-      *ngFor="let place of userData?.localizations"
+      *ngFor="let place of userData?.locations"
     >
-      <span class="text">{{ place.name }}</span>
-      <mat-icon class="x_big" (click)="deleteLocalization(place.id)"
-        >close</mat-icon
-      >
+      <span class="text">{{ place }}</span>
+      <mat-icon class="x_big" (click)="deleteLocalization()">close</mat-icon>
     </div>
   </div>
 

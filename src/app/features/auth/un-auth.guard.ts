@@ -6,7 +6,7 @@ import { filter, map, take } from 'rxjs';
 export const unAuth: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  console.log(authService.isAuthenticated);
+
   return true;
   // return authService.isAuthenticated.pipe(
   //   filter((val) => val !== null),

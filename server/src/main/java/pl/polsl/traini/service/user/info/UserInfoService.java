@@ -3,18 +3,15 @@ package pl.polsl.traini.service.user.info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.polsl.traini.database.RegisterRepository;
-import pl.polsl.traini.database.TagRepository;
-import pl.polsl.traini.database.TrainerRepository;
-import pl.polsl.traini.database.UserRepository;
+import pl.polsl.traini.database.*;
 import pl.polsl.traini.model.dto.user.UserInfoRsp;
+import pl.polsl.traini.model.location.Location;
 import pl.polsl.traini.model.registered.Registered;
 import pl.polsl.traini.model.tag.Tag;
 import pl.polsl.traini.model.trainer.Trainer;
 import pl.polsl.traini.model.user.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -23,13 +20,15 @@ public class UserInfoService {
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final TagRepository tagRepository;
+    private final LocationRepository locationRepository;
 
     @Autowired
-    public UserInfoService(RegisterRepository registerRepository, UserRepository userRepository, TrainerRepository trainerRepository, TagRepository tagRepository) {
+    public UserInfoService(RegisterRepository registerRepository, UserRepository userRepository, TrainerRepository trainerRepository, TagRepository tagRepository, LocationRepository locationRepository) {
         this.registerRepository = registerRepository;
         this.userRepository = userRepository;
         this.trainerRepository = trainerRepository;
         this.tagRepository = tagRepository;
+      this.locationRepository = locationRepository;
     }
 
     public UserInfoRsp getUserInfo(String username) {
@@ -51,6 +50,7 @@ public class UserInfoService {
                 .surname(user.getSurname())
                 .photoB64(user.getPhoto())
                 .tags(getTags(trainer.getTags()))
+                .locations(getLocations(trainer.getLocations()))
                 .description(user.getDescription())
                 .phone(user.getPhone())
                 .email(registered.getEmail())
@@ -71,5 +71,16 @@ public class UserInfoService {
         }
 
         return tagsNames;
+    }
+    private List<String> getLocations(List<Long> locationsIds) {
+        List<Location> locations = locationRepository.findAllById(locationsIds);
+
+        List<String> locationNames = new ArrayList<>();
+
+        for(Location location : locations) {
+          locationNames.add(location.getName());
+        }
+
+        return locationNames;
     }
 }

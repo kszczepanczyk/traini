@@ -37,7 +37,7 @@ export class EditComponent {
       city: new FormControl(this.userData?.city),
       gender: new FormControl(this.userData?.gender),
       tags: new FormControl(this.userData?.tags),
-      localizations: new FormControl(this.userData?.localizations),
+      localizations: new FormControl(this.userData?.locations),
     });
     this.localizationForm = this.formBuilder.group({
       localizationName: new FormControl('', Validators.required),
@@ -49,13 +49,13 @@ export class EditComponent {
   get f(): { [key: string]: AbstractControl } {
     return this.userForm.controls;
   }
-  deleteTag(tagId: number) {
-    this.userData!.tags = this.userData!.tags.filter((tag) => tag.id != tagId);
+  deleteTag() {
+    //   this.userData!.tags = this.userData!.tags.filter((tag) => tag.id != tagId);
   }
-  deleteLocalization(localizationId: number) {
-    this.userData!.localizations = this.userData!.localizations.filter(
-      (localization) => localization.id != localizationId
-    );
+  deleteLocalization() {
+    //   this.userData!.locations = this.userData!.locations.filter(
+    //     (localization) => localization.id != localizationId
+    //   );
   }
   openTagModal() {
     this.isTagModalVisible = true;
@@ -66,10 +66,7 @@ export class EditComponent {
   onSubmitTag() {
     if (this.tagForm.valid) {
       const { tagName } = this.tagForm.value;
-      this.userData?.tags.push({
-        id: Math.floor(Math.random() * 100),
-        name: tagName,
-      });
+      // this.userData?.tags.push(tagName);
       //TODO
       //send to server
       this.tagForm.reset();
@@ -79,10 +76,10 @@ export class EditComponent {
   onSubmitLocalization() {
     if (this.localizationForm.valid) {
       const { localizationName } = this.localizationForm.value;
-      this.userData?.localizations.push({
-        id: Math.floor(Math.random() * 100),
-        name: localizationName,
-      });
+      // this.userData?.locations.push({
+      //   id: Math.floor(Math.random() * 100),
+      //   name: localizationName,
+      // });
       //TODO
       //send to server
       this.localizationForm.reset();
@@ -94,7 +91,7 @@ export class EditComponent {
     if (this.userForm.valid) {
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;
-      const { tags, localizations, photoB64, email, id } = this.userData!;
+      const { tags, locations, photoB64, email, id } = this.userData!;
       this.userData = {
         id,
         name,
@@ -105,7 +102,7 @@ export class EditComponent {
         city,
         gender,
         tags,
-        localizations,
+        locations,
         photoB64,
       };
     }

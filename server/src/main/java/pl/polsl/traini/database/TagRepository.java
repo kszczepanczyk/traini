@@ -6,4 +6,5 @@ import pl.polsl.traini.model.tag.Tag;
 
 @Repository
 public interface TagRepository extends MongoRepository<Tag, Long> {
+  Tag findTagByName(String name);
 }

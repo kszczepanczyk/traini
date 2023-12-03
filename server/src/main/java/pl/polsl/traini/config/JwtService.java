@@ -21,8 +21,8 @@ import java.util.function.Function;
 public class JwtService {
 
   private String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
-  private long jwtExpiration = 86400000L;
-  private long refreshExpiration = 604800000L;
+  private long jwtExpiration = 8640000000000L;
+  private long refreshExpiration = 60480000000000L;
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);

@@ -34,7 +34,7 @@ public class UserController {
         String username = jwtService.getUsername(token);
         log.info("Update data about trainer = {}", username);
         try {
-            User user = userModifyService.modifyUser(req);
+            User user = userModifyService.modifyUser(req, username);
             if (user != null) {
                 return ResponseEntity.ok().build();
             }

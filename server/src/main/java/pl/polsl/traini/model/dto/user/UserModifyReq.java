@@ -21,5 +21,6 @@ public class UserModifyReq {
     String city;
     String gender;
     ArrayList<String> tags;
+    ArrayList<String> localization;
     String photoUrl;
 }

@@ -42,7 +42,8 @@ public class HomeTrainingService {
       Trainer trainer = trainerRepository.findByRegisteredId(registered.getId()).orElseThrow(
         () -> new UsernameNotFoundException("Cant find trainer by email = " + username)
       );
-      List<Training> trainings = trainingRepository.findByTrainerIdAndTrainingDateStartAfterOrderByTrainingDateStartAsc(trainer.getId(), date);
+      Date endDate = new Date(date.getTime() + (long)(1000 * 60 * 60 * 24));
+      List<Training> trainings = trainingRepository.findByTrainerIdAndTrainingDateStartBetweenOrderByTrainingDateStartAsc(trainer.getId(), date, endDate);
 
       List<GetTrainingRsp> trainingRspList = new ArrayList<>();
 

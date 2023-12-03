@@ -29,7 +29,7 @@
     <div class="tag-wrapper">
       <div class="tag-added" *ngIf="user.tags.length != 0">
         <div class="tag" *ngFor="let tag of user?.tags">
-          <span>{{ tag.name }}</span>
+          <span>{{ tag }}</span>
         </div>
       </div>
       <div class="tag-none" *ngIf="user.tags.length == 0">
@@ -46,12 +46,12 @@
       <span>Lokalizacje</span>
     </div>
     <div class="localizations">
-      <ul class="list" *ngIf="user.localizations">
-        <li class="localization" *ngFor="let place of user.localizations">
-          {{ place.name }}
+      <ul class="list" *ngIf="user.locations">
+        <li class="localization" *ngFor="let place of user.locations">
+          {{ place }}
         </li>
       </ul>
-      <div class="no-localizations">
+      <div class="no-localizations" *ngIf="user.locations.length == 0">
         <span class="no-localization--text"
           >Nie masz jeszcze dodanych lokalizacji. Są one potrzebne do dodania
           traningu. </span
@@ -73,7 +73,7 @@
           <img class="image" src="../../../assets/phone.svg" /><span
             *ngIf="user.phone"
             class="info"
-            >{{ user.phone }}</span
+            >{{ user.phone | mask : "000 000 000" }}</span
           >
           <span *ngIf="!user.phone" class="info">Brak danych</span>
         </div>

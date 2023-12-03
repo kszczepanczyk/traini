@@ -17,6 +17,7 @@ public class UserInfoRsp {
     String surname;
     String photoB64;
     List<String> tags;
+    List<String> locations;
     String description;
     String phone;
     String email;

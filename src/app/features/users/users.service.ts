@@ -36,6 +36,18 @@ export class UsersService {
       })
     );
   }
+  getLocations(): Observable<any> {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/locations',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+    };
+
+    return from(CapacitorHttp.get(options));
+  }
   getClient(id) {
     this.token = this._authService.getAccessToken();
     let options = {
