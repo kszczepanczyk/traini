@@ -230,3 +230,6 @@ textarea {
   @include button-primary-small;
   margin-left: 12px;
 }
+.text-red {
+  color: var(--error);
+}

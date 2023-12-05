@@ -1,217 +1,240 @@
+<div class="error-message-box" *ngIf="!!error">
+  <span class="error-text">{{ error }}</span>
+</div>
 <div class="edit-wrapper">
   <h1 class="title">Edycja profilu</h1>
 
   <mat-icon [routerLink]="['/profile']">close</mat-icon>
 </div>
-<div class="profile-wrapper">
-  <div class="profile">
-    <img [src]="userData?.photoB64" alt="profile picture" class="picture" />
-  </div>
-  <label for="avatar-input-file">
-    <div class="icon-wrapper">
-      <input
-        type="file"
-        id="avatar-input-file"
-        accept="image/*"
-        (change)="onFileChange($event)"
-      />
-      <mat-icon class="edit">edit</mat-icon>
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="content" *ngIf="isLoaded && !error">
+  <div class="profile-wrapper">
+    <div class="profile">
+      <img [src]="userData?.photoB64" alt="profile picture" class="picture" />
     </div>
-  </label>
-</div>
-<form class="input-wrapper" [formGroup]="userForm">
-  <label for="name">Imię <span class="asterisk">*</span></label>
-  <div
-    class="input-group"
-    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
-  >
-    <input
-      class="input"
-      type="name"
-      id="name"
-      placeholder="np. Jan"
-      formControlName="name"
-    />
-    <span
-      class="error-info"
-      *ngIf="f['name'].errors && f['name'].errors['required']"
-      >Imię jest wymagane</span
-    >
-  </div>
-  <label for="surname">Nazwisko<span class="asterisk">*</span></label>
-  <div
-    class="input-group"
-    [ngClass]="{ 'validation-error': f['surname'].errors && isSubmitted }"
-  >
-    <input
-      class="input"
-      type="surname"
-      placeholder="np. Nowak"
-      formControlName="surname"
-    />
-    <span
-      class="error-info"
-      *ngIf="f['surname'].errors && f['surname'].errors['required']"
-      >Nazwisko jest wymagane</span
-    >
-  </div>
-  <label for="description">Krótki opis</label>
-  <textarea
-    class="input wide"
-    id="description"
-    placeholder="np. Krótki opis o mnie"
-    rows="5"
-    formControlName="description"
-  ></textarea>
-  <label for="phone">Telefon</label>
-  <input
-    class="input"
-    type="phone"
-    id="phone"
-    placeholder="np. 594 490 240"
-    formControlName="phone"
-  />
-  <label for="city">Miasto</label>
-  <input
-    class="input"
-    type="city"
-    id="city"
-    placeholder="np. Warszawa"
-    formControlName="city"
-  />
-  <label>Płeć</label>
-  <div class="radio-group">
-    <div class="custom-radio">
-      <input
-        id="female"
-        type="radio"
-        class="custom-radio-input"
-        value="female"
-        name="gender"
-        formControlName="gender"
-      />
-      <label for="female" class="custom-radio-label">Kobieta</label>
-    </div>
-    <div class="custom-radio">
-      <input
-        id="male"
-        type="radio"
-        class="custom-radio-input"
-        value="male"
-        name="gender"
-        formControlName="gender"
-      />
-      <label for="male" class="custom-radio-label">Mężczyzna</label>
-    </div>
-    <div class="custom-radio">
-      <input
-        id="other"
-        type="radio"
-        class="custom-radio-input"
-        value="other"
-        name="gender"
-        formControlName="gender"
-      />
-      <label for="other" class="custom-radio-label">Inne</label>
-    </div>
-  </div>
-  <div class="tags">
-    <div class="date-wrapper">
-      <span class="date-text">Tagi</span>
-      <div class="add-button" (click)="openTagModal()">
-        <img
-          src="../../../../../assets/x_small.svg"
-          alt="X"
-          class="add-button-icon"
+    <label for="avatar-input-file">
+      <div class="icon-wrapper">
+        <input
+          type="file"
+          id="avatar-input-file"
+          accept="image/*"
+          (change)="onFileChange($event)"
         />
+        <mat-icon class="edit">edit</mat-icon>
+      </div>
+    </label>
+  </div>
+  <form class="input-wrapper" [formGroup]="userForm">
+    <label for="name">Imię <span class="asterisk">*</span></label>
+    <div
+      class="input-group"
+      [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
+    >
+      <input
+        class="input"
+        type="name"
+        id="name"
+        placeholder="np. Jan"
+        formControlName="name"
+      />
+      <span
+        class="error-info"
+        *ngIf="f['name'].errors && f['name'].errors['required']"
+        >Imię jest wymagane</span
+      >
+    </div>
+    <label for="surname">Nazwisko<span class="asterisk">*</span></label>
+    <div
+      class="input-group"
+      [ngClass]="{ 'validation-error': f['surname'].errors && isSubmitted }"
+    >
+      <input
+        class="input"
+        type="surname"
+        placeholder="np. Nowak"
+        formControlName="surname"
+      />
+      <span
+        class="error-info"
+        *ngIf="f['surname'].errors && f['surname'].errors['required']"
+        >Nazwisko jest wymagane</span
+      >
+    </div>
+    <label for="description">Krótki opis</label>
+    <textarea
+      class="input wide"
+      id="description"
+      placeholder="np. Krótki opis o mnie"
+      rows="5"
+      formControlName="description"
+    ></textarea>
+    <label for="phone">Telefon</label>
+    <input
+      class="input"
+      type="phone"
+      id="phone"
+      placeholder="np. 594 490 240"
+      mask="000 000 000"
+      formControlName="phone"
+    />
+    <label for="city">Miasto</label>
+    <input
+      class="input"
+      type="city"
+      id="city"
+      placeholder="np. Warszawa"
+      formControlName="city"
+    />
+    <label>Płeć</label>
+    <div class="radio-group">
+      <div class="custom-radio">
+        <input
+          id="female"
+          type="radio"
+          class="custom-radio-input"
+          value="female"
+          name="gender"
+          formControlName="gender"
+        />
+        <label for="female" class="custom-radio-label">Kobieta</label>
+      </div>
+      <div class="custom-radio">
+        <input
+          id="male"
+          type="radio"
+          class="custom-radio-input"
+          value="male"
+          name="gender"
+          formControlName="gender"
+        />
+        <label for="male" class="custom-radio-label">Mężczyzna</label>
+      </div>
+      <div class="custom-radio">
+        <input
+          id="other"
+          type="radio"
+          class="custom-radio-input"
+          value="other"
+          name="gender"
+          formControlName="gender"
+        />
+        <label for="other" class="custom-radio-label">Inne</label>
       </div>
     </div>
-    <div class="tag-wrapper">
-      <div class="tag" *ngFor="let tag of userData?.tags">
-        <span>{{ tag }}</span>
-        <div class="delete">
+    <div class="tags">
+      <div class="date-wrapper">
+        <span class="date-text">Tagi</span>
+        <div class="add-button" (click)="openTagModal()">
           <img
             src="../../../../../assets/x_small.svg"
             alt="X"
-            class="x"
-            (click)="deleteTag()"
+            class="add-button-icon"
           />
         </div>
       </div>
+      <div class="tag-wrapper">
+        <div class="tag" *ngFor="let tag of userData?.tags">
+          <span>{{ tag }}</span>
+          <div class="delete">
+            <img
+              src="../../../../../assets/x_small.svg"
+              alt="X"
+              class="x"
+              (click)="deleteTag(tag)"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="localizations">
-    <div class="date-wrapper">
-      <span class="date-text">Lokalizacje</span>
-      <div class="add-button" (click)="openLocalizationModal()">
-        <img
-          src="../../../../../assets/x_small.svg"
-          alt="X"
-          class="add-button-icon"
+    <div class="localizations">
+      <div class="date-wrapper">
+        <span class="date-text">Lokalizacje</span>
+        <div class="add-button" (click)="openLocalizationModal()">
+          <img
+            src="../../../../../assets/x_small.svg"
+            alt="X"
+            class="add-button-icon"
+          />
+        </div>
+      </div>
+      <div
+        class="localization-container"
+        *ngFor="let place of userData?.locations"
+      >
+        <span class="text">{{ place }}</span>
+        <mat-icon class="x_big" (click)="deleteLocalization(place)"
+          >close</mat-icon
+        >
+      </div>
+    </div>
+
+    <button class="primary" type="submit" (click)="onSubmitUser()">
+      Zapisz
+    </button>
+    <a class="link" [routerLink]="['/profile']">Anuluj</a>
+  </form>
+
+  <div class="tag-modal-wrapper" *ngIf="isTagModalVisible">
+    <div class="tag-modal">
+      <form class="tag-form" [formGroup]="tagForm">
+        <h2 class="tag-title">Dodaj tag</h2>
+        <input
+          type="text"
+          class="input"
+          placeholder="np. Trening siłowy"
+          formControlName="tagName"
         />
-      </div>
-    </div>
-    <div
-      class="localization-container"
-      *ngFor="let place of userData?.locations"
-    >
-      <span class="text">{{ place }}</span>
-      <mat-icon class="x_big" (click)="deleteLocalization()">close</mat-icon>
+        <p
+          class="helper-text"
+          [ngClass]="!tagForm.valid && tagForm.dirty ? 'text-red' : ''"
+        >
+          Maks 15 znaków
+        </p>
+        <div class="button-wrapper">
+          <a class="link" (click)="closeTagModal()">Anuluj</a>
+          <button
+            class="primary-small"
+            type="submit"
+            (click)="onSubmitTag()"
+            [disabled]="!tagForm.valid"
+          >
+            Dodaj
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <button class="primary" type="submit" (click)="onSubmitUser()">Zapisz</button>
-  <a class="link" [routerLink]="['/profile']">Anuluj</a>
-</form>
-
-<div class="tag-modal-wrapper" *ngIf="isTagModalVisible">
-  <div class="tag-modal">
-    <form class="tag-form" [formGroup]="tagForm">
-      <h2 class="tag-title">Dodaj tag</h2>
-      <input
-        type="text"
-        class="input"
-        placeholder="np. Trening siłowy"
-        formControlName="tagName"
-      />
-      <p class="helper-text">Maks 25 znaków</p>
-      <div class="button-wrapper">
-        <a class="link" (click)="isTagModalVisible = false">Anuluj</a>
-        <button
-          class="primary-small"
-          type="submit"
-          (click)="onSubmitTag()"
-          [disabled]="!tagForm.valid"
+  <div class="tag-modal-wrapper" *ngIf="isLocalizationModalVisible">
+    <div class="tag-modal">
+      <form class="tag-form" [formGroup]="localizationForm">
+        <h2 class="tag-title">Dodaj lokalizację</h2>
+        <input
+          type="text"
+          class="input"
+          placeholder="np. Siłownia w Warszawie"
+          formControlName="localizationName"
+        />
+        <p
+          class="helper-text"
+          [ngClass]="
+            !localizationForm.valid && localizationForm.dirty ? 'text-red' : ''
+          "
         >
-          Dodaj
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="tag-modal-wrapper" *ngIf="isLocalizationModalVisible">
-  <div class="tag-modal">
-    <form class="tag-form" [formGroup]="localizationForm">
-      <h2 class="tag-title">Dodaj lokalizację</h2>
-      <input
-        type="text"
-        class="input"
-        placeholder="np. Siłownia w Warszawie"
-        formControlName="localizationName"
-      />
-      <p class="helper-text">Maks 25 znaków</p>
-      <div class="button-wrapper">
-        <a class="link" (click)="isLocalizationModalVisible = false">Anuluj</a>
-        <button
-          class="primary-small"
-          type="submit"
-          (click)="onSubmitLocalization()"
-          [disabled]="!localizationForm.valid"
-        >
-          Dodaj
-        </button>
-      </div>
-    </form>
+          Maks 25 znaków
+        </p>
+        <div class="button-wrapper">
+          <a class="link" (click)="closeLocalizationModal()">Anuluj</a>
+          <button
+            class="primary-small"
+            type="submit"
+            (click)="onSubmitLocalization()"
+            [disabled]="!localizationForm.valid"
+          >
+            Dodaj
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

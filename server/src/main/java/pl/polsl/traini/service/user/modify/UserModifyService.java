@@ -59,7 +59,7 @@ public class UserModifyService {
 
         Trainer trainer = trainerRepository.findByRegisteredId(registered.getId()).orElseThrow();
         trainer.setTags(getTags(req.getTags()));
-        trainer.setLocations(getLocations(req.getLocalization()));
+        trainer.setLocations(getLocations(req.getLocations()));
         trainerRepository.save(trainer);
 
         return user;

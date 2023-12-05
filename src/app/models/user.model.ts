@@ -1,7 +1,7 @@
 import { Training } from './training.model';
 export type Trainer = User & {
-  tags: [];
-  locations: [];
+  tags: Array<string>;
+  locations: Array<string>;
 };
 
 export type User = {

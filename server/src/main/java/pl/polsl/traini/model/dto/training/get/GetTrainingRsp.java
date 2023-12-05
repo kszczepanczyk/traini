@@ -11,6 +11,7 @@ import pl.polsl.traini.model.training.TrainingDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetTrainingRsp {
+  Long id;
     String name;
     String surname;
     TrainingDate trainingDate;

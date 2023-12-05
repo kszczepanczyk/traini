@@ -30,4 +30,17 @@ export class ProfileService {
       })
     );
   }
+
+  modifyProfile(userFields): Observable<any> {
+    this.token = this._authService.getAccessToken();
+    const options = {
+      url: environment.apiKey + '/user/modify',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+      data: { ...userFields },
+    };
+    return from(CapacitorHttp.put(options));
+  }
 }

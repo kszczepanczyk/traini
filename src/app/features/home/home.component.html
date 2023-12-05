@@ -30,6 +30,9 @@
       <span class="date-text">{{ displayedDate }}</span>
     </div>
     <app-spinner [dataLoaded]="trainingLoaded"></app-spinner>
+    <div class="error-state" *ngIf="error">
+      {{ error }}
+    </div>
     <div class="schedule" *ngIf="trainingLoaded && trainings.length != 0">
       <div
         class="training-wrapper"
@@ -40,7 +43,11 @@
           <div class="divider"></div>
           <span>{{ training.trainingDate.end }}</span>
         </div>
-        <div class="training" [class.closest]="training === trainings[0]">
+        <div
+          class="training"
+          [class.closest]="training === trainings[0]"
+          (click)="goToTraining(training)"
+        >
           <div class="training-info-wrapper">
             <p class="client">{{ training.name }} {{ training.surname }}</p>
             <span class="secondary-info">{{ training.trainingName }}</span>
@@ -84,4 +91,4 @@
 >
   <mat-icon>add</mat-icon>
 </button>
-<div class="content-error" *ngIf="error && dataLoaded">error</div>
+<div class="content-error" *ngIf="error && dataLoaded">{{ error }}</div>

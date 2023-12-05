@@ -1,0 +1,53 @@
+@import "../../../../mixins";
+.edit-icon {
+  width: 24px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.training-info {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+.small-info {
+  display: flex;
+  gap: 16px;
+}
+.client,
+.date,
+.details,
+.location {
+  padding: 16px;
+  border-radius: 4px;
+}
+.client,
+.date {
+  flex: 1;
+  background-color: lightblue;
+}
+.details,
+.location {
+  width: 100%;
+  background-color: lightblue;
+  flex: 1;
+}
+.title {
+  color: var(--lightBlack);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.text:first-child {
+  margin-bottom: 4px;
+}
+.icon {
+  width: 20px;
+  margin-right: 12px;
+}
+.text-div {
+  display: flex;
+  align-items: center;
+}

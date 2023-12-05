@@ -14,6 +14,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -33,8 +36,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NgxMaterialTimepickerModule,
     MatCheckboxModule,
     MatIconModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [],
+  providers: [provideNgxMask()],
 })
 export class TrainingModule {
   public static forRoot(): ModuleWithProviders<TrainingModule> {

@@ -1,1 +1,56 @@
-<p>training works!</p>
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="content" *ngIf="!error && isLoaded">
+  <div class="edit-wrapper">
+    <h1>{{ training.trainingName }}</h1>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Button for a profile menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="goToEdit()">
+        <mat-icon>edit</mat-icon>
+        <span>Edytuj</span>
+      </button>
+      <button mat-menu-item (click)="deleteClient()">
+        <mat-icon>delete</mat-icon>
+        <span>Usuń</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="training-info">
+    <div class="small-info">
+      <div class="client">
+        <p class="title">Z kim?</p>
+        <p class="text">{{ training.name }}</p>
+        <p class="text">{{ training.surname }}</p>
+      </div>
+      <div class="date">
+        <p class="title">Kiedy?</p>
+        <div class="text-div">
+          <img
+            src="../../../../assets/calendar.svg"
+            alt="Calendar"
+            class="icon"
+          />
+          {{ training.trainingDate.start | mask : "000000000" }}
+        </div>
+        <div class="text-div">
+          <img src="../../../../assets/time.svg" alt="Time" class="icon" />{{
+            training.surname
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="details" *ngIf="training.description">
+      <p class="title">Szczegóły treningu</p>
+      <p class="text">{{ training.description }}</p>
+    </div>
+    <div class="location">
+      <p class="title">Gdzie?</p>
+      <p class="text">{{ training.location }}</p>
+    </div>
+  </div>
+</div>

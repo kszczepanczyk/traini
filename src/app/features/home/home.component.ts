@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   displayedDate: string = 'Dzisiaj ' + dayjs().format('DD.MM.YYYY');
   trainings: Training[] = [];
   numberOfTrainingsToDisplay: number = 3;
-
   homeData: HomeData;
   error: string = '';
+  errorDate: string = '';
   constructor(private _homeService: HomeService, private _router: Router) {
     this._homeService.getNameAndAvatar().subscribe(
       (res) => {
@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
   }
   onSelectDate(date: dayjs.Dayjs): void {
     this.numberOfTrainingsToDisplay = 3;
+    this.trainings = [];
     this.selectedDate = date;
     this.trainingLoaded = false;
     if (this.selectedDate.format('D') === dayjs().format('D')) {
@@ -65,12 +66,16 @@ export class HomeComponent implements OnInit {
     } else {
       this.displayedDate = this.selectedDate.format('DD.MM.YYYY');
     }
-    this._homeService
-      .getTrainingsByDate(date.format('DD-MM-YYYY'))
-      .subscribe((res) => {
+    this._homeService.getTrainingsByDate(date.format('DD-MM-YYYY')).subscribe(
+      (res) => {
         this.trainings = res.data;
         this.trainingLoaded = true;
-      });
+      },
+      (err) => {
+        this.errorDate = 'Nie udało się wczytać danych';
+        this.trainingLoaded = false;
+      }
+    );
   }
 
   getDisplayedTrainings(): Training[] {
@@ -85,5 +90,9 @@ export class HomeComponent implements OnInit {
   }
   navigateToAddTraining() {
     this._router.navigate(['/training/add']);
+  }
+
+  goToTraining(training) {
+    this._router.navigate(['/training', training.id]);
   }
 }

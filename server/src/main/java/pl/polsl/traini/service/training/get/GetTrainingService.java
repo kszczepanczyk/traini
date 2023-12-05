@@ -42,6 +42,7 @@ public class GetTrainingService {
 
     private GetTrainingRsp createGetTrainingRsp(Training training, User user, Location location) {
         return GetTrainingRsp.builder()
+          .id(training.getId())
                 .name(user.getName())
                 .surname(user.getSurname())
                 .trainingDate(TrainingDate.builder()
@@ -51,6 +52,7 @@ public class GetTrainingService {
                 .location(location.getName())
                 .description(training.getDescription())
                 .cycled(training.isCycled())
+          .trainingName(training.getName())
                 .build();
     }
 }

@@ -53,6 +53,7 @@ public class HomeTrainingService {
             .orElseThrow(() -> new UsernameNotFoundException("No user with userId = " + training.getUserId()));
 
           trainingRspList.add(GetTrainingRsp.builder()
+              .id(training.getId())
             .name(user.getName())
             .surname(user.getSurname())
             .trainingDate(TrainingDate.builder()
