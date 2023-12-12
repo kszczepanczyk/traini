@@ -10,8 +10,8 @@ import pl.polsl.traini.model.training.TrainingDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetTrainingRsp {
-  Long id;
+public class GetTrainingRsp implements Comparable<GetTrainingRsp>{
+    Long id;
     String name;
     String surname;
     TrainingDate trainingDate;
@@ -19,4 +19,9 @@ public class GetTrainingRsp {
     String location;
     String trainingName;
     boolean cycled;
+
+  @Override
+  public int compareTo(GetTrainingRsp o) {
+    return getTrainingDate().getStart().compareTo(o.getTrainingDate().getStart());
+  }
 }

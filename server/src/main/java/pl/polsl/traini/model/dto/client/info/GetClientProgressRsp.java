@@ -1,19 +1,17 @@
-package pl.polsl.traini.model.dto.client.progress.get;
+package pl.polsl.traini.model.dto.client.info;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetProgressListRsp {
-    List<GetProgressEntity> progressList;
+public class GetClientProgressRsp {
+    Long progressId;
     String progressName;
+    double value;
     String unit;
-    boolean trend;
 }

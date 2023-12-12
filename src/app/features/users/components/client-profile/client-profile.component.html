@@ -72,22 +72,29 @@
         />
       </div>
     </div>
-    <div class="training-wrapper" *ngIf="user.trainings">
-      <div class="training" *ngFor="let training of user.trainings">
-        <div class="date-time">
-          <p class="date">{{ training.date }}</p>
-          <p class="time">{{ training.timeFrom }} - {{ training.timeTo }}</p>
-        </div>
-        <div class="info">
-          <p class="title">{{ training.type }}</p>
-          <p class="place">{{ training.place }}</p>
+    <div class="training-wrapper" *ngIf="user.trainingList">
+      <div class="clickable" *ngFor="let training of user.trainingList">
+        <div class="training" (click)="goToTraining(training.id)">
+          <div class="date-time">
+            <p class="date">
+              {{ training.trainingDate.start | date : "dd.MM.YYYY" }}
+            </p>
+            <p class="time">
+              {{ training.trainingDate.start | date : "HH:mm" }} -
+              {{ training.trainingDate.end | date : "HH:mm" }}
+            </p>
+          </div>
+          <div class="info">
+            <p class="title">{{ training.trainingName }}</p>
+            <p class="place">{{ training.location }}</p>
+          </div>
         </div>
       </div>
-      <div class="load-more">
+      <div class="load-more" *ngIf="user.trainingList.length > 3">
         <span class="load-more-text"> Więcej </span>
       </div>
     </div>
-    <div class="training-empty" *ngIf="!user.trainings">
+    <div class="training-empty" *ngIf="!user.trainingList">
       <span class="progress-text"
         >Ten klient nie ma jeszcze żadnego treningu </span
       ><br />
@@ -105,13 +112,15 @@
         />
       </div>
     </div>
-    <div class="progresses" *ngIf="user.progresses">
-      <div class="progress" *ngFor="let progress of user.progresses">
-        <span class="name">{{ progress.name }}</span
-        ><span class="amount">{{ progress.value }}{{ progress.unit }}</span>
+    <div class="progresses" *ngIf="user.progressList">
+      <div class="progress-click" *ngFor="let progress of user.progressList">
+        <div class="progress" (click)="goToProgress(progress.progressId)">
+          <span class="name">{{ progress.progressName }}</span
+          ><span class="amount">{{ progress.value }}{{ progress.unit }}</span>
+        </div>
       </div>
     </div>
-    <div class="progresses" *ngIf="!user.progresses">
+    <div class="progresses" *ngIf="!user.progressList">
       <span class="progress-text"
         >Ten klient nie ma jeszcze zapisanego postępu
       </span>

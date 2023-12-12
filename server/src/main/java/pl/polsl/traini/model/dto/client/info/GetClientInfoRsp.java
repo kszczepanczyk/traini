@@ -2,10 +2,8 @@ package pl.polsl.traini.model.dto.client.info;
 
 import lombok.Builder;
 import lombok.Data;
-import pl.polsl.traini.model.progress.Progress;
-import pl.polsl.traini.model.training.Training;
+import pl.polsl.traini.model.dto.training.get.GetTrainingRsp;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -19,6 +17,6 @@ public class GetClientInfoRsp {
     String description;
     String city;
     String gender;
-    List<Training> trainingList;
-    List<Progress> progressList;
+    List<GetTrainingRsp> trainingList;
+    List<GetClientProgressRsp> progressList;
 }

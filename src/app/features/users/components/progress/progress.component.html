@@ -1,1 +1,146 @@
-<p>progress works!</p>
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="content" *ngIf="isLoaded">
+  <div class="edit-wrapper">
+    <h1>{{ progressData.progressName }}</h1>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Button for a profile menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edytuj nazwę</span>
+      </button>
+      <button mat-menu-item (click)="deleteProgress()">
+        <mat-icon>delete</mat-icon>
+        <span>Usuń</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="graph-container">
+    <app-chart [data]="dataToChart"></app-chart>
+  </div>
+  <div class="stats-container">
+    <div class="grid-container">
+      <div class="grid-title">Najwięcej</div>
+      <div class="grid-value">{{ best }} {{ progressData.unit }}</div>
+      <div class="grid-item"></div>
+      <div class="grid-title">Ostatnio</div>
+      <div class="grid-value">{{ latest }} {{ progressData.unit }}</div>
+      <div
+        class="grid-progression"
+        [ngClass]="{ red: sign == '-', green: sign == '+' }"
+      >
+        {{ sign }}{{ difference }} {{ progressData.unit }}
+      </div>
+    </div>
+  </div>
+  <div class="date-wrapper">
+    <span class="date-text">Ostatnie wpisy</span>
+    <div class="add-button" (click)="openModal()">
+      <img
+        src="../../../../../assets/x_small.svg"
+        alt="X"
+        class="add-button-icon"
+      />
+    </div>
+  </div>
+  <div class="progresses">
+    <div
+      class="progress-click"
+      *ngFor="let progress of progressData.progressList"
+    >
+      <div class="progress">
+        <span class="name">{{ progress.createdAt | date : "dd.MM.YYYY" }}</span>
+        <div class="amount-delete">
+          <span class="amount"
+            >{{ progress.value }} {{ progressData.unit }}</span
+          >
+          <div
+            class="icon-wrapper"
+            (click)="deleteProgressEntity(progress.progressEntityId)"
+          >
+            <mat-icon>close</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tag-modal-wrapper" *ngIf="isModalVisible">
+    <div class="tag-modal">
+      <form class="tag-form" [formGroup]="progressForm">
+        <h2 class="tag-title">Dodaj lokalizację</h2>
+        <div class="date-time-wrapper">
+          <div class="date-container">
+            <label for="date">Data<span class="asterisk">*</span></label>
+
+            <div
+              class="container"
+              [ngClass]="{
+                'custom-error': f['createdAt'].errors && isSubmitted
+              }"
+            >
+              <img
+                src="../../../../assets/calendar.svg"
+                alt="Calendar"
+                class="icon"
+              />
+              <input
+                id="date"
+                [matDatepicker]="picker"
+                formControlName="createdAt"
+                class="date-input"
+                (click)="picker.open()"
+              />
+            </div>
+            <span
+              class="error-info"
+              [ngClass]="{ visible: f['createdAt'].errors && isSubmitted }"
+              *ngIf="f['createdAt'].errors && f['createdAt'].errors['required']"
+              >Data jest wymagana</span
+            >
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+        <label for="value">Wartość <span class="asterisk">*</span></label>
+        <div
+          class="input-group small"
+          [ngClass]="{ 'validation-error': f['value'].errors && isSubmitted }"
+        >
+          <div class="combined-input">
+            <input
+              class="input border-radius"
+              id="value"
+              placeholder="np. 120"
+              formControlName="value"
+            />
+            <div class="select-container">
+              <div name="unit" id="unit" class="select select-cyclic">
+                {{ progressData.unit }}
+              </div>
+            </div>
+          </div>
+          <span
+            class="error-info"
+            *ngIf="f['value'].errors && f['value'].errors['required']"
+            >Wartość postępu jest wymagana</span
+          >
+        </div>
+        <div class="button-wrapper">
+          <a class="link" (click)="closeModal()">Anuluj</a>
+          <button
+            class="primary-small"
+            type="submit"
+            (click)="addProgressEntity()"
+            [disabled]="!progressForm.valid"
+          >
+            Dodaj
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

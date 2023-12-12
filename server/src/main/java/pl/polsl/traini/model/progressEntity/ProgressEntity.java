@@ -18,6 +18,5 @@ public class ProgressEntity {
     long id;
     long progressId;
     double value;
-    String unit;
-
+    Date createdAt;
 }

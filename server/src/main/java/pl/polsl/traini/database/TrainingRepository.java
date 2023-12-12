@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TrainingRepository extends MongoRepository<Training, Long> {
-    List<Training> findByTrainerIdAndTrainingDateStartBetweenOrderByTrainingDateStartAsc(Long trainerId, Date date, Date endDate);
-
+    List<Training> findByTrainerIdAndTrainingDateStartBetween(Long trainerId, Date date, Date endDate);
+    List<Training> findByTrainerIdAndCycledAndTrainingDateStartBefore(Long trainerId, boolean cycled, Date date);
     List<Training> findByTrainerId(Long trainerId);
+    List<Training> findTrainingByUserId(Long userId);
+    List<Training> findTrainingByUserIdOrderByTrainingDateStart(Long userId);
 }

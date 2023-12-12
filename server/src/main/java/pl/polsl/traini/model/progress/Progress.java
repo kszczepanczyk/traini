@@ -19,8 +19,7 @@ public class Progress {
     Long id;
     Long userId;
     String name;
-    String value;
+    double value;
     String unit;
     boolean trend;
-    Date createdAt;
 }

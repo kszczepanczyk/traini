@@ -80,4 +80,31 @@ export class UsersService {
 
     return from(CapacitorHttp.post(options));
   }
+
+  addProgress(progressForm, id) {
+    this.token = this._authService.getAccessToken();
+
+    let options = {
+      url: environment.apiKey + '/client/' + id + '/progress',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+      data: { ...progressForm },
+    };
+    return from(CapacitorHttp.post(options));
+  }
+
+  getProgressEntity({ idProgress, idUser }) {
+    this.token = this._authService.getAccessToken();
+
+    let options = {
+      url: environment.apiKey + '/client/' + idUser + '/progress/' + idProgress,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+    };
+    return from(CapacitorHttp.get(options));
+  }
 }

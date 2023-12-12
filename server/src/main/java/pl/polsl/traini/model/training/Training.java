@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "Training")
-public class Training {
+public class Training implements Comparable<Training>{
     @Transient
     public static final String SEQUENCE_NAME = "TRAINING_SEQ";
 
@@ -25,4 +25,9 @@ public class Training {
     String description;
     Date createdAt;
     boolean cycled;
+
+  @Override
+  public int compareTo(Training o) {
+    return getTrainingDateStart().compareTo(o.getTrainingDateStart());
+  }
 }

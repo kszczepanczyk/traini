@@ -1,0 +1,187 @@
+@import "../../../../../mixins";
+.edit-icon {
+  width: 24px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.graph-container {
+  margin-bottom: 14px;
+}
+.grid-container {
+  width: fit-content;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+}
+.grid-container > div {
+  display: flex;
+  align-items: center;
+}
+.stats-container {
+  width: fit-content;
+  margin: auto;
+  background-color: var(--primaryLightTint);
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+}
+.most-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.grid-title {
+  margin-right: 16px;
+}
+.grid-value {
+  font-size: 20px;
+}
+.red {
+  color: var(--error);
+}
+.green {
+  color: var(--success);
+}
+
+.date-wrapper {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 8px;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-button-icon {
+  transform: rotate(45deg);
+  filter: invert(1);
+  height: 12px;
+}
+.add-button {
+  width: 25px;
+  height: 25px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progresses {
+  padding-bottom: 80px;
+}
+.progress {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  background-color: var(--primaryLightTint);
+  margin-bottom: 12px;
+}
+.amount-delete {
+  display: flex;
+  align-items: center;
+}
+.amount {
+  margin-right: 24px;
+}
+.tag-modal-wrapper {
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.411);
+}
+.tag-modal {
+  background-color: var(--white);
+  width: calc(100% - 32px);
+  padding: 24px 20px;
+}
+.tag-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.date-time-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.date-wrapper {
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.container {
+  border: 1px solid var(--black);
+  width: 50%;
+  border-radius: 4px;
+  padding: 11px 12px;
+  display: flex;
+  margin-top: 12px;
+}
+.date-container {
+  display: flex;
+  flex-direction: column;
+}
+.date-input {
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  color: var(--black);
+  &:focus {
+    outline: none;
+  }
+}
+.input-wrapper {
+  @include input-group;
+  padding-bottom: 60px;
+}
+.input {
+  @include input;
+}
+.primary-small {
+  @include button-primary-small;
+  margin-left: 12px;
+}
+.small {
+  width: 50%;
+}
+.button-wrapper {
+  align-self: flex-end;
+}
+.border-radius {
+  border-radius: 4px 0px 0px 4px;
+}
+.combined-input {
+  display: flex;
+}
+.select {
+  padding: 12px;
+  border-radius: 0px 4px 4px 0px;
+  border: 1px solid var(--black);
+  border-left: none;
+  color: var(--black);
+  font-size: 16px;
+}
+.type-group {
+  display: flex;
+  gap: 16px;
+}
+.icon {
+  width: 20px;
+  margin-right: 12px;
+}

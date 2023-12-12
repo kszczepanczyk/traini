@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddProgressReq {
-    Long userId;
     String name;
-    String value;
+    double value;
     String unit;
     boolean trend;
+    Date createdAt;
 }

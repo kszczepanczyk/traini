@@ -22,16 +22,30 @@ export type SimpleData = {
 };
 
 export type Client = UserListResp & {
-  trainings: Training[];
-  progresses: Progress[];
+  trainingList: Training[];
+  progressList: Progress[];
 };
 
 export type Progress = {
-  name: string;
+  progressName: string;
   date: string;
   value: number;
   unit: string;
-  tendency: boolean;
+  trend: boolean;
+  progressId: number;
+};
+
+export type ProgressList = {
+  unit: string;
+  trend: boolean;
+  progressName: string;
+  progressList: [
+    {
+      progressEntityId: number;
+      createdAt: Date;
+      value: number;
+    }
+  ];
 };
 
 export type UserListResp = {
@@ -43,4 +57,9 @@ export type UserListResp = {
   city: string;
   description: string;
   gender: string;
+};
+
+export type DataToChart = {
+  date: string;
+  value: number;
 };

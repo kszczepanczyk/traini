@@ -1,1 +1,118 @@
-<p>progress-add works!</p>
+<div class="edit-wrapper">
+  <h1 class="title">Dodawanie postępu</h1>
+  <mat-icon>close</mat-icon>
+</div>
+<form class="input-wrapper" [formGroup]="progressForm">
+  <label for="name">Nazwa postępu <span class="asterisk">*</span></label>
+  <div
+    class="input-group"
+    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
+  >
+    <input
+      class="input"
+      type="name"
+      id="name"
+      placeholder="np. Przysiad"
+      formControlName="name"
+    />
+    <span
+      class="error-info"
+      *ngIf="f['name'].errors && f['name'].errors['required']"
+      >Nazwa postępu jest wymagana</span
+    >
+  </div>
+  <div class="date-time-wrapper">
+    <div class="date-container">
+      <label for="date">Data<span class="asterisk">*</span></label>
+
+      <div
+        class="container"
+        [ngClass]="{ 'custom-error': f['createdAt'].errors && isSubmitted }"
+      >
+        <img
+          src="../../../../assets/calendar.svg"
+          alt="Calendar"
+          class="icon"
+        />
+        <input
+          id="date"
+          [matDatepicker]="picker"
+          formControlName="createdAt"
+          class="date-input"
+          (click)="picker.open()"
+        />
+      </div>
+      <span
+        class="error-info"
+        [ngClass]="{ visible: f['createdAt'].errors && isSubmitted }"
+        *ngIf="f['createdAt'].errors && f['createdAt'].errors['required']"
+        >Data jest wymagana</span
+      >
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+  </div>
+  <label for="value">Wartość <span class="asterisk">*</span></label>
+  <div
+    class="input-group small"
+    [ngClass]="{ 'validation-error': f['value'].errors && isSubmitted }"
+  >
+    <div class="combined-input">
+      <input
+        class="input border-radius"
+        id="value"
+        placeholder="np. 120"
+        formControlName="value"
+      />
+      <div class="select-container">
+        <select
+          name="unit"
+          id="unit"
+          class="select select-cyclic"
+          formControlName="unit"
+        >
+          <option value="kg">kg</option>
+          <option value="s">s</option>
+        </select>
+      </div>
+    </div>
+    <span
+      class="error-info"
+      *ngIf="f['name'].errors && f['name'].errors['required']"
+      >Wartość postępu jest wymagana</span
+    >
+  </div>
+  <label for="trend"
+    >Jaka ma być tendencja? <span class="asterisk">*</span></label
+  >
+  <div class="trend-container">
+    <div class="type-group">
+      <input
+        type="radio"
+        class="type-input"
+        id="trainer"
+        name="trend"
+        value="true"
+        formControlName="trend"
+      />
+      <label for="trainer" class="type-label">
+        <p class="type-header">Wzrostowa</p>
+      </label>
+      <input
+        type="radio"
+        class="type-input"
+        id="client"
+        name="trend"
+        value="false"
+        formControlName="trend"
+      />
+      <label for="client" class="type-label">
+        <p class="type-header">Spadkowa</p>
+      </label>
+    </div>
+  </div>
+
+  <button class="primary" type="submit" (click)="onSubmitProgress()">
+    Dodaj postęp
+  </button>
+  <!-- <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a> -->
+</form>

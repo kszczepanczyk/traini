@@ -5,6 +5,7 @@ export type Training = {
   cycled: boolean;
   trainingDate: TrainingDate;
   trainingName: string;
+  id: number;
   //TODO:
   //delete
   date: string;

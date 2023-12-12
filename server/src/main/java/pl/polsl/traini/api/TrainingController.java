@@ -8,9 +8,11 @@ import pl.polsl.traini.config.JwtService;
 import pl.polsl.traini.exceptions.NoLocationException;
 import pl.polsl.traini.exceptions.NoTrainingException;
 import pl.polsl.traini.model.dto.training.add.AddTrainingReq;
+import pl.polsl.traini.model.dto.training.delete.DeleteTrainingReq;
 import pl.polsl.traini.model.dto.training.get.GetTrainingRsp;
 import pl.polsl.traini.model.dto.training.update.UpdateTrainingReq;
 import pl.polsl.traini.service.training.add.AddTrainingService;
+import pl.polsl.traini.service.training.delete.DeleteTrainingService;
 import pl.polsl.traini.service.training.get.GetTrainingService;
 import pl.polsl.traini.service.training.update.UpdateTrainingService;
 
@@ -23,6 +25,7 @@ public class TrainingController {
     private final GetTrainingService getTrainingService;
     private final UpdateTrainingService updateTrainingService;
     private final AddTrainingService addTrainingService;
+    private final DeleteTrainingService deleteTrainingService;
     private final JwtService jwtService;
 
     @GetMapping("/{trainingId}")
@@ -46,5 +49,12 @@ public class TrainingController {
         log.info("Add training for username = {}", username);
         return addTrainingService.addTraining(username, req) != null ?
                 ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteTraining(@RequestBody DeleteTrainingReq req) {
+        log.info("Delete training with trainingId = {}", req.getTrainingId());
+        deleteTrainingService.deleteTraining(req.getTrainingId());
+        return ResponseEntity.ok().build();
     }
 }

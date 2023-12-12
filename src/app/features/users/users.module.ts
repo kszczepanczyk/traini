@@ -11,6 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProgressComponent } from './components/progress/progress.component';
 import { ProgressAddComponent } from './components/progress-add/progress-add.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ChartComponent } from 'src/app/shared/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     SharedModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    MatDatepickerModule,
   ],
   providers: [provideNgxMask()],
 })

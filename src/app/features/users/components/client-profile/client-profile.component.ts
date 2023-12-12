@@ -36,6 +36,9 @@ export class ClientProfileComponent implements OnInit {
       }
     );
   }
+  goToTraining(id: number) {
+    this.router.navigate(['/training', id]);
+  }
   openAddTraining() {
     this.data_service.setData(this.clientId);
     this.router.navigate(['/training/add']);
@@ -47,6 +50,9 @@ export class ClientProfileComponent implements OnInit {
   }
   goToEdit() {
     this.router.navigate(['/clients', this.clientId, 'edit']);
+  }
+  goToProgress(id: number) {
+    this.router.navigate(['/clients', this.clientId, 'progress', id]);
   }
   deleteClient() {}
 }

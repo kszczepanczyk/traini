@@ -12,7 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetProgressEntity {
+    Long progressEntityId;
     Date createdAt;
-    String value;
+    double value;
     String unit;
+    boolean trend;
 }
