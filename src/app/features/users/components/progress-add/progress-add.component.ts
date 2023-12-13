@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TrainingService } from 'src/app/features/training/training.service';
 import { DataService } from 'src/app/shared/data.service';
 import { UsersService } from '../../users.service';
 
@@ -20,9 +19,9 @@ export class ProgressAddComponent {
   progressForm: FormGroup;
   isSubmitted: boolean = false;
   userId: number = null;
+  error: string = '';
   constructor(
     private formBuilder: FormBuilder,
-    private data_service: DataService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _userService: UsersService
@@ -31,7 +30,7 @@ export class ProgressAddComponent {
       name: new FormControl('', Validators.required),
       createdAt: new FormControl(new Date(), Validators.required),
       value: new FormControl('', Validators.required),
-      unit: new FormControl(1, Validators.required),
+      unit: new FormControl('kg', Validators.required),
       trend: new FormControl('true', Validators.required),
     });
     this._activatedRoute.paramMap.subscribe((params) => {
@@ -43,15 +42,16 @@ export class ProgressAddComponent {
   }
 
   onSubmitProgress() {
+    this.isSubmitted = true;
     if (this.progressForm.valid) {
       this._userService
         .addProgress(this.progressForm.value, this.userId)
         .subscribe(
           (res) => {
-            console.log('dodane');
+            this._router.navigate(['/clients', this.userId]);
           },
           (_) => {
-            console.log('error');
+            this.error = 'Nie udało się dodać postępu';
           }
         );
     }

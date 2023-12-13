@@ -107,4 +107,30 @@ export class UsersService {
     };
     return from(CapacitorHttp.get(options));
   }
+
+  deleteProgress(id) {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/client/progress/' + id,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+    };
+
+    return from(CapacitorHttp.delete(options));
+  }
+
+  deleteProgressEntity(id) {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/client/progressEntity/' + id,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+    };
+
+    return from(CapacitorHttp.delete(options));
+  }
 }

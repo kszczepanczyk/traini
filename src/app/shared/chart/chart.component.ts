@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import Chart from 'chart.js/auto';
 import { DataToChart } from 'src/app/models/user.model';
 import gradient from 'chartjs-plugin-gradient';
@@ -9,12 +15,14 @@ Chart.defaults.font.family = "'Alata', 'sans-serif'";
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges {
   @Input({ required: true }) data!: DataToChart[];
+
   ngOnInit(): void {
     this.createChart();
   }
   chart: any;
+
   createChart() {
     this.chart = new Chart('progress', {
       type: 'line', //this denotes tha type of chart
@@ -52,5 +60,18 @@ export class ChartComponent implements OnInit {
       },
       plugins: [gradient],
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.chart) {
+      this.updateChart();
+    }
+  }
+  updateChart() {
+    this.chart.data.labels = this.data.map((item) => item.date);
+    this.chart.data.datasets[0].data = this.data.map((item) =>
+      item.value.toString()
+    );
+    this.chart.update();
   }
 }

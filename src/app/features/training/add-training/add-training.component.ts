@@ -9,10 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { Client, UserListResp } from 'src/app/models/user.model';
-import { Location } from 'src/app/models/location.model';
+import { Localization } from 'src/app/models/location.model';
 import { DataService } from 'src/app/shared/data.service';
 import { TrainingService } from '../training.service';
 import { UsersService } from '../../users/users.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-training',
@@ -22,8 +23,8 @@ import { UsersService } from '../../users/users.service';
 export class AddTrainingComponent implements OnInit {
   trainingForm: FormGroup;
   clients: UserListResp[] = [];
-  locations: Location[];
-  clientId: number | null = null;
+  locations: Localization[];
+  clientId: number = null;
   isSubmitted: boolean = false;
   today: Date = new Date();
   isLoaded: boolean = false;
@@ -43,12 +44,9 @@ export class AddTrainingComponent implements OnInit {
       timeTo: new FormControl('', Validators.required),
       client: new FormControl(this.clientId, Validators.required),
       cyclic: new FormControl(false),
-      cyclicDay: new FormControl(''),
       details: new FormControl(''),
       localization: new FormControl('', Validators.required),
     });
-
-    this.onCheckboxChange();
   }
   ngOnInit(): void {
     this._userService.getUserList().subscribe(
@@ -130,16 +128,6 @@ export class AddTrainingComponent implements OnInit {
         console.log('dodano');
       });
     }
-  }
-
-  onCheckboxChange() {
-    const isCyclic = this.trainingForm.get('cyclic')!.value;
-    if (isCyclic) {
-      this.trainingForm.get('cyclicDay')!.setValidators([Validators.required]);
-    } else {
-      this.trainingForm.get('cyclicDay')!.clearValidators();
-    }
-    this.trainingForm.get('cyclicDay')!.updateValueAndValidity();
   }
 
   onClientChange() {

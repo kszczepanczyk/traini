@@ -111,32 +111,9 @@
     </div>
   </div>
   <div class="cyclic-wrapper">
-    <mat-checkbox
-      [color]="'primary'"
-      formControlName="cyclic"
-      (change)="onCheckboxChange()"
+    <mat-checkbox [color]="'primary'" formControlName="cyclic"
       >Trening cykliczny</mat-checkbox
     >
-    <div class="select-container" *ngIf="f['cyclic'].value">
-      <label for="cyclic-day"
-        >W jaki dzień?<span class="asterisk">*</span></label
-      >
-      <select
-        name="cyclic-day"
-        id="cyclic-day"
-        class="select select-cyclic"
-        formControlName="cyclicDay"
-        [required]="f['cyclic'].value"
-      >
-        <option value="1">Poniedziałek</option>
-        <option value="2">Wtorek</option>
-        <option value="3">Środa</option>
-        <option value="4">Czwartek</option>
-        <option value="5">Piątek</option>
-        <option value="6">Sobota</option>
-        <option value="7">Niedziela</option>
-      </select>
-    </div>
   </div>
   <div class="select-container">
     <label for="clients"
@@ -152,7 +129,7 @@
       <option *ngFor="let client of clients" [value]="client.id">
         {{ client.name }} {{ client.surname }}
       </option>
-      <option value="inne">Dodaj klienta</option>
+      <!-- <option value="inne">Dodaj klienta</option> -->
     </select>
   </div>
   <div class="select-container">
@@ -167,7 +144,7 @@
       <option *ngFor="let location of locations" [value]="location.name">
         {{ location.name }}
       </option>
-      <option value="inne">Dodaj lokalizację</option>
+      <!-- <option value="inne">Dodaj lokalizację</option> -->
     </select>
   </div>
   <!-- <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
@@ -192,3 +169,5 @@
   </button>
   <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
 </form>
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<app-error-page *ngIf="error && isLoaded"></app-error-page>

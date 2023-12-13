@@ -64,7 +64,7 @@ public class ClientController {
       return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/progressEntity/{progressEntityId}")
+    @DeleteMapping("/progressEntity/{progressEntityId}")
     public ResponseEntity<GetProgressListRsp> deleteProgressEntity(@PathVariable long progressEntityId) {
       log.info("Delete progress = {}", progressEntityId);
       deleteProgressEntityService.deleteProgressEntity(progressEntityId);

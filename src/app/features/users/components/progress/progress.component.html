@@ -1,24 +1,15 @@
 <app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="error-message-box" *ngIf="isEntityAdded == 'ERROR'">
+  <span class="error-text">Wystąpił błąd podczas dodawania wpisu</span>
+</div>
+<div class="success-message-box" *ngIf="isEntityAdded == 'SUCCESS'">
+  <span class="success-text">Pomyślnie dodano wpis</span>
+</div>
 <div class="content" *ngIf="isLoaded">
   <div class="edit-wrapper">
     <h1>{{ progressData.progressName }}</h1>
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Button for a profile menu"
-    >
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item>
-        <mat-icon>edit</mat-icon>
-        <span>Edytuj nazwę</span>
-      </button>
-      <button mat-menu-item (click)="deleteProgress()">
-        <mat-icon>delete</mat-icon>
-        <span>Usuń</span>
-      </button>
-    </mat-menu>
+
+    <mat-icon (click)="isProgressModalVisible = true">delete</mat-icon>
   </div>
   <div class="graph-container">
     <app-chart [data]="dataToChart"></app-chart>
@@ -141,6 +132,23 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+  <div class="tag-modal-wrapper" *ngIf="isProgressModalVisible">
+    <div class="tag-modal">
+      <div class="tag-form">
+        <h2 class="tag-title">Czy na pewno chcesz usunąć postęp?</h2>
+        <div class="button-wrapper">
+          <a class="link" (click)="deleteProgress()">Tak</a>
+          <button
+            class="primary-small"
+            type="submit"
+            (click)="isProgressModalVisible = false"
+          >
+            Nie
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
