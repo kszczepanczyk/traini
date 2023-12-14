@@ -6,7 +6,6 @@
 
   <mat-icon [routerLink]="['/profile']">close</mat-icon>
 </div>
-<app-spinner [dataLoaded]="isLoaded"></app-spinner>
 <div class="content" *ngIf="isLoaded && !error">
   <div class="profile-wrapper">
     <div class="profile">
@@ -169,7 +168,11 @@
     </div>
 
     <button class="primary" type="submit" (click)="onSubmitUser()">
-      Zapisz
+      <span *ngIf="!isChanging">Zapisz</span>
+      <app-spinner-small
+        [dataLoaded]="!isChanging"
+        *ngIf="isChanging"
+      ></app-spinner-small>
     </button>
     <a class="link" [routerLink]="['/profile']">Anuluj</a>
   </form>

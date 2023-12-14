@@ -1,153 +1,176 @@
-<div class="edit-wrapper">
-  <h1 class="title">Dodawanie treningu</h1>
-  <mat-icon>close</mat-icon>
+<div class="error-message-box" *ngIf="result === 'ERROR'">
+  <span class="error-text">Nie udało dodać się treningu</span>
 </div>
-<form class="input-wrapper" [formGroup]="trainingForm">
-  <label for="name">Nazwa treningu <span class="asterisk">*</span></label>
-  <div
-    class="input-group"
-    [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
-  >
-    <input
-      class="input"
-      type="name"
-      id="name"
-      placeholder="np. Trening siłowy"
-      formControlName="name"
-    />
-    <span
-      class="error-info"
-      *ngIf="f['name'].errors && f['name'].errors['required']"
-      >Nazwa treningu jest wymagana</span
+<div class="success-message-box" *ngIf="result === 'SUCCESS'">
+  <span class="success-text">Poprawnie dodano trening</span>
+</div>
+<div class="content-container" *ngIf="!error && isLoaded">
+  <div class="edit-wrapper">
+    <h1 class="title">Dodawanie treningu</h1>
+    <mat-icon (click)="goBack()">close</mat-icon>
+  </div>
+  <form class="input-wrapper" [formGroup]="trainingForm">
+    <label for="name">Nazwa treningu <span class="asterisk">*</span></label>
+    <div
+      class="input-group"
+      [ngClass]="{ 'validation-error': f['name'].errors && isSubmitted }"
     >
-  </div>
-  <div class="date-time-wrapper">
-    <div class="date-container">
-      <label for="date">Data<span class="asterisk">*</span></label>
+      <input
+        class="input"
+        type="name"
+        id="name"
+        placeholder="np. Trening siłowy"
+        formControlName="name"
+      />
+      <span
+        class="error-info"
+        *ngIf="f['name'].errors && f['name'].errors['required']"
+        >Nazwa treningu jest wymagana</span
+      >
+    </div>
+    <div class="date-time-wrapper">
+      <div class="date-container">
+        <label for="date">Data<span class="asterisk">*</span></label>
 
-      <div
-        class="container small"
-        [ngClass]="{ 'custom-error': f['date'].errors && isSubmitted }"
-      >
-        <img
-          src="../../../../assets/calendar.svg"
-          alt="Calendar"
-          class="icon"
-        />
-        <input
-          id="date"
-          [matDatepicker]="picker"
-          [min]="today"
-          formControlName="date"
-          class="date-input"
-          (click)="picker.open()"
-        />
+        <div
+          class="container small"
+          [ngClass]="{ 'custom-error': f['date'].errors && isSubmitted }"
+        >
+          <img
+            src="../../../../assets/calendar.svg"
+            alt="Calendar"
+            class="icon"
+          />
+          <input
+            id="date"
+            [matDatepicker]="picker"
+            [min]="today"
+            formControlName="date"
+            class="date-input"
+            (click)="picker.open()"
+          />
+        </div>
+        <span
+          class="error-info"
+          [ngClass]="{ visible: f['date'].errors && isSubmitted }"
+          *ngIf="f['date'].errors && f['date'].errors['required']"
+          >Data jest wymagana</span
+        >
+        <mat-datepicker #picker></mat-datepicker>
       </div>
-      <span
-        class="error-info"
-        [ngClass]="{ visible: f['date'].errors && isSubmitted }"
-        *ngIf="f['date'].errors && f['date'].errors['required']"
-        >Data jest wymagana</span
-      >
-      <mat-datepicker #picker></mat-datepicker>
     </div>
-  </div>
-  <div class="time-container">
-    <div class="time">
-      <label for="fromTime">Godzina od<span class="asterisk">*</span></label>
-      <div
-        class="container"
-        [ngClass]="{ 'custom-error': f['timeFrom'].errors && isSubmitted }"
-      >
-        <img src="../../../../assets/time.svg" alt="Time" class="icon" />
-        <input
-          id="fromTime"
-          [ngxTimepicker]="fromTime"
-          formControlName="timeFrom"
-          [format]="24"
-          readonly
-          class="date-input"
-          [max]="f['timeTo'].value ? f['timeTo'].value : '23:59'"
-        />
-      </div>
-      <span
-        class="error-info"
-        [ngClass]="{ visible: f['timeFrom'].errors && isSubmitted }"
-        *ngIf="f['timeFrom'].errors && f['timeFrom'].errors['required']"
-        >Godzina od jest wymagana</span
-      >
-      <ngx-material-timepicker
-        #fromTime
-        [theme]="theme"
-      ></ngx-material-timepicker>
-    </div>
-    <div class="time">
-      <label for="toTime">Godzina od<span class="asterisk">*</span></label>
-      <div
-        class="container"
-        [ngClass]="{ 'custom-error': f['timeTo'].errors && isSubmitted }"
-      >
-        <img src="../../../../assets/time.svg" alt="Time" class="icon" />
-        <input
-          id="toTime"
-          [ngxTimepicker]="toTime"
-          formControlName="timeTo"
-          [format]="24"
-          readonly
-          class="date-input"
-          [min]="f['timeFrom'].value ? f['timeFrom'].value : '23:59'"
-        />
+    <div class="time-container">
+      <div class="time">
+        <label for="fromTime">Godzina od<span class="asterisk">*</span></label>
+        <div
+          class="container"
+          [ngClass]="{ 'custom-error': f['timeFrom'].errors && isSubmitted }"
+        >
+          <img src="../../../../assets/time.svg" alt="Time" class="icon" />
+          <input
+            id="fromTime"
+            [ngxTimepicker]="fromTime"
+            formControlName="timeFrom"
+            [format]="24"
+            readonly
+            class="date-input"
+            [max]="f['timeTo'].value ? f['timeTo'].value : '23:59'"
+          />
+        </div>
+        <span
+          class="error-info"
+          [ngClass]="{ visible: f['timeFrom'].errors && isSubmitted }"
+          *ngIf="f['timeFrom'].errors && f['timeFrom'].errors['required']"
+          >Godzina od jest wymagana</span
+        >
         <ngx-material-timepicker
-          #toTime
+          #fromTime
           [theme]="theme"
         ></ngx-material-timepicker>
       </div>
-      <span
-        class="error-info"
-        [ngClass]="{ visible: f['timeTo'].errors && isSubmitted }"
-        *ngIf="f['timeTo'].errors && f['timeTo'].errors['required']"
-        >Godzina do jest wymagana</span
+      <div class="time">
+        <label for="toTime">Godzina od<span class="asterisk">*</span></label>
+        <div
+          class="container"
+          [ngClass]="{ 'custom-error': f['timeTo'].errors && isSubmitted }"
+        >
+          <img src="../../../../assets/time.svg" alt="Time" class="icon" />
+          <input
+            id="toTime"
+            [ngxTimepicker]="toTime"
+            formControlName="timeTo"
+            [format]="24"
+            readonly
+            class="date-input"
+            [min]="f['timeFrom'].value ? f['timeFrom'].value : '23:59'"
+          />
+          <ngx-material-timepicker
+            #toTime
+            [theme]="theme"
+          ></ngx-material-timepicker>
+        </div>
+        <span
+          class="error-info"
+          [ngClass]="{ visible: f['timeTo'].errors && isSubmitted }"
+          *ngIf="f['timeTo'].errors && f['timeTo'].errors['required']"
+          >Godzina do jest wymagana</span
+        >
+      </div>
+    </div>
+    <div class="cyclic-wrapper">
+      <mat-checkbox [color]="'primary'" formControlName="cyclic"
+        >Trening cykliczny</mat-checkbox
       >
     </div>
-  </div>
-  <div class="cyclic-wrapper">
-    <mat-checkbox [color]="'primary'" formControlName="cyclic"
-      >Trening cykliczny</mat-checkbox
-    >
-  </div>
-  <div class="select-container">
-    <label for="clients"
-      >Z którym klientem<span class="asterisk">*</span></label
-    >
-    <select
-      name="clients"
-      id="clients"
-      class="select"
-      formControlName="client"
-      (change)="onClientChange()"
-    >
-      <option *ngFor="let client of clients" [value]="client.id">
-        {{ client.name }} {{ client.surname }}
-      </option>
-      <!-- <option value="inne">Dodaj klienta</option> -->
-    </select>
-  </div>
-  <div class="select-container">
-    <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
-    <select
-      name="localization"
-      id="localization"
-      class="select"
-      formControlName="localization"
-      (change)="onClientChange()"
-    >
-      <option *ngFor="let location of locations" [value]="location.name">
-        {{ location.name }}
-      </option>
-      <!-- <option value="inne">Dodaj lokalizację</option> -->
-    </select>
-  </div>
-  <!-- <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
+    <div class="select-container">
+      <label for="clients"
+        >Z którym klientem<span class="asterisk">*</span></label
+      >
+      <select
+        name="clients"
+        id="clients"
+        class="select"
+        [ngClass]="{ 'custom-error': f['client'].errors && isSubmitted }"
+        formControlName="client"
+        (change)="onClientChange()"
+      >
+        <option *ngFor="let client of clients" [value]="client.id">
+          {{ client.name }} {{ client.surname }}
+        </option>
+        <!-- <option value="inne">Dodaj klienta</option> -->
+      </select>
+      <span
+        class="error-info"
+        [ngClass]="{ visible: f['client'].errors && isSubmitted }"
+        *ngIf="f['client'].errors && f['client'].errors['required']"
+        >Klient jest wymagany</span
+      >
+    </div>
+    <div class="select-container">
+      <label for="localization"
+        >Lokalizacja<span class="asterisk">*</span></label
+      >
+      <select
+        name="localization"
+        id="localization"
+        class="select"
+        [ngClass]="{ 'custom-error': f['localization'].errors && isSubmitted }"
+        formControlName="localization"
+        (change)="onClientChange()"
+      >
+        <option *ngFor="let location of locations" [value]="location.name">
+          {{ location.name }}
+        </option>
+        <!-- <option value="inne">Dodaj lokalizację</option> -->
+      </select>
+      <span
+        class="error-info"
+        [ngClass]="{ visible: f['localization'].errors && isSubmitted }"
+        *ngIf="f['localization'].errors && f['localization'].errors['required']"
+        >Lokalizacja jest wymagana</span
+      >
+    </div>
+    <!-- <label for="localization">Lokalizacja<span class="asterisk">*</span></label>
   <input
     class="input"
     type="localization"
@@ -155,19 +178,23 @@
     placeholder="np. CityFit Gliwice "
     formControlName="localization"
   /> -->
-  <label for="details">Szczegóły treningu</label>
-  <textarea
-    class="input wide"
-    id="details"
-    placeholder="np. Dłuższy trening skupiony na rozciąganiu"
-    rows="5"
-    formControlName="details"
-  ></textarea>
+    <label for="details">Szczegóły treningu</label>
+    <textarea
+      class="input wide"
+      id="details"
+      placeholder="np. Dłuższy trening skupiony na rozciąganiu"
+      rows="5"
+      formControlName="details"
+    ></textarea>
 
-  <button class="primary" type="submit" (click)="onSubmitTraining()">
-    Dodaj trening
-  </button>
-  <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
-</form>
+    <button class="primary" type="submit" (click)="onSubmitTraining()">
+      <span *ngIf="!isAdding">Dodaj trening</span>
+      <div class="small-spinner" *ngIf="isAdding">
+        <app-spinner-small [dataLoaded]="!isAdding"></app-spinner-small>
+      </div>
+    </button>
+    <a class="link" (click)="goBack()">Anuluj</a>
+  </form>
+</div>
 <app-spinner [dataLoaded]="isLoaded"></app-spinner>
 <app-error-page *ngIf="error && isLoaded"></app-error-page>

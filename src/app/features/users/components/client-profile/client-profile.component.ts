@@ -10,7 +10,7 @@ import { UsersService } from '../../users.service';
   styleUrls: ['./client-profile.component.scss'],
 })
 export class ClientProfileComponent implements OnInit {
-  clientId: number = 0;
+  clientId: number = null;
   isLoaded: boolean = false;
   user: Client;
   error: string = '';
@@ -40,7 +40,8 @@ export class ClientProfileComponent implements OnInit {
     this.router.navigate(['/training', id]);
   }
   openAddTraining() {
-    this.data_service.setData(this.clientId);
+    this.data_service.setData('clientId', this.clientId);
+    this.data_service.setData('callbackURL', `/clients/${this.clientId}`);
     this.router.navigate(['/training/add']);
   }
   openAddProgress() {

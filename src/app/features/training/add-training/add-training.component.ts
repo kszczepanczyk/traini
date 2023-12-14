@@ -28,7 +28,9 @@ export class AddTrainingComponent implements OnInit {
   isSubmitted: boolean = false;
   today: Date = new Date();
   isLoaded: boolean = false;
+  isAdding: boolean = false;
   error: string = '';
+  result: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private data_service: DataService,
@@ -36,10 +38,15 @@ export class AddTrainingComponent implements OnInit {
     private _trainingService: TrainingService,
     private _userService: UsersService
   ) {
-    this.clientId = this.data_service.getData();
+    this.clientId = this.data_service.getData('clientId')
+      ? this.data_service.getData('clientId')
+      : null;
+    const dateFromService = this.data_service.getData('date')
+      ? this.data_service.getData('date')
+      : null;
     this.trainingForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
-      date: new FormControl('', Validators.required),
+      date: new FormControl(dateFromService, Validators.required),
       timeFrom: new FormControl('', Validators.required),
       timeTo: new FormControl('', Validators.required),
       client: new FormControl(this.clientId, Validators.required),
@@ -87,10 +94,18 @@ export class AddTrainingComponent implements OnInit {
     },
   };
 
-  goBack() {}
+  goBack() {
+    const url = this.data_service.getData('callbackURL')
+      ? this.data_service.getData('callbackURL')
+      : '';
+    this.data_service.deleteData('clientId');
+    this.data_service.deleteData('date');
+    this._router.navigate([url]);
+  }
 
   onSubmitTraining() {
     this.isSubmitted = true;
+
     if (this.trainingForm.valid) {
       const {
         name,
@@ -102,7 +117,6 @@ export class AddTrainingComponent implements OnInit {
         localization,
         cyclic,
       } = this.trainingForm.value;
-
       let dateObject = new Date(date);
 
       let year = dateObject.getFullYear();
@@ -123,18 +137,25 @@ export class AddTrainingComponent implements OnInit {
         description: details,
         localization: localization,
       };
-
-      this._trainingService.addTraining(dataToSend).subscribe((res) => {
-        console.log('dodano');
-      });
+      this.isAdding = true;
+      this._trainingService.addTraining(dataToSend).subscribe(
+        (res) => {
+          this.result = 'SUCCESS';
+          this.isAdding = false;
+        },
+        (_) => {
+          this.result = 'ERROR';
+          this.isAdding = false;
+        }
+      );
     }
   }
 
   onClientChange() {
-    const selectedClientId = this.trainingForm.get('client')!.value;
-    if (selectedClientId === 'inne') {
-      this.data_service.setData({ training: this.trainingForm.value });
-      this._router.navigate(['/clients/add']);
-    }
+    // const selectedClientId = this.trainingForm.get('client')!.value;
+    // if (selectedClientId === 'inne') {
+    //   this.data_service.setData({ training: this.trainingForm.value });
+    //   this._router.navigate(['/clients/add']);
+    // }
   }
 }

@@ -4,12 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DataService {
-  private data: any;
+  private data: any = {};
 
-  setData(data: any): void {
-    this.data = data;
+  setData(key, value): void {
+    this.data[key] = value;
   }
-  getData(): any {
-    return this.data;
+  getData(key): any {
+    return this.data[key];
+  }
+  deleteData(key) {
+    delete this.data[key];
   }
 }

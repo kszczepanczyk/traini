@@ -59,9 +59,7 @@ textarea {
   display: flex;
   margin-top: 12px;
 }
-.custom-error {
-  border: 1px solid var(--error);
-}
+
 .visible {
   display: block;
   color: var(--error);
@@ -118,4 +116,7 @@ textarea {
     transition: 0.25s all ease;
     pointer-events: none;
   }
+}
+.custom-error {
+  border: 1px solid var(--error);
 }

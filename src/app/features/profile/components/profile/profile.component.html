@@ -1,5 +1,5 @@
-<app-spinner [dataLoaded]="dataLoaded"></app-spinner>
-<div class="content" *ngIf="dataLoaded">
+<app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="content" *ngIf="!error && isLoaded">
   <div class="edit-wrapper">
     <h1 class="title">Profil</h1>
     <button
@@ -97,4 +97,4 @@
     </div>
   </div>
 </div>
-<div class="content-error" *ngIf="!dataLoaded"></div>
+<app-error-page *ngIf="error"></app-error-page>

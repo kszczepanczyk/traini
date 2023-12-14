@@ -5,6 +5,7 @@ import { Training } from 'src/app/models/training.model';
 import { AuthService } from '../auth/auth.service';
 import { HomeService } from './home.service';
 import { HomeData } from 'src/app/models/homeData.model';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,11 @@ export class HomeComponent implements OnInit {
   homeData: HomeData;
   error: string = '';
   errorDate: string = '';
-  constructor(private _homeService: HomeService, private _router: Router) {
+  constructor(
+    private _homeService: HomeService,
+    private _router: Router,
+    private data_service: DataService
+  ) {
     this._homeService.getNameAndAvatar().subscribe(
       (res) => {
         this.homeData = res.data;
@@ -89,6 +94,8 @@ export class HomeComponent implements OnInit {
     this._router.navigate(['/profile']);
   }
   navigateToAddTraining() {
+    this.data_service.setData('date', this.selectedDate.toDate());
+    this.data_service.setData('callbackURL', '');
     this._router.navigate(['/training/add']);
   }
 

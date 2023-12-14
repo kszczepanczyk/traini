@@ -10,9 +10,10 @@ import { ProfileService } from '../../profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   user: Trainer;
-  dataLoaded: boolean = false;
+  isLoaded: boolean = false;
+  error: string = '';
   constructor(
     private _profileService: ProfileService,
     private _dataService: DataService,
@@ -21,19 +22,18 @@ export class ProfileComponent implements OnInit {
   ) {
     this._profileService.getProfile().subscribe(
       (res) => {
-        this.dataLoaded = true;
+        this.isLoaded = true;
         this.user = res.data;
       },
       (_) => {
-        this.dataLoaded = false;
+        this.isLoaded = true;
+        this.error = 'Coś poszło nie tak';
       }
     );
   }
 
-  ngOnInit() {}
-
   goToEdit(): void {
-    this._dataService.setData(this.user);
+    this._dataService.setData('userData', this.user);
     this._router.navigate(['profile/edit']);
   }
 

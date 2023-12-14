@@ -25,6 +25,7 @@ export class EditComponent implements OnInit {
   isTagModalVisible: boolean = false;
   isLocalizationModalVisible: boolean = false;
   isLoaded: boolean = false;
+  isChanging: boolean = false;
   error: string = '';
   constructor(
     private _dataService: DataService,
@@ -33,7 +34,7 @@ export class EditComponent implements OnInit {
     private _profileService: ProfileService
   ) {}
   ngOnInit(): void {
-    this.userData = this._dataService.getData();
+    this.userData = this._dataService.getData('userData');
     if (this.userData) {
       this.initializeForms(this.userData);
       this.isLoaded = true;
@@ -124,7 +125,7 @@ export class EditComponent implements OnInit {
   }
   onSubmitUser() {
     if (this.userForm.valid) {
-      this.isLoaded = false;
+      this.isChanging = true;
       const { name, surname, description, phone, city, gender } =
         this.userForm.value;
       const { tags, locations, photoB64, email, id } = this.userData!;
@@ -149,7 +150,7 @@ export class EditComponent implements OnInit {
         },
         (_) => {
           this.error = 'Nie udało się edytować profilu';
-          this.isLoaded = true;
+          this.isChanging = false;
         }
       );
     }

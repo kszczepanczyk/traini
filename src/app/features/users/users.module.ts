@@ -13,6 +13,7 @@ import { ProgressAddComponent } from './components/progress-add/progress-add.com
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChartComponent } from 'src/app/shared/chart/chart.component';
+import { DataService } from 'src/app/shared/data.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ChartComponent } from 'src/app/shared/chart/chart.component';
     NgxMaskPipe,
     MatDatepickerModule,
   ],
-  providers: [provideNgxMask()],
+  providers: [provideNgxMask(), DataService],
 })
 export class UserModule {
   public static forRoot(): ModuleWithProviders<UserModule> {
