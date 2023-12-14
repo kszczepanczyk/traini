@@ -1,4 +1,7 @@
 <app-spinner [dataLoaded]="isLoaded"></app-spinner>
+<div class="error-message-box" *ngIf="error == 'ERROR'">
+  <span class="error-text">Wystąpił błąd podczas usuwania klienta</span>
+</div>
 <div class="content" *ngIf="!error && isLoaded">
   <div class="edit-wrapper">
     <h1>Klient</h1>
@@ -47,9 +50,11 @@
         </div>
         <div class="city">
           <img class="image" src="../../../assets/localization.svg" /><span
+            *ngIf="user.city"
             class="info"
             >{{ user.city }}</span
           >
+          <span *ngIf="!user.city" class="info">Brak danych</span>
         </div>
 
         <div class="gender">
@@ -72,7 +77,7 @@
         />
       </div>
     </div>
-    <div class="training-wrapper" *ngIf="user.trainingList">
+    <div class="training-wrapper" *ngIf="user.trainingList.length !== 0">
       <div class="clickable" *ngFor="let training of user.trainingList">
         <div class="training" (click)="goToTraining(training.id)">
           <div class="date-time">
@@ -94,7 +99,7 @@
         <span class="load-more-text"> Więcej </span>
       </div>
     </div>
-    <div class="training-empty" *ngIf="!user.trainingList">
+    <div class="training-empty" *ngIf="user.trainingList.length === 0">
       <span class="progress-text"
         >Ten klient nie ma jeszcze żadnego treningu </span
       ><br />
@@ -112,7 +117,7 @@
         />
       </div>
     </div>
-    <div class="progresses" *ngIf="user.progressList">
+    <div class="progresses" *ngIf="user.progressList.length !== 0">
       <div class="progress-click" *ngFor="let progress of user.progressList">
         <div class="progress" (click)="goToProgress(progress.progressId)">
           <span class="name">{{ progress.progressName }}</span
@@ -120,7 +125,7 @@
         </div>
       </div>
     </div>
-    <div class="progresses" *ngIf="!user.progressList">
+    <div class="progresses" *ngIf="user.progressList.length === 0">
       <span class="progress-text"
         >Ten klient nie ma jeszcze zapisanego postępu
       </span>
@@ -130,3 +135,4 @@
     </div>
   </div>
 </div>
+<app-error-page *ngIf="error"></app-error-page>

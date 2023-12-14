@@ -100,6 +100,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToTraining(training) {
+    this.data_service.setData('callbackURL', '');
     this._router.navigate(['/training', training.id]);
   }
 }

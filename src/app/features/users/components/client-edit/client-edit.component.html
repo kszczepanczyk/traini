@@ -135,6 +135,11 @@
     </div>
   </div>
 
-  <button class="primary" type="submit" (click)="onSubmitUser()">Zapisz</button>
+  <button class="primary" type="submit" (click)="onSubmitUser()">
+    <span *ngIf="!isLoading">Zapisz</span>
+    <div class="small-spinner" *ngIf="isLoading">
+      <app-spinner-small [dataLoaded]="!isLoading"></app-spinner-small>
+    </div>
+  </button>
   <a class="link" [routerLink]="['/clients', clientId]">Anuluj</a>
 </form>

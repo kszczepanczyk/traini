@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../users.service';
+import { DataService } from 'src/app/shared/data.service';
 @Component({
   selector: 'app-client-edit',
   templateUrl: './client-edit.component.html',
@@ -24,11 +25,13 @@ export class ClientEditComponent implements OnInit {
   isTagModalVisible: boolean = false;
   isLocalizationModalVisible: boolean = false;
   error: string = '';
+  isLoading: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private _router: Router,
-    private _userService: UsersService
+    private _userService: UsersService,
+    private _dataService: DataService
   ) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -45,6 +48,8 @@ export class ClientEditComponent implements OnInit {
         gender: '',
         photo: '',
       };
+    } else {
+      this.userData = this._dataService.getData('clientData');
     }
     this.userForm = this.formBuilder.group({
       name: new FormControl(this.userData?.name, Validators.required),
@@ -67,18 +72,35 @@ export class ClientEditComponent implements OnInit {
   }
   onSubmitUser() {
     this.isSubmitted = true;
+    this.isLoading = true;
     if (this.userForm.valid) {
-      this._userService.addClient(this.userForm.value).subscribe(
-        (res) => {
-          this._router.navigate(['clients'], {
-            queryParams: { added: 'true' },
-          });
-        },
-        (err) => {
-          this.error = 'Coś poszło nie tak';
-        }
-      );
-      //TODO
+      if (this.clientId) {
+        this._userService
+          .updateClient(this.userForm.value, this.clientId)
+          .subscribe(
+            (res) => {
+              this.isLoading = false;
+              this._router.navigate(['/clients', this.clientId]);
+            },
+            (err) => {
+              this.isLoading = false;
+              this.error = 'Coś poszło nie tak';
+            }
+          );
+      } else {
+        this._userService.addClient(this.userForm.value).subscribe(
+          (res) => {
+            this.isLoading = false;
+            this._router.navigate(['clients'], {
+              queryParams: { added: 'true' },
+            });
+          },
+          (err) => {
+            this.isLoading = false;
+            this.error = 'Coś poszło nie tak';
+          }
+        );
+      }
     }
   }
   onFileChange(event: any) {

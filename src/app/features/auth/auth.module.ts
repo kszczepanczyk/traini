@@ -7,13 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent],
   imports: [
     AuthRoutingModule,
     ReactiveFormsModule,
-    CommonModule,
+    SharedModule,
     NgxMaskDirective,
     NgxMaskPipe,
     HttpClientModule,

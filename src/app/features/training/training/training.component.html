@@ -1,24 +1,8 @@
 <app-spinner [dataLoaded]="isLoaded"></app-spinner>
-<div class="content" *ngIf="!error && isLoaded">
+<div class="content" *ngIf="error !== 'LOAD_ERROR' && isLoaded">
   <div class="edit-wrapper">
     <h1>{{ training.trainingName }}</h1>
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Button for a profile menu"
-    >
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="goToEdit()">
-        <mat-icon>edit</mat-icon>
-        <span>Edytuj</span>
-      </button>
-      <button mat-menu-item (click)="deleteClient()">
-        <mat-icon>delete</mat-icon>
-        <span>Usuń</span>
-      </button>
-    </mat-menu>
+    <mat-icon (click)="deleteTraining()">delete</mat-icon>
   </div>
   <div class="training-info">
     <div class="small-info">
@@ -54,3 +38,4 @@
     </div>
   </div>
 </div>
+<app-error-page *ngIf="error === 'ERROR'"></app-error-page>

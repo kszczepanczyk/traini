@@ -18,7 +18,8 @@ export class ClientProfileComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private router: Router,
     private data_service: DataService,
-    private _userService: UsersService
+    private _userService: UsersService,
+    private _dataService: DataService
   ) {
     this._activatedRoute.paramMap.subscribe((params) => {
       this.clientId = +params.get('id')!;
@@ -37,6 +38,7 @@ export class ClientProfileComponent implements OnInit {
     );
   }
   goToTraining(id: number) {
+    this._dataService.setData('callbackURL', `/clients/${this.clientId}`);
     this.router.navigate(['/training', id]);
   }
   openAddTraining() {
@@ -50,10 +52,23 @@ export class ClientProfileComponent implements OnInit {
     });
   }
   goToEdit() {
+    this._dataService.setData('clientData', this.user);
     this.router.navigate(['/clients', this.clientId, 'edit']);
   }
   goToProgress(id: number) {
     this.router.navigate(['/clients', this.clientId, 'progress', id]);
   }
-  deleteClient() {}
+  deleteClient() {
+    this.isLoaded = false;
+    this._userService.deleteUser(this.clientId).subscribe(
+      (res) => {
+        this.isLoaded = true;
+        this.router.navigate(['/clients']);
+      },
+      (err) => {
+        this.isLoaded = true;
+        this.error = 'ERROR';
+      }
+    );
+  }
 }

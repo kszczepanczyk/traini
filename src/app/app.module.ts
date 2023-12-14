@@ -17,6 +17,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthService } from './features/auth/auth.service';
+import { ScheduleModule } from './features/schedule/schedule.module';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -36,6 +37,7 @@ export function initializeApp(yourService: AuthService) {
     UserModule,
     TrainingModule,
     MatNativeDateModule,
+    ScheduleModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

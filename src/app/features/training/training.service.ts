@@ -27,6 +27,20 @@ export class TrainingService {
     return from(CapacitorHttp.post(options));
   }
 
+  deleteTraining(id) {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/training',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+      data: { trainingId: id },
+    };
+
+    return from(CapacitorHttp.delete(options));
+  }
+
   getTraining(id) {
     this.token = this._authService.getAccessToken();
     let options = {

@@ -81,6 +81,20 @@ export class UsersService {
     return from(CapacitorHttp.post(options));
   }
 
+  updateClient(clientForm, id) {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/client/' + id,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+      data: { ...clientForm },
+    };
+
+    return from(CapacitorHttp.put(options));
+  }
+
   addProgress(progressForm, id) {
     this.token = this._authService.getAccessToken();
 
@@ -116,6 +130,20 @@ export class UsersService {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
       },
+    };
+
+    return from(CapacitorHttp.delete(options));
+  }
+
+  deleteUser(id) {
+    this.token = this._authService.getAccessToken();
+    let options = {
+      url: environment.apiKey + '/client',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      },
+      data: { userId: id },
     };
 
     return from(CapacitorHttp.delete(options));

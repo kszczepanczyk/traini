@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
   isSubmitted: boolean = false;
+  isLoading: boolean = false;
   error: string = '';
   infoMessage: string = '';
   constructor(
@@ -48,12 +49,15 @@ export class LoginComponent implements OnInit {
   }
   login() {
     this.isSubmitted = true;
+    this.isLoading = true;
     if (this.loginForm.valid) {
       this._authService.login(this.loginForm.value).subscribe(
         (_) => {
+          this.isLoading = false;
           this._router.navigate(['/']);
         },
         (res) => {
+          this.isLoading = false;
           this.error = JSON.stringify(res);
         }
       );
