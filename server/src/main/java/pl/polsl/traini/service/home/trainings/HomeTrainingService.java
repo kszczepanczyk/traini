@@ -42,9 +42,16 @@ public class HomeTrainingService {
         () -> new UsernameNotFoundException("Cant find trainer by email = " + username)
       );
       Date endDate = new Date(date.getTime() + (long)(1000 * 60 * 60 * 24));
+
+      Date today = new Date();
+      if(today.getDay() == date.getDay() && today.getMonth() == date.getMonth() && today.getYear() ==  date.getYear()) {
+        date = today;
+      }
+
       List<Training> trainings = trainingRepository.findByTrainerIdAndTrainingDateStartBetween(trainer.getId(), date, endDate);
+      Date finalDate = date;
       List<Training> cycledTrainings = trainingRepository.findByTrainerIdAndCycledAndTrainingDateStartBefore(trainer.getId(), true, date)
-        .stream().filter(t -> checkDay(t.getTrainingDateStart(), date))
+        .stream().filter(t -> checkDay(t.getTrainingDateStart(), finalDate))
         .map(this::changeDate)
         .toList();
 
@@ -101,7 +108,7 @@ public class HomeTrainingService {
       calendarToday.setTime(dateReq);
 
       String[] dayNames = new DateFormatSymbols().getWeekdays();
-      
+
       return dayNames[calendarToday.get(Calendar.DAY_OF_WEEK)].equals(dayNames[calendar.get(Calendar.DAY_OF_WEEK)]);
     }
 }

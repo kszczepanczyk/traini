@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.traini.config.JwtService;
+import pl.polsl.traini.model.dto.training.get.GetTrainingRsp;
 import pl.polsl.traini.model.training.Training;
 import pl.polsl.traini.service.schedule.GetScheduleService;
 
@@ -20,7 +21,7 @@ public class ScheduleController {
     private final GetScheduleService getScheduleService;
 
     @GetMapping()
-    public ResponseEntity<List<Training>> getSchedule(@RequestHeader(name="Authorization") String token) {
+    public ResponseEntity<List<GetTrainingRsp>> getSchedule(@RequestHeader(name="Authorization") String token) {
         String username = jwtService.getUsername(token);
         log.info("Get all trainings for username = {}", username);
         return ResponseEntity.ok(getScheduleService.getSchedule(username));

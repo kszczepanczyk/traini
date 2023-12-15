@@ -21,3 +21,16 @@ export type TrainingDate = {
   start: string;
   end: string;
 };
+
+export type TrainingSchedule = {
+  createdAt: string;
+  cycled: boolean;
+  description: string;
+  id: number;
+  locationId: number;
+  name: string;
+  trainerId: number;
+  trainingDateEnd: string;
+  trainingDateStart: string;
+  userId: number;
+};

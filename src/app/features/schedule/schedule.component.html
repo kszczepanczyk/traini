@@ -4,19 +4,19 @@
   <div class="edit-wrapper">
     <h1>Terminarz</h1>
   </div>
-  <div class="schedule-wrapper">
+  <div class="schedule-wrapper" *ngFor="let group of groupedTrainings">
     <div class="date-wrapper">
-      <span class="date-text">{{ displayedDate }}</span>
+      <span class="date-text">{{ group.date | date : "dd.MM.YYYY" }}</span>
     </div>
     <div class="error-state" *ngIf="error">
       {{ error }}
     </div>
-    <div class="schedule" *ngIf="listLoaded && trainings.length != 0">
-      <div class="training-wrapper" *ngFor="let training of trainings">
+    <div class="schedule" *ngIf="listLoaded">
+      <div class="training-wrapper" *ngFor="let training of group.trainings">
         <div class="training-times">
-          <span>{{ training.trainingDate.start }}</span>
+          <span>{{ training.trainingDate.start | date : "HH:mm" }}</span>
           <div class="divider"></div>
-          <span>{{ training.trainingDate.end }}</span>
+          <span>{{ training.trainingDate.end | date : "HH:mm" }}</span>
         </div>
         <div
           class="training"
