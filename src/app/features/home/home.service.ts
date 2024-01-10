@@ -17,7 +17,7 @@ export class HomeService {
   getTrainingsByDate(date): Observable<any> {
     this.token = this._authService.getAccessToken();
     const options = {
-      url: environment.apiKey + '/home/trainings/' + date,
+      url: environment.apiKey + '/training/list/' + date,
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -36,7 +36,7 @@ export class HomeService {
   getNameAndAvatar(): Observable<any> {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/home/avatar',
+      url: environment.apiKey + '/trainer',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),

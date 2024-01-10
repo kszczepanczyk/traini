@@ -57,9 +57,8 @@
       >Hasło jest wymagane</span
     >
   </div>
-  <a class="link" [routerLink]="['/reset-password']">Zapomniałem hasła</a>
   <button class="primary" (click)="login()">
-    <span *ngIf="!isLoading">Dodaj trening</span>
+    <span *ngIf="!isLoading">Zaloguj</span>
     <div class="small-spinner" *ngIf="isLoading">
       <app-spinner-small [dataLoaded]="!isLoading"></app-spinner-small>
     </div>

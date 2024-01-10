@@ -17,7 +17,7 @@ export class ScheduleService {
     this.token = this._authService.getAccessToken();
 
     let options = {
-      url: environment.apiKey + '/schedule',
+      url: environment.apiKey + '/training/schedule',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),

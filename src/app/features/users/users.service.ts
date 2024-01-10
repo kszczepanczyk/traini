@@ -16,7 +16,7 @@ export class UsersService {
   getUserList(): Observable<any> {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/list',
+      url: environment.apiKey + '/client/list',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -39,7 +39,7 @@ export class UsersService {
   getLocations(): Observable<any> {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/locations',
+      url: environment.apiKey + '/trainer/location',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -70,7 +70,7 @@ export class UsersService {
   addClient(clientForm) {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/list/add',
+      url: environment.apiKey + '/client',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -99,7 +99,7 @@ export class UsersService {
     this.token = this._authService.getAccessToken();
 
     let options = {
-      url: environment.apiKey + '/client/' + id + '/progress',
+      url: environment.apiKey + '/progress/' + id,
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -113,7 +113,7 @@ export class UsersService {
     this.token = this._authService.getAccessToken();
 
     let options = {
-      url: environment.apiKey + '/client/' + idUser + '/progress/' + idProgress,
+      url: environment.apiKey + '/progress/entity/' + idUser + '/' + idProgress,
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -125,7 +125,7 @@ export class UsersService {
   deleteProgress(id) {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/client/progress/' + id,
+      url: environment.apiKey + '/progress/' + id,
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -152,7 +152,7 @@ export class UsersService {
   deleteProgressEntity(id) {
     this.token = this._authService.getAccessToken();
     let options = {
-      url: environment.apiKey + '/client/progressEntity/' + id,
+      url: environment.apiKey + '/progress/entity/' + id,
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),

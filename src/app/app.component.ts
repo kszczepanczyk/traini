@@ -26,6 +26,7 @@ export class AppComponent {
   isLoggedIn(): boolean {
     if (
       this.router.url === '/login' ||
+      this.router.url === '/login?registered=true' ||
       this.router.url === '/register' ||
       this.router.url === '/forgot'
     )

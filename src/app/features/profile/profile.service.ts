@@ -16,7 +16,7 @@ export class ProfileService {
   getProfile(): Observable<any> {
     this.token = this._authService.getAccessToken();
     const options = {
-      url: environment.apiKey + '/user/info',
+      url: environment.apiKey + '/trainer',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
@@ -34,7 +34,7 @@ export class ProfileService {
   modifyProfile(userFields): Observable<any> {
     this.token = this._authService.getAccessToken();
     const options = {
-      url: environment.apiKey + '/user/modify',
+      url: environment.apiKey + '/trainer',
       headers: {
         'Content-Type': 'application/json',
         ...(this.token && { Authorization: `Bearer ${this.token}` }),

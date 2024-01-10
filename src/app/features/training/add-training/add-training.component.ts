@@ -8,12 +8,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
-import { Client, UserListResp } from 'src/app/models/user.model';
+import { UserListResp } from 'src/app/models/user.model';
 import { Localization } from 'src/app/models/location.model';
 import { DataService } from 'src/app/shared/data.service';
 import { TrainingService } from '../training.service';
 import { UsersService } from '../../users/users.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-training',

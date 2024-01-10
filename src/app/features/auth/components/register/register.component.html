@@ -197,6 +197,11 @@
     </div>
   </div>
 
-  <button class="primary" (click)="register()">Zarejestruj się</button>
+  <button class="primary" (click)="register()">
+    <span *ngIf="!isLoading">Zarejestruj się</span>
+    <div class="small-spinner" *ngIf="isLoading">
+      <app-spinner-small [dataLoaded]="!isLoading"></app-spinner-small>
+    </div>
+  </button>
   <a class="link" [routerLink]="['/login']">Powrót do logowania</a>
 </form>

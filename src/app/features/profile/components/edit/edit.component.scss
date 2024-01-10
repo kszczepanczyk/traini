@@ -49,17 +49,6 @@
     filter: (invert(1));
     width: 20px;
   }
-
-  label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  input[type="file"] {
-    display: none;
-  }
 }
 
 .input-wrapper {
@@ -231,4 +220,7 @@ textarea {
 }
 .text-red {
   color: var(--error);
+}
+.invisible {
+  visibility: hidden;
 }

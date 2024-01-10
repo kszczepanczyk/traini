@@ -16,11 +16,6 @@ export type User = {
   email: string;
 };
 
-export type SimpleData = {
-  id: number;
-  name: string;
-};
-
 export type Client = UserListResp & {
   trainingList: Training[];
   progressList: Progress[];

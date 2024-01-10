@@ -174,7 +174,6 @@ export class ProgressComponent {
     });
     if (this.dataToChart.length > 5)
       this.dataToChart = this.dataToChart.slice(-5);
-    console.log(this.dataToChart);
     this.progressData.progressList.reverse();
   }
 

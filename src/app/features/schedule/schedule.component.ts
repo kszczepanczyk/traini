@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Training, TrainingSchedule } from 'src/app/models/training.model';
-import { UsersService } from '../users/users.service';
+import { Training } from 'src/app/models/training.model';
 import * as dayjs from 'dayjs';
 import { DataService } from 'src/app/shared/data.service';
 import { ScheduleService } from './schedule.service';
@@ -36,7 +35,7 @@ export class ScheduleComponent {
     );
   }
   goToTraining(training) {
-    this.data_service.setData('callbackURL', '');
+    this.data_service.setData('callbackURL', '/schedule');
     this._router.navigate(['/training', training.id]);
   }
   generateCyclingOccurrences(training: any): any[] {

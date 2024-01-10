@@ -17,6 +17,7 @@ import { AuthService } from '../../auth.service';
 })
 export class RegisterComponent implements OnInit {
   isSubmitted: boolean = false;
+  isLoading: boolean = false;
   registerForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     surname: new FormControl(''),
@@ -84,15 +85,19 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.isSubmitted = true;
+
     if (this.registerForm.valid) {
+      this.isLoading = true;
       this._authService.register(this.registerForm.value).subscribe(
         (_) => {
           this._router.navigate(['login'], {
             queryParams: { registered: 'true' },
           });
+          this.isLoading = false;
         },
         (err) => {
           this.error = err;
+          this.isLoading = false;
         }
       );
     }
