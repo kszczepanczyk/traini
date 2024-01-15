@@ -25,10 +25,9 @@ export class ChartComponent implements OnInit, OnChanges {
 
   createChart() {
     this.chart = new Chart('progress', {
-      type: 'line', //this denotes tha type of chart
+      type: 'line',
 
       data: {
-        // values on X-Axis
         labels: this.data.map((item) => item.date),
         datasets: [
           {
